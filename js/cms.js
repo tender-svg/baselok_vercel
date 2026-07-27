@@ -3026,7 +3026,11 @@ const CMS = {
     renderTab(tab) {
         const content = document.getElementById('cms-tab-content');
         const title = document.getElementById('cms-tab-title');
-        title.innerText = tab.charAt(0).toUpperCase() + tab.slice(1);
+        // The internal tab id ('case-studies') stays as-is everywhere else in the code — only
+        // its displayed panel heading needs to match the sidebar's user-facing label, which
+        // isn't always a trivial capitalization of the id (e.g. "Project Highlights").
+        const tabTitles = { 'case-studies': 'Project Highlights' };
+        title.innerText = tabTitles[tab] || (tab.charAt(0).toUpperCase() + tab.slice(1));
         
         this.activeTab = tab;
 
@@ -3844,7 +3848,7 @@ const CMS = {
         if (form) {
             form.style.display = 'block';
             const titleEl = document.getElementById('story-form-title');
-            if (titleEl) titleEl.innerHTML = '<i class="fa fa-star"></i> NEW CASE STUDY';
+            if (titleEl) titleEl.innerHTML = '<i class="fa fa-star"></i> NEW PROJECT HIGHLIGHT';
 
             const saveBtn = document.getElementById('btn-save-story');
             if (saveBtn) saveBtn.innerHTML = '<i class="fa fa-save"></i> SAVE & CREATE PAGE';
@@ -3870,7 +3874,7 @@ const CMS = {
         if (form && story) {
             form.style.display = 'block';
             const titleEl = document.getElementById('story-form-title');
-            if (titleEl) titleEl.innerHTML = '<i class="fa fa-pencil"></i> EDIT CASE STUDY';
+            if (titleEl) titleEl.innerHTML = '<i class="fa fa-pencil"></i> EDIT PROJECT HIGHLIGHT';
 
             const saveBtn = document.getElementById('btn-save-story');
             if (saveBtn) saveBtn.innerHTML = '<i class="fa fa-save"></i> UPDATE STORY';
@@ -4371,7 +4375,10 @@ const CMS = {
                 });
             } else {
                 this.showStatus(isUpdate ? 'Resource updated!' : `Resource added to ${badgeText} section!`, 'success');
-                this.refreshWithState();
+                // No page reload here (unlike the blog/webinar branch above) — the dashboard's
+                // resources-page tab list (line above) and the live grid card just appended
+                // already reflect the save, and a full reload was kicking the admin out of the
+                // dashboard mid-workflow every time they saved a doc/download/video/whitepaper.
             }
 
             this.currentEditId = null;
