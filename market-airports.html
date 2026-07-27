@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="BaseLok, Geogrid, Geosynthetics, Road Stabilization">
+  <meta name="description" content="BaseLok<sup>&reg;</sup> geosynthetic solutions for subgrade stabilization and improvement for roads and pavements">
+  <meta name="author" content="https://www.baselok.com/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Markets - Airports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+  <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=26062901" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all">
+
+  <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798736989">
+  </head>
+<body>
+
+<div class="page">
+    <!--header start-->
+    <header id="masthead" class="header ttm-header-style-03">
+      <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+        <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+        <div class="site-header-menu-inner ttm-stickable-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                  <div class="site-branding">
+                    <a class="home-link" href="index.html" title="Baselok" rel="home">
+                      <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                    </a>
+                  </div>
+                  <div class="d-flex flex-row ms-auto">
+                    <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                      <span class="menubar-box"><span class="menubar-inner"></span></span>
+                    </div>
+                    <nav class="main-menu menu-mobile" id="menu">
+                      <ul class="menu">
+                          <li class="mega-menu-item"><a href="support.html">Design Support</a></li>
+                          <li class="mega-menu-item">
+                          <a href="baselok-pro.html">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item"><a href="applications.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Applications</a></li>
+                          <li class="mega-menu-item"><a href="solutions.html">Solutions</a></li>
+                          <li class="mega-menu-item"><a href="resources.html">Resources</a></li>
+                          <li class="mega-menu-item"><a href="case-studies.html">Project Highlights</a></li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                  </div>
+                  <div class="top_bar_contact_item">
+                    <div class="header_search">
+                      <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                      <div class="header_search_content">
+                        <div class="header_search_content_inner">
+                          <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                          <form id="searchbox" method="get" action="#">
+                            <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="">
+                            <button type="submit" class="btn close-search"><i class="ti ti-search"></i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!--header end-->
+
+    <!-- page-title -->
+    <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix" data-cms="market-hero-bg" style="background-image:url('/images/cms-uploads/markets/1783702753345_1783625063867_image-20231207-183816-aab9c4ee.jpeg');">
+      <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-12">
+            <div class="ttm-page-title-row-inner">
+              <div class="page-title-heading">
+                <h2 class="title" data-cms="market-page-title">Airports</h2>
+              </div>
+              <div class="breadcrumb-wrapper">
+                <span><a title="Homepage" href="index.html">Home</a></span>
+                <span><a title="Applications" href="applications.html">Applications</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- page-title end -->
+
+    <div class="site-main">
+      <!-- partners bar -->
+
+      <!-- Main Content -->
+      <section class="ttm-row about-section clearfix application-inner">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 col-md-6 col-sm-12">
+              <div class="ttm_single_image-wrapper">
+                <img style=" " data-cms="intro-img" class="img-fluid auto_size" width="475" height="624" src="/images/cms-uploads/OTHERS/1783633444510_shutterstock_2360127583_Large.jpeg" alt="Roadways" loading="lazy">
+              </div>
+            </div>
+            <div class="col-lg-7 col-md-6 col-xs-12">
+              <div class="padding_left30 res-991-padding_left0 res-991-padding_top40">
+                <div class="section-title">
+                  <div class="title-header">
+                    <h3 data-cms="intro-eyebrow">Market Overview</h3>
+                    <h2 class="title" data-cms="intro-title">Innovative <b>Solutions</b> for the Airports Industry</h2>
+                  </div>
+                  <div class="title-desc">
+                    <p data-cms="intro-desc">Baselok provides advanced geogrid and geosynthetic solutions tailored for the aviation industry. From heavy-duty runway foundations to specialized taxiway applications, our technology increases construction expediency, reduces aggregate and labor costs, and extends the design life of critical airport infrastructure under extreme loads.</p>
+                  </div>
+                  <div class="mt-4 pt-2">
+                     <a href="case-studies.html?market=airports" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark" data-cms="intro-cta"><i class="fa fa-arrow-right" style="margin-right: 8px;"></i>Project Highlights</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+<!-- Tabbed Content Section -->
+      <section class="ttm-row ttm-bgcolor-darkgrey clearfix" style="padding: 50px 0 0 0;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              
+              <style>
+                .nav-tabs#tabs-market-airports .nav-link { color: #fff !important; font-weight: 600; border: none; padding: 15px 25px; border-top: 3px solid transparent; background: transparent; }
+                .nav-tabs#tabs-market-airports .nav-link:hover { color: #ccc !important; }
+                .nav-tabs#tabs-market-airports .nav-link.active { color: #fff !important; background-color: transparent !important; border: none !important; border-bottom: 1px solid #222d35 !important; border-top: 3px solid #e8192c !important; }
+              </style>
+              <ul class="nav nav-tabs" id="tabs-market-airports" role="tablist" style="border-bottom: 1px solid #333;" cms-no-tag>
+                <li class="nav-item" style="margin-bottom: -2px;">
+                  <a class="nav-link active" id="market-airports-tab1-tab" data-toggle="tab" data-bs-toggle="tab" href="#market-airports-tab1" data-bs-target="#market-airports-tab1" role="tab" aria-controls="market-airports-tab1" aria-selected="true"  >Runway Foundations</a>
+                </li>
+                <li class="nav-item" style="margin-bottom: -2px;">
+                  <a class="nav-link" id="market-airports-tab2-tab" data-toggle="tab" data-bs-toggle="tab" href="#market-airports-tab2" data-bs-target="#market-airports-tab2" role="tab" aria-controls="market-airports-tab2" aria-selected="false"  >Taxiways & Aprons</a>
+                </li>
+                <li class="nav-item" style="margin-bottom: -2px;">
+                  <a class="nav-link" id="market-airports-tab3-tab" data-toggle="tab" data-bs-toggle="tab" href="#market-airports-tab3" data-bs-target="#market-airports-tab3" role="tab" aria-controls="market-airports-tab3" aria-selected="false"  >Perimeter Security Roads</a>
+                </li>
+                <li class="nav-item" style="margin-bottom: -2px;">
+                  <a class="nav-link" id="market-airports-tab4-tab" data-toggle="tab" data-bs-toggle="tab" href="#market-airports-tab4" data-bs-target="#market-airports-tab4" role="tab" aria-controls="market-airports-tab4" aria-selected="false"  >Drainage & Earthworks</a>
+                </li>
+              </ul>
+              
+              <div class="tab-content p-5 pb-0" id="tabsContent-market-airports" style="border: none; border-top: none; background-color: transparent;">
+                
+                <!-- Tab 1 -->
+                <div class="tab-pane fade show active" id="market-airports-tab1" role="tabpanel" aria-labelledby="market-airports-tab1-tab">
+                  <div class="row align-items-center">
+                    <div class="col-lg-7 pr-5">
+                      <h3 data-cms="tab1-title" style="color: #fff; margin-bottom: 20px;">Runway Foundations</h3>
+                      <div data-cms="tab1-body" style="color: #ccc; line-height: 1.8;"><p>Runways endure extreme dynamic loads from landing aircraft. Baselok geogrids provide essential subgrade stabilization, ensuring runway foundations remain rigid and deformation-free over time.</p><p>Asphalt taxiways are a perfect candidate for our engineered products. By integrating Baselok geogrids into the sub-base construction, base aggregates interlock creating a reinforcment matrix, distributing massive point loads across a wider area, preventing rutting and surface failure, and mitigating cracking.</p></div>
+                    </div>
+                    <div class="col-lg-5">
+                      <img data-cms="tab1-img" class="img-fluid" src="/images/cms-uploads/OTHERS/1784048868860_shutterstock_2438797837_Large.jpeg" alt="Variable & Weak Ground" style="border-radius: 4px;  " loading="lazy">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab 2 -->
+                <div class="tab-pane fade" id="market-airports-tab2" role="tabpanel" aria-labelledby="market-airports-tab2-tab">
+                  <div class="row align-items-center">
+                    <div class="col-lg-7 pr-5">
+                      <h3 data-cms="tab2-title" style="color: #fff; margin-bottom: 20px;">Taxiways & Aprons</h3>
+                      <div data-cms="tab2-body" style="color: #ccc; line-height: 1.8;">
+                        <p>Aircraft taxiways and parking aprons face continuous static and slow-moving loads. Our geosynthetic solutions enhance the bearing capacity of these paved areas.</p><p>This reduces the required pavement thickness while simultaneously extending the operational lifespan and minimizing costly maintenance disruptions.</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <img data-cms="tab2-img" class="img-fluid" src="/images/cms-uploads/OTHERS/1784047069845_shutterstock_759967_Large.jpeg" alt="Roads and Paved Areas" style="border-radius: 4px;  " loading="lazy">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab 3 -->
+                <div class="tab-pane fade" id="market-airports-tab3" role="tabpanel" aria-labelledby="market-airports-tab3-tab">
+                  <div class="row align-items-center">
+                    <div class="col-lg-7 pr-5">
+                      <h3 data-cms="tab3-title" style="color: #fff; margin-bottom: 20px;">Perimeter Security Roads</h3>
+                      <div data-cms="tab3-body" style="color: #ccc; line-height: 1.8;">
+                        <p>Airport perimeter roads must be reliable in all weather conditions for security patrols. Baselok enables the rapid construction of unpaved or paved access roads over weak or variable soils.</p><p>Our solutions ensure continuous access without the need for constant regrading or aggregate replenishment.</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <img data-cms="tab3-img" class="img-fluid" src="/images/cms-uploads/OTHERS/1783633690199_image-20231207-185819-7a52d792.jpeg" alt="Pavement Maintenance" style="border-radius: 4px;  " loading="lazy">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab 4 -->
+                <div class="tab-pane fade" id="market-airports-tab4" role="tabpanel" aria-labelledby="market-airports-tab4-tab">
+                  <div class="row align-items-center">
+                    <div class="col-lg-7 pr-5">
+                      <h3 data-cms="tab4-title" style="color: #fff; margin-bottom: 20px;">Drainage & Earthworks</h3>
+                      <div data-cms="tab4-body" style="color: #ccc; line-height: 1.8;">
+                        <p>Managing stormwater runoff is critical in expansive airport facilities. We provide geosynthetics for erosion control, steep embankment stabilization, and sub-surface drainage.</p><p>These systems maintain the structural integrity of earthworks surrounding critical flight infrastructure.</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <img data-cms="tab4-img" class="img-fluid" src="/images/cms-uploads/OTHERS/1783633758654_20170214_110642.jpg" alt="Retaining walls" style="border-radius: 4px;  " loading="lazy">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<!-- Tabbed Content Section End -->
+
+              <!--Project Highlights-section-->
+        <section class="ttm-row blog-section case-study-sec clearfix">
+          <div class="container">
+            <!-- Section Title -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-title style2">
+                  <div class="title-header">
+                    <h2 class="title" cms-no-tag>Project <b>Highlights</b></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Project Highlights Slider Row -->
+            <div id="dynamic-stories-loader" class="text-center p-5">
+              <div class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p class="mt-2">Loading Project Highlights...</p>
+            </div>
+            <div id="dynamic-case-studies-row" class="row slick_slider_dynamic mb_15">
+              <!-- Dynamic cards injected by cms.js -->
+            </div>
+            <!-- /slick slider row -->
+
+            <!-- View More Button -->
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30" href="case-studies.html">View More Project Highlights</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--Project Highlights-section end-->
+
+
+<!--Related Products section-->
+      <section class="ttm-row grid-section product-list clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2">
+                <div class="title-header">
+                  <h2 class="title">Related <b>Products</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb_15 mt_15" id="related-solutions-row">
+              <div class="col-12 text-center p-4">
+                <i class="fa fa-spinner fa-spin fa-2x text-danger"></i>
+                <p class="mt-2 text-muted">Loading solutions...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+    
+      <div class="bpro-promo-inject"></div>
+
+      <!--featured-insights-section-->
+      <section class="ttm-row dynamic-blog-section clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2">
+                <div class="title-header">
+                  <h3>Resources</h3>
+                  <h2 class="title">Featured <b>Insights</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="dynamic-latest-articles-row" class="row slick_slider_dynamic mb_15"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802588659_20200923_181609978_iOS.jpeg" alt="FabGrid Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-fabgrid-blog.html">FabGrid Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Maintaining the integrity of soil layers is critical for long-term infrastructure performance. Baselok FabGrid...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-fabgrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802679146_IMG_1163_small.jpg" alt="GeoCell Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geocell-blog.html">GeoCell Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Infrastructure development in weak soil conditions requires innovative reinforcement solutions. Baselok GeoCel...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geocell-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783801987168_IMG_1142.jpg" alt="Ground Stabilization With Geosynthetics" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-ground-stabilization-with-geosynthetics.html">Ground Stabilization With Geosynthetics</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Explore how advanced geosynthetic solutions like Baselok Geogrid and FabGrid are transforming modern construct...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-ground-stabilization-with-geosynthetics.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802147231_IMG_0890.jpg" alt="Erosion Control &amp;amp; Slope Protection" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-erosion-control-slope-protection.html">Erosion Control &amp;amp; Slope Protection</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Understand how Baselok GeoCell and SiltGuard solutions help manage erosion and protect infrastructure in chall...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-erosion-control-slope-protection.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802238221_image-20230419-133814-03420124.jpeg" alt="Why Geogrid Belongs in Your Next Project" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geogrid-blog.html">Why Geogrid Belongs in Your Next Project</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Modern infrastructure projects demand solutions that are faster, more cost-effective, and more durable than wh...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geogrid-blog.html">read more</a></div></div></div></div>
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30" href="resources.html">View More Resources</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--featured-insights-section end-->
+</div><!--site-main end-->
+
+    <!--footer start-->
+    <!--footer start-->
+      <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--footer end-->
+    <!--footer end-->
+
+    <a id="totop" href="#top"><i class="fa fa-angle-up"></i></a>
+  </div><!-- page end -->
+
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery.easing.js" defer=""></script>
+  <script src="/js/jquery-waypoints.js" defer=""></script>
+  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+  <script src="/js/slick.min.js" defer=""></script>
+  <script src="/js/main.js" defer=""></script>
+  <script src="/js/cms.js?v=1782798736989" defer></script>
+<script src="/js/search.js" defer=""></script>
+
+</body></html>
+

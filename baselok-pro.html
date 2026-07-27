@@ -1,0 +1,766 @@
+<!DOCTYPE html><html lang="en"><head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+      <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="BaseLok PRO, geotechnical design software, rail design, pavement design, retaining wall, AREMA, AASHTO">
+  <meta name="description" content="BaseLok PRO is advanced geotechnical design software for engineers. Optimize ballast depth, pavement thickness, and retaining wall designs with instant reinforced vs. unreinforced cost comparisons.">
+  <meta name="author" content="https://www.baselok.com/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BaseLok PRO - Advanced Design Software | BaseLok&reg;</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+  <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798736570" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all">
+  <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798736570">
+  <style>
+    .bpro-hero {
+      background-color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      padding: 70px 0 60px;
+    }
+    .bpro-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: none; /* grid pattern removed -> plain white */
+    }
+    .bpro-hero::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 50%;
+      background: none; /* right-side tint removed -> plain white */
+      pointer-events: none;
+    }
+    .bpro-hero-content { position: relative; z-index: 2; }
+    .bpro-badge {
+      display: inline-block;
+      background: #c8102e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .bpro-logo-img {
+      max-height: 90px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+    .bpro-hero-tagline {
+      font-size: 15px;
+      color: #000;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+    .bpro-hero-desc {
+      font-size: 16px;
+      color: #555c63;
+      max-width: 540px;
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+    .bpro-screenshot-outer {
+      position: relative;
+      z-index: 2;
+    }
+    .bpro-screenshot-glow {
+      display: none;
+    }
+    .bpro-screenshot-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .bpro-screenshot-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .bpro-screenshot-bar {
+      background: #1e1e1e;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #333;
+    }
+    .bpro-screenshot-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Stats bar */
+    .bpro-stats-bar {
+      background: #111;
+      border-top: 3px solid #c8102e;
+      padding: 0;
+    }
+    .bpro-stat-item {
+      text-align: center;
+      padding: 24px 20px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .bpro-stat-item:last-child { border-right: none; }
+    .bpro-stat-number {
+      font-size: 44px;
+      font-weight: 800;
+      color: #c8102e;
+      line-height: 1;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .bpro-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* Modules */
+    .bpro-module-card {
+      background: #fff;
+      border: 1px solid #ececec;
+      border-radius: 8px;
+      padding: 32px 26px;
+      margin-bottom: 28px;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    .bpro-module-card:hover {
+      border-color: #c8102e;
+      box-shadow: 0 12px 36px rgba(200,16,46,0.1);
+      transform: translateY(-4px);
+    }
+    .bpro-module-icon {
+      width: 56px;
+      height: 56px;
+      background: #c8102e;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .bpro-module-icon i {
+      color: #fff;
+      font-size: 22px;
+    }
+    .bpro-module-card h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .bpro-module-card p {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* Steps */
+    .bpro-step-wrap { text-align: center; padding: 0 20px; }
+    .bpro-step-number {
+      width: 68px;
+      height: 68px;
+      background: #c8102e;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      box-shadow: 0 8px 24px rgba(200,16,46,0.3);
+    }
+    .bpro-step-wrap h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .bpro-step-wrap p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+    }
+    .bpro-step-divider {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 34px;
+      justify-content: center;
+    }
+    .bpro-step-divider i {
+      font-size: 24px;
+      color: #ddd;
+    }
+
+    /* CTA */
+    .bpro-cta-section {
+      background: linear-gradient(135deg, #c8102e 0%, #8c0b1f 100%);
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .bpro-cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Feature list */
+    .bpro-check-list { list-style: none; padding: 0; margin: 0; }
+    .bpro-check-list li {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bpro-check-list li i {
+      color: #c8102e;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Nav highlight */
+    .bpro-nav-highlight { color: #c8102e !important; font-weight: 700 !important; }
+
+    @media (max-width: 991px) {
+      .bpro-hero { padding: 70px 0 60px; }
+      .bpro-logo-img { max-height: 70px; }
+      .bpro-stat-number { font-size: 34px; }
+      .bpro-step-divider { display: none; }
+      .bpro-hero-desc { max-width: 100%; }
+    }
+    @media (max-width: 767px) {
+      .bpro-stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 24px 15px; }
+      .bpro-stat-item:last-child { border-bottom: none; }
+      
+      /* Fix 5: White Strip on Right Side */
+      .bpro-hero { overflow-x: hidden; }
+      .bpro-screenshot-wrap img { max-width: 100%; }
+    }
+  </style>
+  </head>
+
+<body data-page-id="baselok-pro">
+  <!--page start-->
+  <div class="page">
+
+    <!--header start-->
+    <header id="masthead" class="header ttm-header-style-03">
+      <!-- topbar -->
+      <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+        <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- topbar end -->
+      <!-- site-header-menu -->
+      <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+        <div class="site-header-menu-inner ttm-stickable-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                  <div class="site-branding">
+                    <a class="home-link" href="index.html" title="Baselok" rel="home">
+                      <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                    </a>
+                  </div>
+                  <div class="d-flex flex-row ms-auto">
+                    <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                      <span class="menubar-box">
+                        <span class="menubar-inner"></span>
+                      </span>
+                    </div>
+                    <nav class="main-menu menu-mobile" id="menu">
+                      <ul class="menu">
+                          <li class="mega-menu-item">
+                          <a href="support.html">Design Support</a>
+                        </li>
+                          <li class="mega-menu-item active">
+                          <a href="baselok-pro.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="applications.html">Applications</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="solutions.html">Solutions</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="resources.html">Resources</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="case-studies.html">Project Highlights</a>
+                        </li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                  </div>
+                  <div class="top_bar_contact_item">
+                    <div class="header_search">
+                      <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                      <div class="header_search_content">
+                        <div class="header_search_content_inner">
+                          <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                          <form id="searchbox" method="get" action="#">
+                            <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="">
+                            <button type="submit" class="btn close-search"><i class="ti ti-search"></i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- site-header-menu end-->
+    </header>
+    <!--header end-->
+
+    <!--site-main start-->
+    <div id="site-main" class="site-main">
+
+      <!-- ====== HERO ====== -->
+      <section class="bpro-hero">
+        <div class="container">
+          <div class="row align-items-center">
+
+            <!-- Left: text -->
+            <div class="col-lg-5 col-xl-4 bpro-hero-content mb-5 mb-lg-0">
+              <span class="bpro-badge">Design Software</span>
+              <img data-cms="bpro-hero-logo" class="bpro-logo-img d-block" src="/images/cms-uploads/OTHERS/1784352115617_LOGO_BaseLokPro_Acumin-removebg-preview.png" alt="BaseLok PRO">
+              <p class="bpro-hero-tagline">Advanced Geotechnical Design Software</p>
+              <p class="bpro-hero-desc" data-cms="bpro-hero-desc">BaseLok PRO empowers engineers with industry-leading design tools for rail, roadway, retaining wall, and slope applications. Run calculations, compare reinforced vs. unreinforced scenarios, and instantly quantify cost savings — all in one platform.</p>
+              <div>
+                <a href="https://www.baselokpro.com" target="_blank" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" style="margin-bottom:10px;">ACCESS BASELOKPRO</a>
+              </div>
+            </div>
+
+            <!-- Right: screenshot -->
+            <div class="col-lg-7 col-xl-8">
+              <div class="bpro-screenshot-outer">
+                <div class="bpro-screenshot-glow"></div>
+                <div class="bpro-screenshot-wrap">
+                  <img data-cms="bpro-hero-screenshot" src="/images/cms-uploads/OTHERS/1783013891488_Gemini_Generated_Image_y4axw6y4axw6y4ax__1_-Photoroom.png" alt="BaseLok PRO &rdquo;” AREMA Rail Design Tool" loading="lazy">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ====== HERO END ====== -->
+
+      <!-- ====== STATS BAR ====== -->
+      <div class="bpro-stats-bar">
+        <div class="container-fluid px-0">
+          <div class="row no-gutters">
+            <div class="col-6 col-md-3">
+              <div class="bpro-stat-item">
+                <span class="bpro-stat-number" data-cms="bpro-stat1-num">6+</span>
+                <span class="bpro-stat-label" data-cms="bpro-stat1-label">Design Modules</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="bpro-stat-item">
+                <span class="bpro-stat-number" data-cms="bpro-stat2-num">60+</span>
+                <span class="bpro-stat-label" data-cms="bpro-stat2-label">Years of Field Data</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="bpro-stat-item">
+                <span class="bpro-stat-number" data-cms="bpro-stat3-num">100%</span>
+                <span class="bpro-stat-label" data-cms="bpro-stat3-label">AASHTO / AREMA Compliant</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="bpro-stat-item">
+                <span class="bpro-stat-number" data-cms="bpro-stat4-num">15%</span>
+                <span class="bpro-stat-label" data-cms="bpro-stat4-label">Avg. Cost Savings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ====== STATS BAR END ====== -->
+
+      <!-- ====== WHAT IS BASELOK PRO ====== -->
+      <section class="ttm-row clearfix" style="padding:55px 0;">
+        <div class="container">
+          <div class="row align-items-center">
+
+            <!-- Left: content -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="section-title style2" cms-no-tag>
+                <div class="title-header">
+                  <h3 cms-no-tag>About the Platform</h3>
+                  <h2 class="title" data-cms="bpro-about-title">What is <b>BaseLok PRO?</b></h2>
+                </div>
+              </div>
+              <p data-cms="bpro-about-p1" style="margin-bottom:16px;line-height:1.85;color:#555;">BaseLok PRO is a design platform built specifically for geotechnical and civil engineers. It combines decades of BaseLok field performance data with accepted industry design standards to deliver fast, reliable, and fully defensible results.</p>
+              <p data-cms="bpro-about-p2" style="margin-bottom:30px;line-height:1.85;color:#555;">Whether you're designing ballast reinforcement for heavy-haul rail, calculating aggregate savings for roadways, or evaluating geocell retaining wall solutions BaseLok PRO delivers side-by-side reinforced vs. unreinforced comparisons with real, exportable cost impact data.</p>
+              <ul class="bpro-check-list">
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat1">AREMA, AASHTO &amp; industry-standard calculation engines</span></li>
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat2">Instant reinforced vs. unreinforced cost comparison</span></li>
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat3">Exportable design reports for project submittals</span></li>
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat4">US &amp; metric unit support</span></li>
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat5">Save, manage &amp; share projects in the cloud</span></li>
+                <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat6">Playground mode for rapid parameter testing</span></li>
+              </ul>
+              <div style="margin-top:32px;">
+                <a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor">Get Started</a>
+              </div>
+            </div>
+
+            <!-- Right: two images stacked -->
+            <div class="col-lg-6">
+              <div style="overflow:hidden;margin-bottom:24px;">
+                <img data-cms="bpro-about-img1" class="img-fluid" src="/images/cms-uploads/OTHERS/1781811228648_Screenshot_2026-06-19_010238.png" alt="BaseLok PRO Software Interface" loading="lazy">
+              </div>
+              <div style="overflow:hidden;">
+                <img data-cms="bpro-about-img2" class="img-fluid" src="/images/cms-uploads/OTHERS/1781811237599_Screenshot_2026-06-19_010333.png" alt="BaseLok PRO Design Results" loading="lazy">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ====== WHAT IS END ====== -->
+
+      <!-- ====== DESIGN MODULES ====== -->
+      <section id="bpro-modules" class="ttm-row ttm-bgcolor-grey clearfix" style="padding:55px 0;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12" style="text-align:left;">
+              <div class="section-title style2" cms-no-tag>
+                <div class="title-header">
+                  <h3 cms-no-tag>What You Can Design</h3>
+                  <h2 class="title" data-cms="bpro-modules-title">Design <b>Modules</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-train"></i></div>
+                <h4 data-cms="bpro-mod1-title">AREMA Rail Design</h4>
+                <p data-cms="bpro-mod1-desc">Calculate optimal ballast depth for reinforced and unreinforced track using AREMA methodology. Input wheel load, tie spacing, tie material, and subgrade CBR for instant side-by-side comparisons.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-road"></i></div>
+                <h4 data-cms="bpro-mod2-title">Roadway &amp; Pavement Design</h4>
+                <p data-cms="bpro-mod2-desc">Design pavement subgrade stabilization and base reinforcement layers per AASHTO guidelines. Compare aggregate thickness reductions and quantify total material cost savings with BaseLok geogrid.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-cubes"></i></div>
+                <h4 data-cms="bpro-mod3-title">Retaining Wall Design</h4>
+                <p data-cms="bpro-mod3-desc">Mechanically stabilized earth (MSE) wall design with geocell and geogrid reinforcement options. Evaluate global stability, bearing capacity, overturning, and cost efficiency for any wall height.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-line-chart"></i></div>
+                <h4 data-cms="bpro-mod4-title">Slope Stability</h4>
+                <p data-cms="bpro-mod4-desc">Assess slope reinforcement requirements for embankments, cuts, and fills. Determine required geosynthetic tensile strength to achieve target factors of safety on any slope geometry.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-truck"></i></div>
+                <h4 data-cms="bpro-mod5-title">Working Platform Design</h4>
+                <p data-cms="bpro-mod5-desc">Design reinforced working platforms for crane pads, heavy equipment staging, and construction access roads on soft or variable ground conditions with confidence.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex">
+              <div class="bpro-module-card">
+                <div class="bpro-module-icon"><i class="fa fa-bar-chart"></i></div>
+                <h4 data-cms="bpro-mod6-title">Value Proposition Reports</h4>
+                <p data-cms="bpro-mod6-desc">Generate compelling ROI reports comparing reinforced vs. unreinforced designs. Visualize cost per foot, aggregate savings, and full lifecycle cost reductions  ready to present to any stakeholder.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ====== MODULES END ====== -->
+
+      <!-- ====== CTA ====== -->
+      <section class="bpro-cta-section">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+              <h2 class="font-weight-800 mb-3" style="font-size:34px;color:#fff;line-height:1.3;" data-cms="bpro-cta-title">
+                Ready to Optimize Your Designs?
+              </h2>
+              <p style="font-size:16px;color:rgba(255,255,255,0.8);margin:0;line-height:1.8;" data-cms="bpro-cta-desc">Join engineers using BaseLok PRO to reduce material costs, accelerate project approvals, and deliver better-performing infrastructure backed by 60+ years of geosynthetics expertise.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <a href="https://baselokpro.com" target="_blank" rel="noopener" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-dark" style="margin-bottom:10px;">Design Now</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ====== CTA END ====== -->
+
+      <!-- ====== HOW IT WORKS ====== -->
+      <section class="ttm-row clearfix" style="padding:55px 0;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2" cms-no-tag>
+                <div class="title-header">
+                  <h3 cms-no-tag>Simple 3-Step Process</h3>
+                  <h2 class="title" data-cms="bpro-steps-title">How It <b>Works</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-start mt-4">
+
+            <div class="col-lg-4 mb-5 mb-lg-0">
+              <div class="bpro-step-wrap">
+                <div class="bpro-step-number">1</div>
+                <h4 data-cms="bpro-step1-title">Enter Your Parameters</h4>
+                <p data-cms="bpro-step1-desc">Input loading conditions, soil properties, tie/pavement specs, and design requirements. Choose US or metric units  BaseLok PRO adapts instantly to your workflow and project standards.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-5 mb-lg-0">
+              <div class="bpro-step-wrap">
+                <div class="bpro-step-number">2</div>
+                <h4 data-cms="bpro-step2-title">Run the Analysis</h4>
+                <p data-cms="bpro-step2-desc">The engine simultaneously runs reinforced and unreinforced calculations using AREMA, AASHTO, or applicable design standards delivering instant, accurate, side-by-side results with no manual computation.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="bpro-step-wrap">
+                <div class="bpro-step-number">3</div>
+                <h4 data-cms="bpro-step3-title">Export Your Report</h4>
+                <p data-cms="bpro-step3-desc">Download a detailed project report with design summary, material specifications, cost comparison, and product recommendations. Ready for client presentations, project submittals, and approvals.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ====== HOW IT WORKS END ====== -->
+
+    </div>
+    <!--site-main end-->
+
+    <!--footer start-->
+    <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    <!--footer end-->
+
+    <a id="totop" href="#top"><i class="fa fa-angle-up"></i></a>
+  </div>
+  <!-- page end -->
+
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery.easing.js" defer=""></script>
+  <script src="/js/jquery-waypoints.js" defer=""></script>
+  <script src="/js/jquery-validate.js" defer=""></script>
+  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+  <script src="/js/slick.min.js" defer=""></script>
+  <script src="/js/numinate.min.js" defer=""></script>
+  <script src="/js/imagesloaded.min.js" defer=""></script>
+  <script src="/js/jquery-isotope.js" defer=""></script>
+  <script src="/js/main.js" defer=""></script>
+  <script src="/js/cms.js?v=1782798736570" defer=""></script>
+  <script src="/js/search.js" defer=""></script>
+
+</body></html>

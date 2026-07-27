@@ -1,0 +1,1155 @@
+<!DOCTYPE html><html lang="en"><head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Baselok - Over 6 Decades of Proven Technology Between Biaxial and Uniaxial Geogrid and Cellular Confinement Technologies, Geosynthetics Have Been at the Forefront of Soil Stabilization Applications Since 1959.Get In TouchIndustrial Fabrics Production Facility ~ Houston, TexasBase Reinforcement. Installed beneath an aggregate layer, this open aperture structure allows fill material to interlock, proving tensile properties to the aggregate, increasing the stiffness of ... Read More">
+    <meta name="author" content="https://www.baselok.com/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resources - BaseLok&reg;</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
+    <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;">
+    <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798737151" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all">
+
+    <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=2606271007">
+    <style>
+      .cms-hover-red:hover {
+          color: #d11f26 !important;
+      }
+      @media (min-width: 992px) {
+        .col-lg-5ths { flex: 0 0 auto; width: 20%; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--page start-->
+    <div class="page">
+
+      <!--header start-->
+      <header id="masthead" class="header ttm-header-style-03">
+        <!-- topbar -->
+        <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+          <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- topbar end -->
+        <!-- site-header-menu -->
+        <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+          <div class="site-header-menu-inner ttm-stickable-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <!--site-navigation -->
+                  <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                    <!-- site-branding -->
+                    <div class="site-branding">
+                      <a class="home-link" href="index.html" title="Baselok" rel="home">
+                        <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                      </a>
+                    </div>
+                    <!-- site-branding end -->
+                  <div class="d-flex flex-row ms-auto">
+                      <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                        <span class="menubar-box">
+                          <span class="menubar-inner"></span>
+                        </span>
+                      </div>
+                      <!-- menu -->
+                      <nav class="main-menu menu-mobile" id="menu">
+                        <ul class="menu">
+                          <li class="mega-menu-item">
+                            <a href="support.html">Design Support</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="baselok-pro.html">BaseLok PRO</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="applications.html">Applications</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="solutions.html">Solutions</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="resources.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Resources</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="case-studies.html">Project Highlights</a>
+                          </li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                      </nav>
+                      <!-- menu end -->
+                    </div>
+                    <div class="top_bar_contact_item">
+                      <div class="header_search">
+                        <a href="#" class="btn-default search_btn" cms-no-tag><i class="fa fa-search"></i></a>
+                        <div class="header_search_content">
+                          <div class="header_search_content_inner">
+                            <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                            <form id="searchbox" method="get" action="#">
+                              <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="">
+                              <button type="submit" class="btn close-search">
+                                <i class="ti ti-search"></i>
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  <!-- site-navigation end-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- site-header-menu end-->
+      </div></header>
+      <!--header end-->
+
+      <!-- page-title -->
+      <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix" style="background-image: url('/images/cms-uploads/Resources/1784657898560_1783690189618_image-20230419-133814-03420124.jpeg'); background-attachment: fixed; background-position: center 50%;" data-cms="auto-resources-bg-93">
+        <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <div class="ttm-page-title-row-inner">
+                <div class="page-title-heading">
+                  <h2 class="title">Resources</h2>
+                </div>
+                <div class="breadcrumb-wrapper">
+                  <span>
+                    <a title="Homepage" href="index.html">Home</a>
+                  </span>
+                <span>
+                  <a title="Resources" href="resources.html">Resources</a>
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+        </div>
+      </div>
+      <!-- page-title end -->
+
+      <!--site-main start-->
+      <div class="site-main">
+
+        <!-- Applications Section Start -->
+        <section class="ttm-row product-section clearfix pt-5 pb-5">
+          <div class="container-lg">
+            <div class="row">
+              <!-- section title -->
+              <div class="col-lg-12" style="margin-bottom: 30px;">
+                <div class="section-title style2 mb-0">
+                  <div class="title-header mb-0">
+                    <h3 data-cms="resource-sub" style="font-size: 14px; text-transform: uppercase; color: #c8102e; letter-spacing: 1px;">&nbsp;<b>RESOURCES</b></h3>
+                    <h2 data-cms="resource-title" style="font-size: 42px; font-weight: 800; color: #c8102e; line-height: 1; margin-bottom: 6px; text-transform: uppercase; letter-spacing: -1px;"><span style="font-weight: normal;">All products</span></h2>
+                    <p data-cms="resource-subtitle" style="font-size: 22px; font-weight: 400; color: #1d2535; margin: 0; letter-spacing: 0px;">Civil Engineering Resources</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VERTICAL FILTER (Sidebar - New Layout) -->
+              <div class="col-lg-3 col-md-4">
+                <div class="vertical-product-filter mb-5">
+                  <button class="product-btn active" data-filter="GeoGrid" data-bs-dismiss="offcanvas">GEOGRID</button>
+                  <button class="product-btn" data-filter="FabGrid" data-bs-dismiss="offcanvas">FABGRID<sup>®</sup></button>
+                  <button class="product-btn" data-filter="GeoCell" data-bs-dismiss="offcanvas">GEOCELL</button>
+                  <button class="product-btn" data-filter="FPS" data-bs-dismiss="offcanvas">BASELOK<sup>®</sup> FPS</button>
+                  <button class="product-btn" data-filter="BallastGuard" data-bs-dismiss="offcanvas" style="font-size:14px;white-space:nowrap;">BALLASTGUARD<sup>™</sup> - RAILWAYS</button>
+                  <button class="product-btn" data-filter="Marine" data-bs-dismiss="offcanvas">MARINE</button>
+                </div>
+              </div>
+
+              <!-- CONTENT AREA -->
+              <div class="col-lg-9 col-md-8 scrollable-content">
+                  <!-- VIEW TOGGLE -->
+                  <div class="view-toggle d-flex align-items-center mb-3 justify-content-between border-bottom pb-3">
+                      <div class="resource-search-wrap">
+                        <i class="fa fa-search resource-search-icon"></i>
+                        <input type="text" id="resourceSearchInput" class="form-control form-control-sm" placeholder="Search resources..." autocomplete="off">
+                        <div id="resourceSearchSuggest" class="resource-search-suggest"></div>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <span class="fw-semibold text-muted me-2" style="font-size:0.85rem; text-transform:uppercase;">View Mode:</span>
+                        <div>
+                          <button class="btn btn-sm btn-outline-secondary me-1 active" onclick="CMS.setViewMode('grid', this)" title="Grid View" style="padding: 4px 8px;"><i class="fa fa-th"></i></button>
+                          <button class="btn btn-sm btn-outline-secondary" onclick="CMS.setViewMode('list', this)" title="List View" style="padding: 4px 8px;"><i class="fa fa-list"></i></button>
+                        </div>
+                      </div>
+                  </div>
+                  <!-- RESOURCE TABS -->
+                  <div class="resource-tabs-wrapper">
+                    <ul class="resource-tabs nav" id="resourceTabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pane-downloads" type="button" role="tab" aria-controls="pane-downloads" aria-selected="true">
+                          <span data-cms="rtab-downloads">DOWNLOADS</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-docs" type="button" role="tab" aria-controls="pane-docs" aria-selected="false">
+                          <span>Technical Datasheets</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-webinar" type="button" role="tab" aria-controls="pane-webinar" aria-selected="false">
+                          <span data-cms="rtab-webinar">WEBINARS</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-videos" type="button" role="tab" aria-controls="pane-videos" aria-selected="false">
+                          <span data-cms="rtab-videos">VIDEOS</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-blog" type="button" role="tab" aria-controls="pane-blog" aria-selected="false">
+                          <span data-cms="rtab-blog">BLOG POSTS</span>
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-events" type="button" role="tab" aria-controls="pane-events" aria-selected="false">
+                          <span>Technical Notes</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- SELECTED FILTER TAGS -->
+                  <div class="selected-filters mb-3"></div>
+
+                  <!-- DYNAMIC SECTION HEADERS -->
+                  <div id="dynamic-resource-headers">
+                    <div class="dyn-header mb-4 d-none" data-for="GeoGrid" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-geogrid">GEOGRID <span style="color: rgb(200, 16, 46); text-transform: capitalize;">| Base Stabilization</span></h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+
+                    <div class="dyn-header mb-4 d-none" data-for="FabGrid" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-fabgrid">FABGRID | Next Generation Base Reinforcement</h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+
+                    <div class="dyn-header mb-4 d-none" data-for="GeoCell" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-geocell">
+                          GEOCELL <span style="color: #c8102e;  text-transform: capitalize;">| Confinement Systems</span>
+                       </h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+
+                    <div class="dyn-header mb-4 d-none" data-for="FPS" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-fps">BASELOK® FPS | Foundation Performance System</h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+
+                    <div class="dyn-header mb-4 d-none" data-for="BallastGuard" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-ballast">BALLASTGUARD™ <span style="color: rgb(200, 16, 46); text-transform: capitalize;">| Ballast Preservation System</span></h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+
+                    <div class="dyn-header mb-4 d-none" data-for="Marine" style="margin-top: 15px;">
+                       <h3 class="fw-bold mb-1" style="font-size: 26px; color: #1a1a1a; text-transform: uppercase;" data-cms="res-header-marine">MARINE | Shoreline, Coastal, And Waterway</h3>
+                       <p class="text-muted dyn-desc" style="font-size: 15px; margin-bottom: 0;" cms-no-tag>Brochures | Flyers | More</p>
+                    </div>
+                  </div>
+
+                  <!-- TAB CONTENT -->
+                  <div class="tab-content" id="resourceTabContent" style="min-height: 60vh; padding-bottom: 50px; position: relative; z-index: 1; background: #fff;">
+                    <!-- -- TECHNICAL DOCUMENTS -- -->
+                    <div class="tab-pane fade" id="pane-docs" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-docs">
+
+                      </div>
+                      <div id="docs-pro-footer" style="display:none; text-align:center; padding:16px 0 4px; margin-top:10px; border-top:1px solid #eee;">
+                        <p style="font-size:13px; color:#666; margin-bottom:10px;">For more datasheets, use our <a href="https://www.baselokpro.com" target="_blank" style="color:#c8102e; font-weight:700; text-decoration:none;">BaseLok PRO</a></p>
+                        <a href="https://www.baselokpro.com" target="_blank" style="display:inline-block;">
+                          <img data-cms="bpro-hero-logo" src="/images/cms-uploads/OTHERS/1782801346594_Screenshot_2026-06-30_115920.png" alt="BaseLok PRO" style="max-height:48px; width:auto;" loading="lazy">
+                        </a>
+                      </div>
+                      <div class="no-results" id="no-docs">
+                        <i class="fa fa-search d-block mb-2"></i>
+                        
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="https://www.baselokpro.com" target="_blank" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+
+                    <!-- -- BLOG POSTS -- -->
+                    <div class="tab-pane fade" id="pane-blog" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-blog">
+
+                      </div>
+                      <div class="no-results" id="no-blog">
+                        <i class="fa fa-search d-block mb-2"></i>
+
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="https://www.baselokpro.com" target="_blank" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+
+                    <!-- -- WEBINARS -- -->
+                    <div class="tab-pane fade" id="pane-webinar" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-webinar">
+
+                      </div>
+                      <div class="no-results" id="no-webinar">
+                        <i class="fa fa-search d-block mb-2"></i>
+                        
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="https://www.baselokpro.com" target="_blank" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+
+                    <!-- -- DOWNLOADS -- -->
+                    <div class="tab-pane fade show active" id="pane-downloads" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-downloads">
+
+                      </div>
+                      <div class="no-results" id="no-downloads">
+                        <i class="fa fa-search d-block mb-2"></i>
+                        
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="https://www.baselokpro.com" target="_blank" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+
+                    <!-- -- VIDEOS -- -->
+                    <div class="tab-pane fade" id="pane-videos" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-videos">
+                      </div>
+                      <div class="no-results" id="no-videos">
+                        <i class="fa fa-search d-block mb-2"></i>
+                        
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="https://www.baselokpro.com" target="_blank" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+
+                    <!-- -- WHITE PAPER -- -->
+                    <div class="tab-pane fade" id="pane-events" role="tabpanel">
+                      <div class="row g-4 product-grid" id="grid-events">
+                      </div>
+                      <div class="no-results" id="no-events">
+                        <i class="fa fa-search d-block mb-2"></i>
+                        
+<p class="mt-3 text-muted default-empty-msg" cms-no-tag style="font-size: 0.9rem;">
+                          Login to our <a href="login.html" style="color: #d11f26; font-weight: bold; text-decoration: none;">BaselokPro</a> for more documents.
+                        </p>
+
+<p class="mt-3 text-muted marine-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem;">
+    Contact our Marine Engineering Division for Marine Products.<br>
+    <a href="mailto:marine@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">marine@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<p class="mt-3 fps-empty-msg" cms-no-tag style="display: none; font-size: 0.9rem; color: #1d2535;">
+    Contact our Engineering Support Team For More Information<br>
+    <a href="mailto:engineering@baselok.com" style="color: #d11f26; font-weight: bold; text-decoration: none;">engineering@baselok.com</a> | <a href="tel:+18008484500" style="color: #d11f26; font-weight: bold; text-decoration: none;">+1.800.848.4500</a>
+</p>
+
+<div class="fps-pro-logo-container" style="display: none; text-align: center; margin-top: 15px;">
+    <a href="https://www.baselokpro.com" target="_blank" style="display: inline-block;">
+        <img cms-no-tag src="/images/baselok-pro-logo.png" alt="BaseLok PRO Logo" style="max-height: 45px;" loading="lazy">
+    </a>
+</div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /tab-content -->
+                </div>
+                <!-- /content col -->
+              </div>
+              <!-- /row -->
+            </div>
+            <!-- /product-section -->
+          </section></div>
+
+          <!-- MOBILE OFFCANVAS -->
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileFilter">
+            <div class="offcanvas-header border-bottom">
+              <h5 class="offcanvas-title fw-bold">Select Product</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+              <div class="product-btn-group">
+                <button class="product-btn active" data-filter="GeoGrid" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> GeoGrid
+                </button>
+                <button class="product-btn" data-filter="FabGrid" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> FabGrid
+                </button>
+                <button class="product-btn" data-filter="GeoCell" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> GeoCell
+                </button>
+                <button class="product-btn" data-filter="FPS" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> FPS
+                </button>
+                <button class="product-btn" data-filter="BallastGuard" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> BallastGuard<sup>&trade;</sup>
+                </button>
+                <button class="product-btn" data-filter="Marine" data-bs-dismiss="offcanvas">
+                  BaseLok<sup>&reg;</sup> Marine Mattresses
+                </button>
+              </div>
+            </div>
+            <div class="offcanvas-footer d-flex gap-2 p-3 border-top">
+              <button class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark clear-filter w-50">
+                Clear
+              </button>
+              <button class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor w-50" data-bs-dismiss="offcanvas">
+                Apply
+              </button>
+            </div>
+          </div>
+        
+        <!-- Applications Section End -->
+
+        <section class="ttm-bgcolor-darkgrey ttm-row">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <!-- section title -->
+                <div class="section-title style2">
+                  <div class="title-header">
+                    <h2 class="title" cms-no-tag>Frequently Asked <b>Questions</b></h2>
+                  </div>
+                </div>
+                <!-- section title end -->
+              </div>
+            </div>
+            <div class="faq-accordion" id="faqAccordion" style="clear: both; margin-top: 50px;">
+              <!-- Q1 -->
+              <div class="faq-item" data-cat="products">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q1">What types of geosynthetic products do you offer?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a1">
+                    We offer a comprehensive range of geosynthetic solutions
+                    including geogrids, geocells, geotextiles, and geomembranes.
+                    Our product lines are engineered for applications across
+                    roadways, railways, marine environments, slopes, retaining
+                    walls, and foundation support systems.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q2 -->
+              <div class="faq-item" data-cat="technical">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q2">How do I select the right geogrid for my project?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a2">
+                    Product selection depends on several factors including soil
+                    type, load requirements, design life, and application type.
+                    We recommend downloading our product selection guide or
+                    contacting our technical team for a project-specific
+                    recommendation. Our engineers are available to review your
+                    geotechnical data and assist with specification.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q3 -->
+              <div class="faq-item" data-cat="installation">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q3">Are installation guides available for your products?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a3">
+                    Yes. Detailed installation guides, field videos, and
+                    technical datasheets are available in our Downloads and
+                    Videos sections. We also offer on-site technical support and
+                    contractor training programs for large-scale projects. Reach
+                    out to your regional representative to arrange a site visit.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q4 -->
+              <div class="faq-item" data-cat="technical">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q4">What standards and certifications do your products
+                    meet?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a4">
+                    Our products are tested and certified to meet ASTM, ISO, and
+                    GRI standards. Product-specific test data, including tensile
+                    strength, aperture size, and junction efficiency, are
+                    available in each product's technical datasheet. Third-party
+                    lab reports can be provided on request for project
+                    specifications.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q5 -->
+              <div class="faq-item" data-cat="ordering">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q5">What is the typical lead time for orders?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a5">
+                    Standard products are typically available within 5&rdquo;“10
+                    business days depending on your location and order volume.
+                    Custom specifications or large project quantities may
+                    require 3&rdquo;“6 weeks. Contact our sales team early in your
+                    project timeline to confirm availability and arrange
+                    logistics.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q6 -->
+              <div class="faq-item" data-cat="products">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q6">Can geocells be used in marine and underwater
+                    applications?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a6">
+                    Yes. Our geocell systems are engineered from HDPE and are
+                    resistant to UV, saltwater, and biological degradation,
+                    making them highly effective for marine scour protection,
+                    shoreline stabilization, and underwater slope reinforcement.
+                    We have active installations in coastal, tidal, and
+                    deepwater environments worldwide.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q7 -->
+              <div class="faq-item" data-cat="technical">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q7">Do you provide design software or calculation tools?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a7">
+                    We offer downloadable Excel-based design tools for
+                    applications including subgrade stabilization, crane pad
+                    design, and settlement analysis. These are available free in
+                    our Downloads section. For complex projects, our engineering
+                    team can provide full design support including FEM analysis
+                    and project-specific design reports.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Q8 -->
+              <div class="faq-item" data-cat="ordering">
+                <button class="faq-question" aria-expanded="false">
+                  <span class="faq-question-text" data-cms="resources-faq-q8">Do you ship internationally?</span>
+                  <span class="faq-icon"><i class="fa fa-plus"></i></span>
+                </button>
+                <div class="faq-answer">
+                  <p data-cms="resources-faq-a8">
+                    Yes, we supply projects across North America, Europe, the
+                    Middle East, Asia-Pacific, and beyond. Our logistics team
+                    coordinates international freight, customs documentation,
+                    and port delivery. Contact us with your project location and
+                    quantities and we'll prepare a full delivered cost estimate.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!--Project Highlights-section-->
+        <section class="ttm-row blog-section case-study-sec clearfix">
+          <div class="container">
+            <!-- Section Title -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="section-title style2">
+                  <div class="title-header">
+                    <h2 class="title" cms-no-tag>Project <b>Highlights</b></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Project Highlights Slider Row -->
+            <div id="dynamic-stories-loader" class="text-center p-5">
+              <div class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p class="mt-2">Loading Project Highlights...</p>
+            </div>
+            <div id="dynamic-case-studies-row" class="row slick_slider_dynamic mb_15">
+              <!-- Dynamic cards injected by cms.js -->
+            </div>
+            <!-- /slick slider row -->
+
+            <!-- View More Button -->
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30" href="case-studies.html">View More Project Highlights</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--Project Highlights-section end-->
+      </div>
+      <!--site-main end-->
+
+      <!--footer start-->
+      <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--footer end-->
+
+      <!--back-to-top start-->
+      <a id="totop" href="#top">
+        <i class="fa fa-angle-up"></i>
+      </a>
+      <!--back-to-top end-->
+    
+    <!-- page end -->
+
+    <!-- Javascript -->
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.easing.js" defer=""></script>
+    <script src="/js/jquery-waypoints.js" defer=""></script>
+    <script src="/js/jquery-validate.js" defer=""></script>
+    <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+    <script src="/js/slick.min.js" defer=""></script>
+    <script src="/js/numinate.min.js" defer=""></script>
+    <script src="/js/imagesloaded.min.js" defer=""></script>
+    <script src="/js/jquery-isotope.js" defer=""></script>
+    <script src="/js/main.js" defer=""></script>
+    <script src="/js/cms.js?v=2606291854" defer=""></script>
+    <script>
+        // Auto-activate tab based on URL hash (e.g. resources.html#pane-downloads)
+        window.addEventListener('load', function () {
+            const hash = window.location.hash; // e.g. "#pane-downloads"
+            if (hash) {
+                const targetPane = document.querySelector('[data-bs-target="' + hash + '"]');
+                if (targetPane) {
+                    // Use Bootstrap tab API to activate the correct tab
+                    targetPane.click();
+                    // Smoothly scroll to the tab section
+                    setTimeout(function() {
+                        const tabs = document.getElementById('resourceTabs');
+                        if (tabs) tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
+            }
+        });
+    </script>
+
+<script src="/js/search.js" defer=""></script>
+
+    <!-- Resources live search -->
+    <style>
+      .resource-search-wrap { position: relative; max-width: 360px; width: 100%; }
+      .resource-search-wrap #resourceSearchInput {
+        padding-left: 34px; border-radius: 6px; border: 1px solid #d9dde2; height: 38px;
+      }
+      .resource-search-wrap #resourceSearchInput:focus {
+        border-color: #e8192c; box-shadow: 0 0 0 0.15rem rgba(232,25,44,0.15);
+      }
+      .resource-search-icon {
+        position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+        color: #9aa0a6; font-size: 13px; pointer-events: none; z-index: 2;
+      }
+      .resource-search-suggest {
+        position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 60;
+        background: #fff; border: 1px solid #e2e2e2; border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.14); max-height: 340px; overflow-y: auto; display: none;
+      }
+      .resource-search-suggest .rs-item {
+        padding: 10px 14px; cursor: pointer; display: flex; align-items: center;
+        justify-content: space-between; gap: 10px; border-bottom: 1px solid #f1f1f1;
+      }
+      .resource-search-suggest .rs-item:last-child { border-bottom: none; }
+      .resource-search-suggest .rs-item:hover,
+      .resource-search-suggest .rs-item.active { background: #fbe9eb; }
+      .resource-search-suggest .rs-title { color: #1d2535; font-weight: 500; font-size: 13px; }
+      .resource-search-suggest .rs-type {
+        color: #e8192c; font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.4px; white-space: nowrap;
+      }
+      .resource-search-suggest .rs-empty { padding: 12px 14px; color: #888; font-size: 13px; }
+    </style>
+    <script>
+      (function () {
+        function init() {
+          var input = document.getElementById('resourceSearchInput');
+          var box = document.getElementById('resourceSearchSuggest');
+          if (!input || !box) return;
+          var matched = [], activeIdx = -1;
+
+          function collect() {
+            var items = [];
+            document.querySelectorAll('#resourceTabContent .product-item').forEach(function (col) {
+              var titleEl = col.querySelector('.pt-3 h6 a, .pt-3 h6, h6 a, h6');
+              var title = titleEl ? titleEl.textContent.trim() : '';
+              if (!title) return;
+              var pane = col.closest('.tab-pane');
+              var badge = col.querySelector('.resource-badge');
+              items.push({
+                title: title,
+                col: col,
+                paneId: pane ? pane.id : '',
+                type: badge ? badge.textContent.trim() : ''
+              });
+            });
+            return items;
+          }
+
+          function hide() { box.style.display = 'none'; box.innerHTML = ''; activeIdx = -1; }
+
+          function render(q) {
+            var all = collect();
+            matched = all.filter(function (it) { return it.title.toLowerCase().indexOf(q) !== -1; }).slice(0, 8);
+            activeIdx = -1;
+            if (matched.length === 0) {
+              box.innerHTML = '<div class="rs-empty">No resources found.</div>';
+              box.style.display = 'block';
+              return;
+            }
+            box.innerHTML = matched.map(function (it, i) {
+              var safe = it.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              return '<div class="rs-item" data-idx="' + i + '"><span class="rs-title">' + safe + '</span>'
+                + (it.type ? '<span class="rs-type">' + it.type + '</span>' : '') + '</div>';
+            }).join('');
+            box.style.display = 'block';
+            Array.prototype.forEach.call(box.querySelectorAll('.rs-item'), function (el) {
+              el.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+                select(matched[parseInt(el.getAttribute('data-idx'), 10)]);
+              });
+            });
+          }
+
+          function select(it) {
+            if (!it) return;
+            input.value = it.title;
+            hide();
+            if (it.paneId) {
+              var tabBtn = document.querySelector('[data-bs-target="#' + it.paneId + '"]');
+              if (tabBtn) tabBtn.click();
+            }
+            setTimeout(function () {
+              it.col.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              var card = it.col.querySelector('.product-card') || it.col;
+              card.style.transition = 'outline 0.3s';
+              card.style.outline = '3px solid #e8192c';
+              card.style.outlineOffset = '3px';
+              setTimeout(function () { card.style.outline = ''; }, 1800);
+            }, 280);
+          }
+
+          input.addEventListener('input', function () {
+            var q = input.value.trim().toLowerCase();
+            if (q.length < 2) { hide(); return; }
+            render(q);
+          });
+          input.addEventListener('keydown', function (e) {
+            if (box.style.display !== 'block') return;
+            var items = box.querySelectorAll('.rs-item');
+            if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, items.length - 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); }
+            else if (e.key === 'Enter') { e.preventDefault(); if (activeIdx >= 0) select(matched[activeIdx]); return; }
+            else if (e.key === 'Escape') { hide(); return; }
+            else return;
+            items.forEach(function (el, i) { el.classList.toggle('active', i === activeIdx); });
+          });
+          document.addEventListener('click', function (e) {
+            if (!box.contains(e.target) && e.target !== input) hide();
+          });
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+      })();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tabEls = document.querySelectorAll('button[data-bs-toggle="tab"]');
+
+            var RED = 'style="color:#d11f26;font-weight:bold;"';
+            var TAB_DESCRIPTIONS = {
+                'GeoGrid': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> BX (Biaxial) | BT (Triaxial)',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                },
+                'FabGrid': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> FabGrid Composite Solutions',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                },
+                'GeoCell': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> GeoCell Confinement Systems',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                },
+                'FPS': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> Foundation Performance System',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                },
+                'BallastGuard': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> BallastGuard Railway Systems',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                },
+                'Marine': {
+                    '#pane-downloads': 'Brochures | Flyers | More',
+                    '#pane-docs': 'Technical Specifications &amp; Marine Data Sheets',
+                    '#pane-webinar': 'Webinars &amp; Seminars',
+                    '#pane-videos': 'Installation &amp; Demo Videos',
+                    '#pane-blog': 'Latest Insights &amp; Articles',
+                    '#pane-notes': 'Technical Notes &amp; Guides'
+                }
+            };
+            var DEFAULT_DESCS = {
+                '#pane-downloads': 'Brochures | Flyers | More',
+                '#pane-docs': '<span ' + RED + '>Technical Datasheets:</span> BX (Biaxial) | BT (Triaxial)',
+                '#pane-webinar': 'Webinars &amp; Seminars',
+                '#pane-videos': 'Installation &amp; Demo Videos',
+                '#pane-blog': 'Latest Insights &amp; Articles',
+                '#pane-notes': 'Technical Notes &amp; Guides'
+            };
+
+            function updateDescriptions(target, filter) {
+                if (!filter) {
+                    var activeBtn = document.querySelector('.product-btn.active');
+                    filter = activeBtn ? activeBtn.getAttribute('data-filter') : null;
+                }
+                var descs = (filter && TAB_DESCRIPTIONS[filter]) ? TAB_DESCRIPTIONS[filter] : DEFAULT_DESCS;
+                var text = descs[target] || 'Brochures | Flyers | More';
+                // Only update the currently visible dyn-header's description
+                var visibleHeader = document.querySelector('.dyn-header:not(.d-none)');
+                if (visibleHeader) {
+                    var p = visibleHeader.querySelector('.dyn-desc');
+                    if (p) p.innerHTML = text;
+                }
+            }
+
+            // Show matching dyn-header, hide others; then update its description
+            function showDynHeader(filter) {
+                document.querySelectorAll('.dyn-header').forEach(function(h) {
+                    h.classList.toggle('d-none', h.getAttribute('data-for') !== filter);
+                });
+                var activeTabBtn = document.querySelector('button[data-bs-toggle="tab"].active');
+                var activeTabTarget = activeTabBtn ? activeTabBtn.getAttribute('data-bs-target') : '#pane-downloads';
+                updateDescriptions(activeTabTarget, filter);
+            }
+
+            // Re-run on filter button click
+            document.querySelectorAll('.product-btn, [data-filter]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var filter = this.getAttribute('data-filter');
+                    if (filter) showDynHeader(filter);
+                });
+            });
+
+            // Show GeoGrid header on initial load (default filter)
+            showDynHeader('GeoGrid');
+
+            // Run once on page load for the currently active tab
+            var activeTab = document.querySelector('button[data-bs-toggle="tab"].active');
+            if (activeTab) {
+                updateDescriptions(activeTab.getAttribute('data-bs-target'));
+            }
+
+            tabEls.forEach(function(tab) {
+                tab.addEventListener('shown.bs.tab', function(event) {
+                    var activeBtn = document.querySelector('.product-btn.active');
+                    var filter = activeBtn ? activeBtn.getAttribute('data-filter') : null;
+                    updateDescriptions(event.target.getAttribute('data-bs-target'), filter);
+                });
+            });
+        });
+    </script>
+
+    
+    
+    
+    
+
+</body></html>
+
+
+

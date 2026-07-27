@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+        <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="BaseLok Technical Support, Design Team, Engineering Support" />
+    <meta name="description" content="BaseLok Technical Design Support &rdquo;” Our engineering team provides project assistance, value engineering, and professional submittals." />
+    <meta name="author" content="https://www.baselok.com/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support - BaseLok&reg;</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png" />
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;" />
+    <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;" />
+    <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798737323" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all" />
+    <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798737323">
+
+    <style>
+      /* â”€â”€ Team Member Cards (vertical) â”€â”€ */
+      .team-member-row {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.07);
+        overflow: hidden;
+        border: 1px solid #eee;
+        transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .team-member-row:hover {
+        box-shadow: 0 14px 45px rgba(209,31,38,0.13);
+        border-color: #d11f26;
+        transform: translateY(-6px);
+      }
+      .team-member-photo {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .team-member-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        background-color: #f8f9fa;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+      .team-member-row:hover .team-member-photo img { transform: scale(1.05); }
+      .team-member-info {
+        flex: 1;
+        padding: 28px 28px 30px;
+        display: flex;
+        flex-direction: column;
+        border-top: 4px solid transparent;
+        transition: border-color 0.3s;
+      }
+      .team-member-row:hover .team-member-info { border-top-color: #d11f26; }
+      .team-member-info .role-tag {
+        display: inline-block;
+        background: #fff0f0;
+        color: #d11f26;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        width: fit-content;
+      }
+      .team-member-info h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 4px;
+        line-height: 1.2;
+        padding-left: 12px;
+      }
+      .team-member-info .credentials {
+        font-size: 0.82rem;
+        color: #999;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: 0.3px;
+        padding-left: 12px;
+      }
+      .team-member-info .divider {
+        width: 40px;
+        height: 3px;
+        background: #d11f26;
+        border-radius: 2px;
+        margin-bottom: 16px;
+        margin-left: 12px;
+      }
+      .team-member-info .contact-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #555;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s;
+        margin-top: auto;
+        padding-left: 12px;
+      }
+      .team-member-info .contact-link:hover { color: #d11f26; }
+      .team-member-info .contact-link i { color: #d11f26; font-size: 0.9rem; }
+
+      /* ── Services Grid ── */
+      .service-box {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 18px 20px;
+        height: 100%;
+        text-align: center;
+        transition: all 0.25s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      .service-box:hover {
+        border-color: #d11f26;
+        box-shadow: 0 6px 20px rgba(209,31,38,0.1);
+        transform: translateY(-3px);
+      }
+      .service-box .svc-icon-wrap {
+        width: 48px;
+        height: 48px;
+        background: #fff0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+      }
+      .service-box .svc-icon-wrap i { color: #d11f26; font-size: 1.15rem; }
+      .service-box h5 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+        margin: 0;
+        line-height: 1.35;
+      }
+
+      /* â”€â”€ Applications Grid â”€â”€ */
+      .app-tile {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin-bottom: 14px;
+        border-left: 3px solid #d11f26;
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #333;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .app-tile:hover { background: #fff0f0; transform: translateX(4px); }
+      .app-tile i { color: #d11f26; font-size: 1.1rem; width: 20px; text-align: center; }
+
+      /* â”€â”€ CTA Banner â”€â”€ */
+      .support-cta {
+        background: linear-gradient(135deg, #1e2830 0%, #2d3e50 100%);
+        padding: 70px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .support-cta::before {
+        content: '';
+        position: absolute;
+        top: -50px; right: -50px;
+        width: 300px; height: 300px;
+        background: rgba(209,31,38,0.08);
+        border-radius: 50%;
+      }
+      .support-cta h2 { color: #fff; font-weight: 800; font-size: 1.9rem; margin-bottom: 10px; }
+      .support-cta p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 0; }
+
+      /* Keep button icon + text visible on hover (theme was hiding the icon) */
+      .ttm-btn.ttm-btn-color-skincolor:hover i,
+      .ttm-btn.ttm-btn-color-skincolor:hover span,
+      .ttm-btn.ttm-btn-color-skincolor:hover { color: #fff !important; }
+
+      @media (max-width: 767px) {
+        .team-member-photo { height: 260px; }
+      }
+
+      /* â”€â”€ Team slider arrows â”€â”€ */
+      #design-team-grid { position: relative; }
+      .team-slick-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #d11f26;
+        color: #fff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        transition: background 0.2s, transform 0.2s;
+        padding: 0;
+      }
+      .team-slick-arrow:hover { background: #a01820; transform: translateY(-50%) scale(1.08); }
+      .team-slick-arrow i { font-size: 1.2rem; line-height: 1; }
+      .team-slick-prev { left: -22px; }
+      .team-slick-next { right: -22px; }
+      @media (max-width: 575px) {
+        .team-slick-prev { left: 4px; }
+        .team-slick-next { right: 4px; }
+      }
+      /* Split image/text sections: on desktop let the image fill the full height of the text column
+         without pushing or expanding the row height (using absolute positioning inside relative flex child). */
+      @media (min-width: 992px) {
+        .support-split-img-col {
+          position: relative !important;
+        }
+        img[data-cms^="support-split"] {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          max-height: none !important;
+        }
+      }
+      [data-cms="support-split2-tag"] {
+        color: #d11f26 !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+
+      <!--header start-->
+      <header id="masthead" class="header ttm-header-style-03">
+        <!-- topbar -->
+        <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+          <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- topbar end -->
+        <!-- site-header-menu -->
+        <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+          <div class="site-header-menu-inner ttm-stickable-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <!--site-navigation -->
+                  <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                    <!-- site-branding -->
+                    <div class="site-branding">
+                      <a class="home-link" href="index.html" title="Baselok" rel="home">
+                        <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                      </a>
+                    </div>
+                    <!-- site-branding end -->
+                  <div class="d-flex flex-row ms-auto">
+                      <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                        <span class="menubar-box">
+                          <span class="menubar-inner"></span>
+                        </span>
+                      </div>
+                      <!-- menu -->
+                      <nav class="main-menu menu-mobile" id="menu">
+                        <ul class="menu">
+                          <li class="mega-menu-item">
+                            <a href="support.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Design Support</a>
+                          </li>
+                          <li class="mega-menu-item">
+                          <a href="baselok-pro.html">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item">
+                            <a href="applications.html">Applications</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="solutions.html">Solutions</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="resources.html">Resources</a>
+                          </li>
+                          <li class="mega-menu-item">
+                            <a href="case-studies.html">Project Highlights</a>
+                          </li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                      </nav>
+                      <!-- menu end -->
+                    </div>
+                    <div class="top_bar_contact_item">
+                      <div class="header_search">
+                        <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                        <div class="header_search_content">
+                          <div class="header_search_content_inner">
+                            <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                            <form id="searchbox" method="get" action="#">
+                              <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="">
+                              <button type="submit" class="btn close-search">
+                                <i class="ti ti-search"></i>
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- site-navigation end-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- site-header-menu end-->
+      </header>
+      <!--header end-->
+
+      <!-- page-title -->
+      <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix"
+        data-cms="hero-bg-1"
+        style="background-image: url('/images/cms-uploads/bg-image/1784030913312_Screenshot_2026-07-14_173808.png'); background-attachment: fixed; background-position: center 30%;">
+        <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <div class="ttm-page-title-row-inner">
+                <div class="page-title-heading"><h2 class="title" data-cms="support-page-heading">Design Support</h2></div>
+                <div class="breadcrumb-wrapper" cms-no-tag>
+                  <span><a title="Homepage" href="index.html">Home</a></span>
+                  <span data-cms="support-page-breadcrumb">Support</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- page-title end -->
+
+      <div class="site-main">
+
+        <!-- ── Hero Split ── -->
+        <section class="ttm-row clearfix" style="padding: 70px 0; background: #fff;">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6 mb-5 mb-lg-0">
+                <img data-cms="support-hero-img" src="/images/cms-uploads/OTHERS/1782914988070_Screenshot_2026-07-01_193749.png" alt="" style="width: 100%; max-height: 450px; object-fit: cover; display: block; border-radius: 4px;">
+              </div>
+              <div class="col-lg-6 d-flex flex-column justify-content-center" style="padding-left: 5%;">
+                <p style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #d11f26; margin-bottom: 14px;" data-cms="support-intro-subtitle">DESIGN SUPPORT</p>
+                <h2 style="font-size: 2rem; font-weight: 800; color: #1a1a1a; line-height: 1.25; margin-bottom: 20px;" data-cms="support-intro-title">A Partner Beside You Every Step Of The Way</h2>
+                <div style="font-size: 0.95rem; color: #555; line-height: 1.8; margin-bottom: 0;" data-cms="support-intro-text"><div>A project is about more than a simple product choice – it's about a design that meets the owner’s needs, lowers costs, improves design life, and protects your reputation. In other words, it’s about the total value you receive from a partner committed to making your project a success.</div><div><br></div><div>At Baselok, we go beyond merely selling products. Our team of professional engineers and sales representatives will be there for you from the start of your project to its completion and anywhere in between. As your partner, we bring expert advice and cutting edge software that allows you to create and defend specifications more easily and design with greater confidence.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Row 1: Base Stabilization (image left) ── -->
+        <section class="ttm-row clearfix" style="padding: 0; background: #eef2f7;">
+          <div class="container-fluid p-0">
+            <div class="row g-0 align-items-stretch">
+              <div class="col-lg-6 support-split-img-col">
+                <img data-cms="support-split1-img" src="/images/cms-uploads/OTHERS/1784030658152_Screenshot_2026-07-14_173357.png" alt="" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+              </div>
+              <div class="col-lg-6 d-flex flex-column justify-content-center" style="padding: 20px 4% 20px 6%;">
+                <p style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #d11f26; margin-bottom: 6px;" data-cms="support-split1-tag">BASE STABILIZATION</p>
+                <h3 style="font-size: 1.75rem; font-weight: 800; color: #1a1a1a; line-height: 1.25; margin-bottom: 8px;" data-cms="support-split1-title">Unpaved Roads &amp; Subgrade Stabilization</h3>
+                <p style="font-size: 0.95rem; color: #555; line-height: 1.8; margin-bottom: 14px;" data-cms="support-split1-desc">With research completed at Texas A&M University as the backbone, BaseLok geogrid and geocell products thrive in unpaved roadway, laydown yard, heavy haul roads, and other subgrade stabilization applications.  Designs are backed by years of research, decades of experience, and tens of millions of square yards of installed products.  Our team of professional engineers will analyze your site data and recommend the optimal BaseLok solution to reduce aggregate thickness, extend pavement life, lower total project cost, and meet overall project needs. Submit your project for a no-cost design recommendation today.</p>
+                <div><a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" data-cms="support-split1-btn">Submit Project &rarr;</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Row 2: Working Platforms (dark left, image right) ── -->
+        <section class="ttm-row ttm-bgcolor-darkgrey clearfix" style="padding: 0;">
+          <div class="container-fluid p-0">
+            <div class="row g-0 flex-lg-row-reverse align-items-stretch">
+              <div class="col-lg-6 support-split-img-col">
+                <img data-cms="support-split2-img" src="/images/cms-uploads/OTHERS/1784138226171_Updated_Crane_pad_image.png" alt="" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+              </div>
+              <div class="col-lg-6 d-flex flex-column justify-content-center" style="padding: 20px 6% 20px 4%;">
+                <p style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #d11f26 !important; margin-bottom: 6px;" data-cms="support-split2-tag">WORKING PLATFORMS</p>
+                <h3 style="font-size: 1.75rem; font-weight: 800; color: #fff; line-height: 1.25; margin-bottom: 8px;" data-cms="support-split2-title">Crane Pads &amp; Heavy Equipment Platforms</h3>
+                <p style="font-size: 0.95rem; color: rgba(255,255,255,0.72); line-height: 1.8; margin-bottom: 14px;" data-cms="support-split2-desc">Crane pads and working platforms are a part of most industrial projects built today and both cost and performance are important to project teams. Our team of professional engineers have decades of experience designing crane pads and working platforms. Utilizing tried and true design methodologies, our engineering team calculates the required platform thickness with our BaseLok products typically reducing the overall thickness by 30% or more. This savings leads to lower project costs and less environmental impact. Submit your project for a no-cost design recommendation today.</p>
+                <div><a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" data-cms="support-split2-btn">Submit Project &rarr;</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Row 3: Slope & Erosion (image left) ── -->
+        <section class="ttm-row clearfix" style="padding: 0; background: #fff;">
+          <div class="container-fluid p-0">
+            <div class="row g-0 align-items-stretch">
+              <div class="col-lg-6 support-split-img-col">
+                <img data-cms="support-split3-img" src="/images/cms-uploads/OTHERS/1784138279376_IMG_5277.jpg" alt="" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+              </div>
+              <div class="col-lg-6 d-flex flex-column justify-content-center" style="padding: 20px 4% 20px 6%;">
+                <p style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #d11f26; margin-bottom: 6px;" data-cms="support-split3-tag">SLOPE &amp; EROSION</p>
+                <h3 style="font-size: 1.75rem; font-weight: 800; color: #1a1a1a; line-height: 1.25; margin-bottom: 8px;" data-cms="support-split3-title">Slope Stabilization &amp; Erosion Control</h3>
+                <p style="font-size: 0.95rem; color: #555; line-height: 1.8; margin-bottom: 14px;" data-cms="support-split3-desc">Addressing erosion control concerns in channels and on slopes can be a challenge. Considerations such as flow velocity and shear stresses must be considered. BaseLok geocell is a prime choice for these applications due to the variability of available infill materials. Whether a concrete invert is desired for a channel with vegetated side slopes or a vegetated steepened slope, our team of professional engineers is here to guide you. Our engineers will make recommendations for infill material and run calculations for net sliding force and hydraulic considerations to make sure the system is designed appropriately. Submit your project for a no-cost design recommendation today.</p>
+                <div><a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" data-cms="support-split3-btn">Submit Project &rarr;</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="bpro-promo-inject"></div>
+
+        <!-- â”€â”€ Team Members â”€â”€ -->
+        <section class="ttm-row ttm-bgcolor-grey clearfix" style="padding: 60px 0;">
+          <div class="container">
+            <div class="row justify-content-center mb-5">
+              <div class="col-lg-7 text-center">
+                <div class="section-title title-style-center_text">
+                  <div class="title-header">
+                    <h3 data-cms="support-team-subtitle">MEET THE TEAM</h3>
+                    <h2 class="title" data-cms="support-team-title">Our <b>Design Engineers</b></h2>
+                  </div>
+                  <div class="title-desc">
+                    <p data-cms="support-team-desc">Licensed professional engineers ready to assist with your next project.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic team members loaded from database via cms.js?v=1782798737323 -->
+            <div class="row" id="design-team-grid"></div>
+          </div>
+        </section>
+
+        <!-- ── Support Services ── -->
+        <section class="ttm-row clearfix" style="padding: 30px 0; background: linear-gradient(135deg, #c8102e 0%, #8c0b1f 100%); position: relative; overflow: hidden;">
+          <div class="container">
+            <div class="row justify-content-center mb-4">
+              <div class="col-lg-7 text-center">
+                <div class="section-title title-style-center_text">
+                  <div class="title-header">
+                    <h3 data-cms="support-services-subtitle" style="color: rgba(255,255,255,0.8);"></h3>
+                    <h2 class="title" data-cms="support-services-title" style="color: #fff;">Design Support <b>Services</b></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-flask"></i></div>
+                  <h5 data-cms="support-svc1-title">Dynamic Cone Penetrometer Testing</h5>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-line-chart"></i></div>
+                  <h5 data-cms="support-svc2-title">VALUE ENGINEERING</h5>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-file-text-o"></i></div>
+                  <h5 data-cms="support-svc3-title">GEOTECHNICAL EVALUATIONS</h5>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-wrench"></i></div>
+                  <h5 data-cms="support-svc4-title">SOIL CEMENT  VS  BASELOK</h5>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-desktop"></i></div>
+                  <h5 data-cms="support-svc5-title">PDH PRESENTATIONS</h5>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="service-box">
+                  <div class="svc-icon-wrap"><i class="fa fa-map-o"></i></div>
+                  <h5 data-cms="support-svc6-title">On-Site Project Visits</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- â”€â”€ Applications Covered â”€â”€ -->
+        <section class="ttm-row ttm-bgcolor-grey clearfix" style="padding: 65px 0 30px 0;">
+          <div class="container">
+            <div class="row align-items-start">
+              <div class="col-lg-5 mb-5 mb-lg-0">
+                <div class="section-title">
+                  <div class="title-header">
+                    <h3 data-cms="support-apps-subtitle">WHERE WE HELP</h3>
+                    <h2 class="title" data-cms="support-apps-title">Applications <b>Covered</b></h2>
+                  </div>
+                  <div class="title-desc">
+                    <p data-cms="support-apps-desc">Our engineers have hands-on experience across a wide range of geosynthetic applications in infrastructure, environmental, and industrial sectors.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="app-tile"><i class="fa fa-cubes"></i><span data-cms="support-app-1">Aggregate &amp; Ballast Optimization</span></div>
+                    <div class="app-tile"><i class="fa fa-road"></i><span data-cms="support-app-2">Base Stabilization</span></div>
+                    <div class="app-tile"><i class="fa fa-truck"></i><span data-cms="support-app-3">Crane Pads</span></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="app-tile"><i class="fa fa-leaf"></i><span data-cms="support-app-4">Slope Erosion Protection</span></div>
+                    <div class="app-tile"><i class="fa fa-tint"></i><span data-cms="support-app-5">Channel Lining</span></div>
+                    <div class="app-tile"><i class="fa fa-shield"></i><span data-cms="support-app-6">Secondary Containment</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Image Gallery Section -->
+        <section class="ttm-row clearfix" style="padding:30px 0 70px 0;background:#fff;">
+          <div class="container">
+            <div class="row justify-content-center mb-5">
+              <div class="col-lg-7 text-center">
+                <p style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#d11f26;margin-bottom:10px;">IN THE FIELD</p>
+                <h2 data-cms="support-gallery-title" style="font-size:2rem;font-weight:800;color:#1a1a1a;">Engineering <b>in Action</b></h2>
+                <p data-cms="support-gallery-desc" style="color:#666;font-size:1rem;margin-top:10px;">Our team works alongside contractors and owners at every stage of the project —from design review to jobsite installation.</p>
+              </div>
+            </div>
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div style="border-radius:12px;overflow:hidden;height:320px;background:#f0f0f0;">
+                  <img data-cms="support-gallery-img1" src="/images/cms-uploads/OTHERS/1782913101754_1647468583761.jpg" alt="Engineering Support" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div style="border-radius:12px;overflow:hidden;height:320px;background:#f0f0f0;">
+                  <img data-cms="support-gallery-img2" src="/images/cms-uploads/OTHERS/1782913118288_Screenshot_2026-07-01_120036.png" alt="On-Site Visit" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="d-flex flex-column gap-3" style="height:320px;">
+                  <div style="border-radius:12px;overflow:hidden;flex:1;background:#f0f0f0;">
+                    <img data-cms="support-gallery-img3" src="/images/cms-uploads/OTHERS/1784062276892_DCP_Test.jpg" alt="Project Review" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                  </div>
+                  <div style="border-radius:12px;overflow:hidden;flex:1;background:#f0f0f0;">
+                    <img data-cms="support-gallery-img4" src="/images/cms-uploads/OTHERS/1782913141953_Screenshot_2026-07-01_120438.png" alt="Installation" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+      </div>
+      <!--site-main end-->
+
+      <!--footer start-->
+      <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--footer end-->
+
+      <a id="totop" href="#top"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.easing.js" defer></script>
+    <script src="/js/jquery-waypoints.js" defer></script>
+    <script src="/js/jquery-validate.js" defer></script>
+    <script src="/js/jquery.prettyPhoto.js" defer></script>
+    <script src="/js/slick.min.js" defer></script>
+    <script src="/js/numinate.min.js" defer></script>
+    <script src="/js/imagesloaded.min.js" defer></script>
+    <script src="/js/jquery-isotope.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/cms.js?v=1782798737323" defer></script>
+    <script>document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());</script>
+    <script src="/js/search.js" defer=""></script>
+  </body>
+</html>
+

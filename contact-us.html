@@ -1,0 +1,1157 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+        <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Contact Baselok - Get in touch with our team for product information, technical guidance, and project support." />
+    <meta name="author" content="https://www.baselok.com/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Us - BaseLok&reg;</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png" />
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;" />
+    <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;" />
+    <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798736661" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all" />
+    <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798736661">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      #offices-map { height: 480px; width: 100%; border-radius: 0; display: block; }
+      .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+      .leaflet-popup-content { margin: 14px 18px; }
+      .map-popup-title { font-weight: 800; font-size: 0.95rem; color: #1a1a1a; margin-bottom: 4px; }
+      .map-popup-addr { font-size: 0.82rem; color: #666; margin-bottom: 4px; }
+      .map-popup-phone { font-size: 0.82rem; color: #d11f26; font-weight: 700; }
+    </style>
+    <style>
+      .office-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 25px 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: box-shadow 0.2s, border-color 0.2s;
+        height: 100%;
+        min-height: 330px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .office-card:hover {
+        border-color: #d11f26;
+        box-shadow: 0 6px 20px rgba(209,31,38,0.1);
+      }
+      .office-card .office-icon {
+        width: 44px;
+        height: 44px;
+        background: #fff0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+      }
+      .office-card .office-icon i {
+        color: #d11f26;
+        font-size: 1.1rem;
+      }
+      .office-card h5 {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .office-card p {
+        font-size: 0.88rem;
+        color: #666;
+        margin-bottom: 6px;
+        line-height: 1.5;
+      }
+      .office-card a {
+        font-size: 0.88rem;
+        color: #d11f26;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .office-card a:hover { text-decoration: underline; }
+      .office-card .hours {
+        display: inline-block;
+        margin-top: 8px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        padding: 3px 10px;
+        font-size: 0.78rem;
+        color: #555;
+        font-weight: 600;
+      }
+      .contact-form-wrap {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+        padding: 40px;
+        overflow: hidden;
+      }
+      .contact-form-wrap .form-field {
+        margin-bottom: 20px;
+      }
+      .contact-form-wrap label {
+        display: block;
+        font-weight: 700;
+        font-size: 0.82rem;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 7px;
+      }
+      .contact-form-wrap input,
+      .contact-form-wrap textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #333;
+        background: #fafafa;
+        transition: border-color 0.2s;
+      }
+      .contact-form-wrap input:focus,
+      .contact-form-wrap textarea:focus {
+        outline: none;
+        border-color: #d11f26;
+        background: #fff;
+      }
+      .contact-form-wrap textarea { min-height: 130px; resize: vertical; }
+      .contact-form-wrap select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #333;
+        background: #fafafa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+        appearance: none;
+        -webkit-appearance: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .contact-form-wrap select:focus {
+        outline: none;
+        border-color: #d11f26;
+        background-color: #fff;
+      }
+      .map-section iframe { display: block; }
+    </style>
+  </head>
+
+  <body>
+    <!--page start-->
+    <div class="page">
+
+      <!--header start-->
+      <header id="masthead" class="header ttm-header-style-03">
+        <!-- topbar -->
+        <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+          <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- topbar end -->
+        <!-- site-header-menu -->
+        <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+          <div class="site-header-menu-inner ttm-stickable-header">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                    <div class="site-branding">
+                      <a class="home-link" href="index.html" title="Baselok" rel="home">
+                        <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                      </a>
+                    </div>
+                  <div class="d-flex flex-row ms-auto">
+                      <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                        <span class="menubar-box"><span class="menubar-inner"></span></span>
+                      </div>
+                      <nav class="main-menu menu-mobile" id="menu">
+                        <ul class="menu">
+                          <li class="mega-menu-item"><a href="support.html">Design Support</a></li>
+                          <li class="mega-menu-item">
+                          <a href="baselok-pro.html">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item"><a href="applications.html">Applications</a></li>
+                          <li class="mega-menu-item"><a href="solutions.html">Solutions</a></li>
+                          <li class="mega-menu-item"><a href="resources.html">Resources</a></li>
+                          <li class="mega-menu-item"><a href="case-studies.html">Project Highlights</a></li>
+                          <li class="mega-menu-item"><a href="contact-us.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Contact Us</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                    <div class="top_bar_contact_item">
+                      <div class="header_search">
+                        <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                        <div class="header_search_content">
+                          <div class="header_search_content_inner">
+                            <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                            <form id="searchbox" method="get" action="#">
+                              <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="" />
+                              <button type="submit" class="btn close-search"><i class="ti ti-search"></i></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- site-header-menu end-->
+      </header>
+      <!--header end-->
+
+      <!-- page-title -->
+      <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix"
+        data-cms="hero-bg-1"
+        style="background-image: url('/images/cms-uploads/bg-image/1782238412250_shutterstock_2678171759.jpg'); background-attachment: fixed; background-position: center 30%;">
+        <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <div class="ttm-page-title-row-inner">
+                <div class="page-title-heading"><h2 class="title">Contact Us</h2></div>
+                <div class="breadcrumb-wrapper">
+                  <span><a title="Homepage" href="index.html">Home</a></span>
+                <span>
+                  <a title="Contact Us" href="contact-us.html">Contact Us</a>
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- page-title end -->
+
+      <!--site-main start-->
+      <div class="site-main">
+
+        <!-- Who We Are section -->
+        <section class="ttm-row clearfix" style="padding: 60px 0 30px; background: #fff;">
+          <div class="container">
+            <div class="row align-items-center">
+              <!-- Left: text content -->
+              <div class="col-lg-6 col-md-12 mb-5 mb-lg-0">
+                <div class="section-title">
+                  <div class="title-header">
+                    <h5 data-cms="contact-wwa-eyebrow" style="color:#e8192c;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:17px;margin-bottom:10px;">About Us</h5>
+                    <h2 data-cms="contact-wwa-heading" style="font-size:2.2rem;font-weight:800;color:#1d2535;margin-bottom:8px;">Who We Are</h2>
+                  </div>
+                  <div class="title-desc">
+                    <p data-cms="contact-wwa-para1" style="color:#555;line-height:1.8;margin-bottom:18px;">Baselok, by Industrial Fabrics, Inc., is a leading provider of geosynthetic solutions engineered for demanding civil and environmental applications. From roadway subgrade stabilization to coastal erosion protection, our products deliver proven performance across a wide range of industries including infrastructure, railways, marine, and environmental sectors.</p>
+                    <p data-cms="contact-wwa-para2" style="color:#555;line-height:1.8;margin-bottom:32px;">With decades of engineering expertise and a commitment to innovation, Baselok partners with contractors, engineers, and project owners to solve complex ground stabilization challenges — reliably, cost-effectively, and sustainably.</p>
+                  </div>
+                </div>
+                <!-- Stats row -->
+                <div style="display:flex;gap:32px;border-top:2px solid #f0f0f0;padding-top:28px;">
+                  <div style="border-left:4px solid #e8192c;padding-left:16px;">
+                    <h3 data-cms="contact-stat-1-num" style="font-size:2rem;font-weight:900;color:#1d2535;margin:0;">50+</h3>
+                    <p data-cms="contact-stat-1-label" style="font-size:13px;color:#e8192c;font-weight:600;margin:0;">Years of Experience</p>
+                  </div>
+                  <div style="border-left:4px solid #e8192c;padding-left:16px;">
+                    <h3 data-cms="contact-stat-2-num" style="font-size:2rem;font-weight:900;color:#1d2535;margin:0;">500+</h3>
+                    <p data-cms="contact-stat-2-label" style="font-size:13px;color:#e8192c;font-weight:600;margin:0;">Projects Completed</p>
+                  </div>
+                  <div style="border-left:4px solid #e8192c;padding-left:16px;">
+                    <h3 data-cms="contact-stat-3-num" style="font-size:2rem;font-weight:900;color:#1d2535;margin:0;">10+</h3>
+                    <p data-cms="contact-stat-3-label" style="font-size:13px;color:#e8192c;font-weight:600;margin:0;">Industries Served</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Right: image -->
+              <div class="col-lg-6 col-md-12">
+                <div style="border-radius:6px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.10);">
+                  <img data-cms="contact-wwa-image" src="/images/cms-uploads/OTHERS/1782898123509_1647468583761.jpg" alt="BaseLok team at work" loading="lazy" style="width:100%; height:420px; object-fit:cover; display:block;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- form + info section -->
+        <section class="ttm-row padding_bottom_zero-section clearfix">
+          <div class="container">
+            <div class="row">
+
+              <!-- Left: Contact Form -->
+              <div class="col-lg-7 mb-5 mb-lg-0">
+                <div class="contact-form-wrap">
+                  <div class="section-title mb-4">
+                    <div class="title-header">
+                      <h3>SEND A MESSAGE</h3>
+                      <h2 class="title">Get In <b>Touch</b></h2>
+                    </div>
+                    <div class="title-desc">
+                      <p>Fill out the form below and our team will respond promptly.</p>
+                    </div>
+                  </div>
+                  <form id="contact_us_form" method="post" novalidate="novalidate" action="#">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Your Name <span class="ttm-textcolor-skincolor">*</span></label>
+                          <input name="name" type="text" placeholder="Full Name" required />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Email Address <span class="ttm-textcolor-skincolor">*</span></label>
+                          <input name="address" type="email" placeholder="your@email.com" required />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Company Name</label>
+                          <input name="company_name" type="text" placeholder="Company (optional)" />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Country <span class="ttm-textcolor-skincolor">*</span></label>
+                          <select name="project_country" id="loc-country" required>
+                            <option value="">Select Country</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>State / Province <span class="ttm-textcolor-skincolor">*</span></label>
+                          <select name="project_state" id="loc-state" required>
+                            <option value="">Select State / Province</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>City</label>
+                          <select name="project_city" id="loc-city">
+                            <option value="">Select City</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-field">
+                          <label>Full Address</label>
+                          <textarea name="company_address" placeholder="Enter your company address..." style="height:80px;min-height:80px;"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Phone</label>
+                          <input name="phone" type="text" placeholder="+1 (555) 000-0000" />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-field">
+                          <label>Subject</label>
+                          <input name="subject" type="text" placeholder="Subject" />
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-field">
+                          <label>Message</label>
+                          <textarea name="message" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                      </div>
+                      <div class="col-12 pt-2">
+                        <button class="submit ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" type="submit">
+                          Send Message &nbsp;<i class="fa fa-paper-plane-o"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Right: Contact Info -->
+              <div class="col-lg-5">
+                <div class="padding_left30 res-1199-padding_left0">
+                  <!-- BaseLok PRO Promo Box -->
+                  <div class="mb-5 p-4" style="background: #fff; border-radius: 10px; color: #333; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #eee; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 120px; color: rgba(0,0,0,0.03); transform: rotate(-15deg); pointer-events: none;">
+                      <i class="fa fa-connectdevelop"></i>
+                    </div>
+                    <div class="d-flex align-items-center mb-3 position-relative">
+                      <div class="me-3" style="width: 100%; max-width: 250px; height: 65px; display: flex; align-items: center; justify-content: flex-start;">
+                        <img data-cms="contact-pro-logo" src="/images/cms-uploads/OTHERS/1784352227606_LOGO_BaseLokPro_Acumin-removebg-preview.png" style="max-height: 100%; max-width: 100%; width: auto; object-fit: contain;" alt="BaseLok Pro Logo" loading="lazy">
+                      </div>
+                      <h3 data-cms="contact-pro-title" class="m-0" style="color: #1a1a1a; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.5px; display: none;"><br></h3>
+                    </div>
+                    <p data-cms="contact-pro-desc" class="position-relative" style="font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 24px;">Take your project design to the next level. Access our advanced engineering software for precise stabilization calculations.</p>
+                    <a href="http://www.baselokpro.com" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor position-relative" style="width: 100%; text-align: center; font-weight: 700;" cms-no-tag>ACCESS BASELOK PRO</a>
+                  </div>
+                  <div class="section-title mb-4">
+                    <div class="title-header">
+                      <h3 style="color:#d11f26; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">REACH US DIRECTLY</h3>
+                      <h2 class="title">Corporate <b>Office</b></h2>
+                    </div>
+                  </div>
+
+                  <div class="featured-icon-box icon-align-before-content mb-4">
+                    <div class="featured-icon">
+                      <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-color-grey ttm-icon_element-size-md ttm-icon_element-style-rounded">
+                        <i class="themifyicon ti-location-pin ttm-textcolor-skincolor"></i>
+                      </div>
+                    </div>
+                    <div class="featured-content">
+                      <div class="featured-title"><h3 class="margin_bottom0 fs-18">Address</h3></div>
+                      <div class="featured-desc">510 O'Neal Lane Ext.<br>Baton Rouge, LA 70819</div>
+                    </div>
+                  </div>
+
+                  <div class="featured-icon-box icon-align-before-content mb-4">
+                    <div class="featured-icon">
+                      <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-color-grey ttm-icon_element-size-md ttm-icon_element-style-rounded">
+                        <i class="themifyicon ti-mobile ttm-textcolor-skincolor"></i>
+                      </div>
+                    </div>
+                    <div class="featured-content">
+                      <div class="featured-title"><h3 class="margin_bottom0 fs-18">Phone</h3></div>
+                      <div class="featured-desc">
+                        <a href="tel:+18008484500" class="d-block mb-1"><i class="ttm-textcolor-skincolor fa fa-phone me-2"></i>1-800-848-4500</a>
+                        <a href="tel:+12252739600" class="d-block"><i class="ttm-textcolor-skincolor fa fa-phone me-2"></i>1-225-273-9600</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="featured-icon-box icon-align-before-content mb-4">
+                    <div class="featured-icon">
+                      <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-color-grey ttm-icon_element-size-md ttm-icon_element-style-rounded">
+                        <i class="themifyicon ti-email ttm-textcolor-skincolor"></i>
+                      </div>
+                    </div>
+                    <div class="featured-content">
+                      <div class="featured-title"><h3 class="margin_bottom0 fs-18">Email</h3></div>
+                      <div class="featured-desc">
+                        <a href="mailto:info@baselok.com"><i class="ttm-textcolor-skincolor fa fa-envelope-o me-2"></i>info@baselok.com</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="featured-icon-box icon-align-before-content mb-0">
+                    <div class="featured-icon">
+                      <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-color-grey ttm-icon_element-size-md ttm-icon_element-style-rounded">
+                        <i class="themifyicon ti-time ttm-textcolor-skincolor"></i>
+                      </div>
+                    </div>
+                    <div class="featured-content">
+                        <div class="featured-title"><h3 class="margin_bottom0 fs-18" data-cms="contact-business-hours-title">Business Hours</h3></div>
+                        <div class="featured-desc" data-cms="contact-business-hours-text">Monday  - Friday  |  8AM - 5PM CST</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Office Locations section -->
+        <section class="ttm-row clearfix" style="padding-top: 80px; padding-bottom: 80px; background: #f8f9fa;">
+          <div class="container">
+            <div class="row justify-content-center mb-5">
+              <div class="col-lg-8 text-center">
+                <div class="section-title title-style-center_text">
+                  <div class="title-header">
+                    <h3>LOCATIONS</h3>
+                    <h2 class="title">Our <b>Regional Offices</b></h2>
+                  </div>
+                  <div class="title-desc">
+                    <div data-cms="contact-locations-subtitle"><br></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic offices loaded from database via cms.js?v=1782798736661 -->
+            <div class="row" id="regional-offices-grid" style="row-gap: 50px;">
+              <!-- Fallback static cards shown until API loads -->
+              <div class="col-lg-4 col-md-6">
+                <div class="office-card">
+                  <span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Distribution</span>
+                  <div class="office-icon"><i class="fa fa-building"></i></div>
+                  <h5>Corporate Office</h5>
+                  <p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>510 O'Neal Lane Ext.<br>Baton Rouge, LA 70819</p>
+                  <p><a href="tel:+18008484500"><i class="fa fa-phone me-2"></i>1-800-848-4500</a></p>
+                  <p><a href="tel:+12252739600"><i class="fa fa-phone me-2"></i>1-225-273-9600</a></p>
+                  <span class="hours"><i class="fa fa-clock-o me-1"></i>Mon &rdquo;“ Fri &nbsp;|&nbsp; 8AM &rdquo;“ 5PM</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="office-card">
+                  <span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Manufacturing facility</span>
+                  <div class="office-icon"><i class="fa fa-map-marker"></i></div>
+                  <h5>Houston, TX</h5>
+                  <p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>5102 Galveston Rd.<br>Houston, TX 77017</p>
+                  <p><a href="tel:+17136412727"><i class="fa fa-phone me-2"></i>1-713-641-2727</a></p>
+                  <span class="hours"><i class="fa fa-clock-o me-1"></i>Mon &rdquo;“ Fri &nbsp;|&nbsp; 8AM &rdquo;“ 5PM</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="office-card">
+                  <span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Distribution</span>
+                  <div class="office-icon"><i class="fa fa-map-marker"></i></div>
+                  <h5>Arlington, TX</h5>
+                  <p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>3420 Dalworth St.<br>Arlington, TX 76011</p>
+                  <p><a href="tel:+19722635640"><i class="fa fa-phone me-2"></i>1-972-263-5640</a></p>
+                  <span class="hours"><i class="fa fa-clock-o me-1"></i>Mon &rdquo;“ Fri &nbsp;|&nbsp; 8AM &rdquo;“ 5PM</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="office-card">
+                  <span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Distribution</span>
+                  <div class="office-icon"><i class="fa fa-map-marker"></i></div>
+                  <h5>Corpus Christi, TX</h5>
+                  <p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>1911 North Lexington Blvd.<br>Corpus Christi, TX 78409</p>
+                  <p><a href="tel:+18886356209"><i class="fa fa-phone me-2"></i>1-888-635-6209</a></p>
+                  <span class="hours"><i class="fa fa-clock-o me-1"></i>Mon &rdquo;“ Fri &nbsp;|&nbsp; 8AM &rdquo;“ 5PM</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="office-card">
+                  <span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Distribution</span>
+                  <div class="office-icon"><i class="fa fa-map-marker"></i></div>
+                  <h5>Oklahoma City, OK</h5>
+                  <p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>234 S.E. 45th Street<br>Oklahoma City, OK 73129</p>
+                  <p><a href="tel:+14054448701"><i class="fa fa-phone me-2"></i>1-405-444-8701</a></p>
+                  <span class="hours"><i class="fa fa-clock-o me-1"></i>Mon &rdquo;“ Fri &nbsp;|&nbsp; 8AM &rdquo;“ 5PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Multi-pin Map section (Leaflet + OpenStreetMap) -->
+        <section class="ttm-row map-section clearfix" style="padding: 0;">
+          <div id="offices-map"></div>
+        </section>
+
+      </div>
+      <!--site-main end-->
+
+      <!--footer start-->
+      <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--footer end-->
+
+      <a id="totop" href="#top"><i class="fa fa-angle-up"></i></a>
+    </div>
+    <!-- page end -->
+
+    <!-- Javascript -->
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.easing.js" defer></script>
+    <script src="/js/jquery-waypoints.js" defer></script>
+    <script src="/js/jquery-validate.js" defer></script>
+    <script src="/js/jquery.prettyPhoto.js" defer></script>
+    <script src="/js/slick.min.js" defer></script>
+    <script src="/js/numinate.min.js" defer></script>
+    <script src="/js/imagesloaded.min.js" defer></script>
+    <script src="/js/jquery-isotope.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/cms.js?v=1782798736661" defer></script>
+    <script>
+      $(document).ready(function() {
+        $('#contact_us_form').on('submit', async function(e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const data = {};
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          // The form's raw field names (address, company_name) don't match what the
+          // backend's ContactRequest model expects (email, company) — map them here rather
+          // than renaming the form inputs, since other JS on this page may still rely on
+          // the existing name="address"/"company_name" attributes.
+          if (data.address !== undefined) { data.email = data.address; delete data.address; }
+          if (data.company_name !== undefined) { data.company = data.company_name; delete data.company_name; }
+          const $submitBtn = $(this).find('button[type="submit"]');
+          const originalText = $submitBtn.html();
+          $submitBtn.html('<i class="fa fa-spinner fa-spin me-2"></i> Sending...').prop('disabled', true);
+          const $form = $(this);
+          // Backend field names -> the actual form input's "name" attribute, so an error like
+          // {"email": "Email must be a valid address"} highlights the right input on the page.
+          const fieldNameMap = { email: 'address', company: 'company_name' };
+          $form.find('.cms-field-error').remove();
+          $form.find('.form-field-invalid').removeClass('form-field-invalid');
+
+          try {
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.success) {
+              const $msg = $('<div class="alert alert-success mt-4 p-3" style="border-radius:6px; border:1px solid #c3e6cb; background-color:#d4edda; color:#155724; display:none;"><i class="fa fa-check-circle me-2"></i> Message sent successfully! We will get back to you soon.</div>');
+              $form.find('.alert').remove();
+              $form.append($msg);
+              $msg.slideDown();
+              this.reset();
+              setTimeout(() => { $msg.slideUp(); }, 6000);
+            } else if (result.errors) {
+              // Field-level validation errors from the backend — show each one right under its
+              // own input instead of a single generic failure message.
+              Object.keys(result.errors).forEach(field => {
+                const inputName = fieldNameMap[field] || field;
+                const $input = $form.find(`[name="${inputName}"]`);
+                if ($input.length) {
+                  $input.addClass('form-field-invalid').css('border-color', '#d11f26');
+                  $input.closest('.form-field').append(
+                    `<div class="cms-field-error" style="color:#d11f26; font-size:0.8rem; margin-top:4px;">${result.errors[field]}</div>`
+                  );
+                }
+              });
+              const $msg = $('<div class="alert alert-danger mt-4 p-3" style="display:none;"><i class="fa fa-exclamation-circle me-2"></i> Please correct the highlighted fields and try again.</div>');
+              $form.find('.alert').remove();
+              $form.append($msg);
+              $msg.slideDown();
+              setTimeout(() => { $msg.slideUp(); }, 8000);
+            } else {
+              const $msg = $('<div class="alert alert-danger mt-4 p-3" style="display:none;"><i class="fa fa-exclamation-circle me-2"></i> ' + (result.message || 'Something went wrong, please try again.') + '</div>');
+              $form.find('.alert').remove();
+              $form.append($msg);
+              $msg.slideDown();
+              setTimeout(() => { $msg.slideUp(); }, 6000);
+            }
+          } catch (err) {
+            const $msg = $('<div class="alert alert-danger mt-4 p-3" style="display:none;"><i class="fa fa-exclamation-circle me-2"></i> Something went wrong, please try again.</div>');
+            $form.find('.alert').remove();
+            $form.append($msg);
+            $msg.slideDown();
+            setTimeout(() => { $msg.slideUp(); }, 6000);
+          } finally {
+            $submitBtn.html(originalText).prop('disabled', false);
+          }
+        });
+      });
+    </script>
+    <script src="/js/search.js" defer=""></script>
+
+    <!-- Location cascading dropdowns -->
+    <script>
+    (function(){
+      var COUNTRIES=[
+        {c:'US',n:'USA'},
+        {c:'AF',n:'Afghanistan'},{c:'AL',n:'Albania'},{c:'DZ',n:'Algeria'},{c:'AD',n:'Andorra'},{c:'AO',n:'Angola'},
+        {c:'AG',n:'Antigua and Barbuda'},{c:'AR',n:'Argentina'},{c:'AM',n:'Armenia'},{c:'AU',n:'Australia'},{c:'AT',n:'Austria'},
+        {c:'AZ',n:'Azerbaijan'},{c:'BS',n:'Bahamas'},{c:'BH',n:'Bahrain'},{c:'BD',n:'Bangladesh'},{c:'BB',n:'Barbados'},
+        {c:'BY',n:'Belarus'},{c:'BE',n:'Belgium'},{c:'BZ',n:'Belize'},{c:'BJ',n:'Benin'},{c:'BT',n:'Bhutan'},
+        {c:'BO',n:'Bolivia'},{c:'BA',n:'Bosnia and Herzegovina'},{c:'BW',n:'Botswana'},{c:'BR',n:'Brazil'},{c:'BN',n:'Brunei'},
+        {c:'BG',n:'Bulgaria'},{c:'BF',n:'Burkina Faso'},{c:'BI',n:'Burundi'},{c:'CV',n:'Cabo Verde'},{c:'KH',n:'Cambodia'},
+        {c:'CM',n:'Cameroon'},{c:'CA',n:'Canada'},{c:'CF',n:'Central African Republic'},{c:'TD',n:'Chad'},{c:'CL',n:'Chile'},
+        {c:'CN',n:'China'},{c:'CO',n:'Colombia'},{c:'KM',n:'Comoros'},{c:'CG',n:'Congo'},{c:'CR',n:'Costa Rica'},
+        {c:'HR',n:'Croatia'},{c:'CU',n:'Cuba'},{c:'CY',n:'Cyprus'},{c:'CZ',n:'Czech Republic'},{c:'CD',n:'DR Congo'},
+        {c:'DK',n:'Denmark'},{c:'DJ',n:'Djibouti'},{c:'DM',n:'Dominica'},{c:'DO',n:'Dominican Republic'},{c:'EC',n:'Ecuador'},
+        {c:'EG',n:'Egypt'},{c:'SV',n:'El Salvador'},{c:'GQ',n:'Equatorial Guinea'},{c:'ER',n:'Eritrea'},{c:'EE',n:'Estonia'},
+        {c:'SZ',n:'Eswatini'},{c:'ET',n:'Ethiopia'},{c:'FJ',n:'Fiji'},{c:'FI',n:'Finland'},{c:'FR',n:'France'},
+        {c:'GA',n:'Gabon'},{c:'GM',n:'Gambia'},{c:'GE',n:'Georgia'},{c:'DE',n:'Germany'},{c:'GH',n:'Ghana'},
+        {c:'GR',n:'Greece'},{c:'GD',n:'Grenada'},{c:'GT',n:'Guatemala'},{c:'GN',n:'Guinea'},{c:'GW',n:'Guinea-Bissau'},
+        {c:'GY',n:'Guyana'},{c:'HT',n:'Haiti'},{c:'HN',n:'Honduras'},{c:'HU',n:'Hungary'},{c:'IS',n:'Iceland'},
+        {c:'IN',n:'India'},{c:'ID',n:'Indonesia'},{c:'IR',n:'Iran'},{c:'IQ',n:'Iraq'},{c:'IE',n:'Ireland'},
+        {c:'IL',n:'Israel'},{c:'IT',n:'Italy'},{c:'JM',n:'Jamaica'},{c:'JP',n:'Japan'},{c:'JO',n:'Jordan'},
+        {c:'KZ',n:'Kazakhstan'},{c:'KE',n:'Kenya'},{c:'KI',n:'Kiribati'},{c:'KW',n:'Kuwait'},{c:'KG',n:'Kyrgyzstan'},
+        {c:'LA',n:'Laos'},{c:'LV',n:'Latvia'},{c:'LB',n:'Lebanon'},{c:'LS',n:'Lesotho'},{c:'LR',n:'Liberia'},
+        {c:'LY',n:'Libya'},{c:'LI',n:'Liechtenstein'},{c:'LT',n:'Lithuania'},{c:'LU',n:'Luxembourg'},{c:'MG',n:'Madagascar'},
+        {c:'MW',n:'Malawi'},{c:'MY',n:'Malaysia'},{c:'MV',n:'Maldives'},{c:'ML',n:'Mali'},{c:'MT',n:'Malta'},
+        {c:'MH',n:'Marshall Islands'},{c:'MR',n:'Mauritania'},{c:'MU',n:'Mauritius'},{c:'MX',n:'Mexico'},{c:'FM',n:'Micronesia'},
+        {c:'MD',n:'Moldova'},{c:'MC',n:'Monaco'},{c:'MN',n:'Mongolia'},{c:'ME',n:'Montenegro'},{c:'MA',n:'Morocco'},
+        {c:'MZ',n:'Mozambique'},{c:'MM',n:'Myanmar'},{c:'NA',n:'Namibia'},{c:'NR',n:'Nauru'},{c:'NP',n:'Nepal'},
+        {c:'NL',n:'Netherlands'},{c:'NZ',n:'New Zealand'},{c:'NI',n:'Nicaragua'},{c:'NE',n:'Niger'},{c:'NG',n:'Nigeria'},
+        {c:'MK',n:'North Macedonia'},{c:'NO',n:'Norway'},{c:'OM',n:'Oman'},{c:'PK',n:'Pakistan'},{c:'PW',n:'Palau'},
+        {c:'PA',n:'Panama'},{c:'PG',n:'Papua New Guinea'},{c:'PY',n:'Paraguay'},{c:'PE',n:'Peru'},{c:'PH',n:'Philippines'},
+        {c:'PL',n:'Poland'},{c:'PT',n:'Portugal'},{c:'QA',n:'Qatar'},{c:'RO',n:'Romania'},{c:'RU',n:'Russia'},
+        {c:'RW',n:'Rwanda'},{c:'KN',n:'Saint Kitts and Nevis'},{c:'LC',n:'Saint Lucia'},{c:'VC',n:'St. Vincent and the Grenadines'},
+        {c:'WS',n:'Samoa'},{c:'SM',n:'San Marino'},{c:'ST',n:'Sao Tome and Principe'},{c:'SA',n:'Saudi Arabia'},
+        {c:'SN',n:'Senegal'},{c:'RS',n:'Serbia'},{c:'SC',n:'Seychelles'},{c:'SL',n:'Sierra Leone'},{c:'SG',n:'Singapore'},
+        {c:'SK',n:'Slovakia'},{c:'SI',n:'Slovenia'},{c:'SB',n:'Solomon Islands'},{c:'SO',n:'Somalia'},{c:'ZA',n:'South Africa'},
+        {c:'SS',n:'South Sudan'},{c:'ES',n:'Spain'},{c:'LK',n:'Sri Lanka'},{c:'SD',n:'Sudan'},{c:'SR',n:'Suriname'},
+        {c:'SE',n:'Sweden'},{c:'CH',n:'Switzerland'},{c:'SY',n:'Syria'},{c:'TW',n:'Taiwan'},{c:'TJ',n:'Tajikistan'},
+        {c:'TZ',n:'Tanzania'},{c:'TH',n:'Thailand'},{c:'TL',n:'Timor-Leste'},{c:'TG',n:'Togo'},{c:'TO',n:'Tonga'},
+        {c:'TT',n:'Trinidad and Tobago'},{c:'TN',n:'Tunisia'},{c:'TR',n:'Turkey'},{c:'TM',n:'Turkmenistan'},{c:'TV',n:'Tuvalu'},
+        {c:'UG',n:'Uganda'},{c:'UA',n:'Ukraine'},{c:'AE',n:'United Arab Emirates'},{c:'GB',n:'United Kingdom'},
+        {c:'UY',n:'Uruguay'},{c:'UZ',n:'Uzbekistan'},{c:'VU',n:'Vanuatu'},{c:'VE',n:'Venezuela'},{c:'VN',n:'Vietnam'},
+        {c:'YE',n:'Yemen'},{c:'ZM',n:'Zambia'},{c:'ZW',n:'Zimbabwe'}
+      ];
+
+      var STATES={
+        US:[
+          {c:'AL',n:'Alabama'},{c:'AK',n:'Alaska'},{c:'AZ',n:'Arizona'},{c:'AR',n:'Arkansas'},{c:'CA',n:'California'},
+          {c:'CO',n:'Colorado'},{c:'CT',n:'Connecticut'},{c:'DE',n:'Delaware'},{c:'FL',n:'Florida'},{c:'GA',n:'Georgia'},
+          {c:'HI',n:'Hawaii'},{c:'ID',n:'Idaho'},{c:'IL',n:'Illinois'},{c:'IN',n:'Indiana'},{c:'IA',n:'Iowa'},
+          {c:'KS',n:'Kansas'},{c:'KY',n:'Kentucky'},{c:'LA',n:'Louisiana'},{c:'ME',n:'Maine'},{c:'MD',n:'Maryland'},
+          {c:'MA',n:'Massachusetts'},{c:'MI',n:'Michigan'},{c:'MN',n:'Minnesota'},{c:'MS',n:'Mississippi'},{c:'MO',n:'Missouri'},
+          {c:'MT',n:'Montana'},{c:'NE',n:'Nebraska'},{c:'NV',n:'Nevada'},{c:'NH',n:'New Hampshire'},{c:'NJ',n:'New Jersey'},
+          {c:'NM',n:'New Mexico'},{c:'NY',n:'New York'},{c:'NC',n:'North Carolina'},{c:'ND',n:'North Dakota'},{c:'OH',n:'Ohio'},
+          {c:'OK',n:'Oklahoma'},{c:'OR',n:'Oregon'},{c:'PA',n:'Pennsylvania'},{c:'RI',n:'Rhode Island'},{c:'SC',n:'South Carolina'},
+          {c:'SD',n:'South Dakota'},{c:'TN',n:'Tennessee'},{c:'TX',n:'Texas'},{c:'UT',n:'Utah'},{c:'VT',n:'Vermont'},
+          {c:'VA',n:'Virginia'},{c:'WA',n:'Washington'},{c:'WV',n:'West Virginia'},{c:'WI',n:'Wisconsin'},{c:'WY',n:'Wyoming'},
+          {c:'DC',n:'District of Columbia'}
+        ],
+        CA:[
+          {c:'AB',n:'Alberta'},{c:'BC',n:'British Columbia'},{c:'MB',n:'Manitoba'},{c:'NB',n:'New Brunswick'},
+          {c:'NL',n:'Newfoundland and Labrador'},{c:'NS',n:'Nova Scotia'},{c:'NT',n:'Northwest Territories'},
+          {c:'NU',n:'Nunavut'},{c:'ON',n:'Ontario'},{c:'PE',n:'Prince Edward Island'},{c:'QC',n:'Quebec'},
+          {c:'SK',n:'Saskatchewan'},{c:'YT',n:'Yukon'}
+        ],
+        AU:[
+          {c:'ACT',n:'Australian Capital Territory'},{c:'NSW',n:'New South Wales'},{c:'NT',n:'Northern Territory'},
+          {c:'QLD',n:'Queensland'},{c:'SA',n:'South Australia'},{c:'TAS',n:'Tasmania'},
+          {c:'VIC',n:'Victoria'},{c:'WA',n:'Western Australia'}
+        ],
+        GB:[
+          {c:'ENG',n:'England'},{c:'SCT',n:'Scotland'},{c:'WLS',n:'Wales'},{c:'NIR',n:'Northern Ireland'}
+        ],
+        IN:[
+          {c:'AP',n:'Andhra Pradesh'},{c:'AR',n:'Arunachal Pradesh'},{c:'AS',n:'Assam'},{c:'BR',n:'Bihar'},
+          {c:'CG',n:'Chhattisgarh'},{c:'GA',n:'Goa'},{c:'GJ',n:'Gujarat'},{c:'HR',n:'Haryana'},
+          {c:'HP',n:'Himachal Pradesh'},{c:'JH',n:'Jharkhand'},{c:'KA',n:'Karnataka'},{c:'KL',n:'Kerala'},
+          {c:'MP',n:'Madhya Pradesh'},{c:'MH',n:'Maharashtra'},{c:'MN',n:'Manipur'},{c:'ML',n:'Meghalaya'},
+          {c:'OD',n:'Odisha'},{c:'PB',n:'Punjab'},{c:'RJ',n:'Rajasthan'},{c:'SK',n:'Sikkim'},
+          {c:'TN',n:'Tamil Nadu'},{c:'TG',n:'Telangana'},{c:'TR',n:'Tripura'},{c:'UP',n:'Uttar Pradesh'},
+          {c:'UK',n:'Uttarakhand'},{c:'WB',n:'West Bengal'},{c:'DL',n:'Delhi'},{c:'JK',n:'Jammu and Kashmir'}
+        ],
+        MX:[
+          {c:'AGU',n:'Aguascalientes'},{c:'BCN',n:'Baja California'},{c:'BCS',n:'Baja California Sur'},
+          {c:'CAM',n:'Campeche'},{c:'CHP',n:'Chiapas'},{c:'CHH',n:'Chihuahua'},{c:'CMX',n:'Ciudad de Mexico'},
+          {c:'COA',n:'Coahuila'},{c:'COL',n:'Colima'},{c:'DUR',n:'Durango'},{c:'GUA',n:'Guanajuato'},
+          {c:'GRO',n:'Guerrero'},{c:'HID',n:'Hidalgo'},{c:'JAL',n:'Jalisco'},{c:'MEX',n:'Mexico State'},
+          {c:'MIC',n:'Michoacan'},{c:'MOR',n:'Morelos'},{c:'NAY',n:'Nayarit'},{c:'NLE',n:'Nuevo Leon'},
+          {c:'OAX',n:'Oaxaca'},{c:'PUE',n:'Puebla'},{c:'QUE',n:'Queretaro'},{c:'ROO',n:'Quintana Roo'},
+          {c:'SLP',n:'San Luis Potosi'},{c:'SIN',n:'Sinaloa'},{c:'SON',n:'Sonora'},{c:'TAB',n:'Tabasco'},
+          {c:'TAM',n:'Tamaulipas'},{c:'TLA',n:'Tlaxcala'},{c:'VER',n:'Veracruz'},{c:'YUC',n:'Yucatan'},{c:'ZAC',n:'Zacatecas'}
+        ],
+        BR:[
+          {c:'AC',n:'Acre'},{c:'AL',n:'Alagoas'},{c:'AP',n:'Amapa'},{c:'AM',n:'Amazonas'},{c:'BA',n:'Bahia'},
+          {c:'CE',n:'Ceara'},{c:'DF',n:'Distrito Federal'},{c:'ES',n:'Espirito Santo'},{c:'GO',n:'Goias'},
+          {c:'MA',n:'Maranhao'},{c:'MT',n:'Mato Grosso'},{c:'MS',n:'Mato Grosso do Sul'},{c:'MG',n:'Minas Gerais'},
+          {c:'PA',n:'Para'},{c:'PB',n:'Paraiba'},{c:'PR',n:'Parana'},{c:'PE',n:'Pernambuco'},{c:'PI',n:'Piaui'},
+          {c:'RJ',n:'Rio de Janeiro'},{c:'RN',n:'Rio Grande do Norte'},{c:'RS',n:'Rio Grande do Sul'},
+          {c:'SC',n:'Santa Catarina'},{c:'SP',n:'Sao Paulo'},{c:'SE',n:'Sergipe'},{c:'TO',n:'Tocantins'}
+        ]
+      };
+
+      var CITIES={
+        'US-AL':['Auburn','Birmingham','Decatur','Dothan','Florence','Hoover','Huntsville','Mobile','Montgomery','Tuscaloosa'],
+        'US-AK':['Anchorage','Fairbanks','Juneau','Kenai','Ketchikan','Kodiak','Sitka','Wasilla'],
+        'US-AZ':['Chandler','Gilbert','Glendale','Mesa','Peoria','Phoenix','Scottsdale','Tempe','Tucson','Yuma'],
+        'US-AR':['Bentonville','Conway','Fayetteville','Fort Smith','Jonesboro','Little Rock','Rogers','Springdale'],
+        'US-CA':['Anaheim','Bakersfield','Fresno','Irvine','Long Beach','Los Angeles','Oakland','Riverside','Sacramento','San Diego','San Francisco','San Jose','Santa Ana','Stockton'],
+        'US-CO':['Aurora','Boulder','Colorado Springs','Denver','Fort Collins','Greeley','Lakewood','Pueblo','Thornton','Westminster'],
+        'US-CT':['Bridgeport','Danbury','Hartford','New Britain','New Haven','Norwalk','Stamford','Waterbury'],
+        'US-DE':['Dover','Georgetown','Middletown','Milford','Newark','Seaford','Smyrna','Wilmington'],
+        'US-FL':['Cape Coral','Fort Lauderdale','Gainesville','Hialeah','Jacksonville','Miami','Orlando','Pembroke Pines','Port St. Lucie','St. Petersburg','Tallahassee','Tampa'],
+        'US-GA':['Albany','Athens','Atlanta','Augusta','Columbus','Macon','Roswell','Savannah','Warner Robins'],
+        'US-HI':['Ewa Beach','Hilo','Honolulu','Kailua','Kaneohe','Mililani','Pearl City','Waipahu'],
+        'US-ID':['Boise','Caldwell','Coeur d\'Alene','Idaho Falls','Meridian','Nampa','Pocatello','Twin Falls'],
+        'US-IL':['Aurora','Champaign','Chicago','Elgin','Joliet','Naperville','Peoria','Rockford','Springfield'],
+        'US-IN':['Bloomington','Carmel','Evansville','Fishers','Fort Wayne','Gary','Hammond','Indianapolis','Muncie','South Bend'],
+        'US-IA':['Ames','Cedar Rapids','Davenport','Des Moines','Dubuque','Iowa City','Sioux City','Waterloo'],
+        'US-KS':['Kansas City','Lawrence','Lenexa','Manhattan','Olathe','Overland Park','Shawnee','Topeka','Wichita'],
+        'US-KY':['Bowling Green','Covington','Florence','Georgetown','Henderson','Lexington','Louisville','Owensboro','Richmond'],
+        'US-LA':['Alexandria','Baton Rouge','Bossier City','Houma','Kenner','Lafayette','Lake Charles','Monroe','New Orleans','Shreveport'],
+        'US-ME':['Auburn','Bangor','Biddeford','Lewiston','Portland','Saco','Sanford','South Portland'],
+        'US-MD':['Annapolis','Baltimore','Bowie','College Park','Frederick','Gaithersburg','Hagerstown','Rockville'],
+        'US-MA':['Boston','Brockton','Cambridge','Fall River','Lowell','Lynn','New Bedford','Quincy','Springfield','Worcester'],
+        'US-MI':['Ann Arbor','Dearborn','Detroit','Flint','Grand Rapids','Kalamazoo','Lansing','Livonia','Sterling Heights','Warren'],
+        'US-MN':['Bloomington','Brooklyn Park','Duluth','Eden Prairie','Minneapolis','Plymouth','Rochester','St. Cloud','Saint Paul'],
+        'US-MS':['Biloxi','Gulfport','Hattiesburg','Jackson','Meridian','Olive Branch','Southaven','Tupelo'],
+        'US-MO':['Columbia','Independence','Kansas City','Lee\'s Summit','O\'Fallon','Saint Louis','Springfield','St. Joseph'],
+        'US-MT':['Billings','Bozeman','Butte','Great Falls','Helena','Kalispell','Missoula'],
+        'US-NE':['Bellevue','Fremont','Grand Island','Hastings','Kearney','Lincoln','Omaha'],
+        'US-NV':['Carson City','Enterprise','Henderson','Las Vegas','North Las Vegas','Reno','Sparks'],
+        'US-NH':['Concord','Derry','Dover','Manchester','Merrimack','Nashua','Rochester','Salem'],
+        'US-NJ':['Camden','Edison','Elizabeth','Jersey City','Lakewood','Newark','Paterson','Toms River','Trenton','Woodbridge'],
+        'US-NM':['Albuquerque','Clovis','Farmington','Las Cruces','Rio Rancho','Roswell','Santa Fe'],
+        'US-NY':['Albany','Buffalo','Mount Vernon','New Rochelle','New York City','Rochester','Syracuse','Yonkers'],
+        'US-NC':['Cary','Charlotte','Durham','Fayetteville','Greensboro','High Point','Raleigh','Wilmington','Winston-Salem'],
+        'US-ND':['Bismarck','Dickinson','Fargo','Grand Forks','Mandan','Minot','West Fargo','Williston'],
+        'US-OH':['Akron','Canton','Cincinnati','Cleveland','Columbus','Dayton','Parma','Toledo','Youngstown'],
+        'US-OK':['Broken Arrow','Edmond','Enid','Lawton','Midwest City','Moore','Norman','Oklahoma City','Stillwater','Tulsa'],
+        'US-OR':['Beaverton','Bend','Eugene','Gresham','Hillsboro','Medford','Portland','Salem','Springfield'],
+        'US-PA':['Allentown','Bethlehem','Erie','Lancaster','Philadelphia','Pittsburgh','Reading','Scranton','York'],
+        'US-RI':['Coventry','Cranston','Cumberland','East Providence','Pawtucket','Providence','Warwick','Woonsocket'],
+        'US-SC':['Charleston','Columbia','Goose Creek','Greenville','Mount Pleasant','North Charleston','Rock Hill','Summerville'],
+        'US-SD':['Aberdeen','Brookings','Mitchell','Pierre','Rapid City','Sioux Falls','Watertown','Yankton'],
+        'US-TN':['Chattanooga','Clarksville','Franklin','Jackson','Johnson City','Knoxville','Memphis','Murfreesboro','Nashville'],
+        'US-TX':['Arlington','Austin','Corpus Christi','Dallas','El Paso','Fort Worth','Garland','Houston','Irving','Laredo','Lubbock','Plano','San Antonio','Waco'],
+        'US-UT':['Ogden','Orem','Provo','Salt Lake City','Sandy','St. George','West Jordan','West Valley City'],
+        'US-VT':['Bennington','Brattleboro','Burlington','Colchester','Essex','Montpelier','Rutland','South Burlington'],
+        'US-VA':['Alexandria','Chesapeake','Hampton','Norfolk','Portsmouth','Richmond','Roanoke','Virginia Beach'],
+        'US-WA':['Bellevue','Everett','Kent','Kirkland','Renton','Seattle','Spokane','Tacoma','Vancouver'],
+        'US-WV':['Beckley','Charleston','Fairmont','Huntington','Martinsburg','Morgantown','Parkersburg','Wheeling'],
+        'US-WI':['Appleton','Eau Claire','Green Bay','Kenosha','Madison','Milwaukee','Oshkosh','Racine','Waukesha'],
+        'US-WY':['Casper','Cheyenne','Cody','Gillette','Green River','Laramie','Rock Springs','Sheridan'],
+        'US-DC':['Washington'],
+        'CA-AB':['Airdrie','Calgary','Edmonton','Grande Prairie','Lethbridge','Medicine Hat','Red Deer','Spruce Grove','St. Albert'],
+        'CA-BC':['Abbotsford','Burnaby','Coquitlam','Kelowna','Richmond','Surrey','Vancouver'],
+        'CA-MB':['Brandon','Portage la Prairie','Steinbach','Thompson','Winnipeg'],
+        'CA-NB':['Bathurst','Dieppe','Fredericton','Miramichi','Moncton','Saint John'],
+        'CA-NL':['Conception Bay South','Corner Brook','Mount Pearl','Paradise','St. John\'s'],
+        'CA-NS':['Dartmouth','Glace Bay','Halifax','New Glasgow','Sydney','Truro'],
+        'CA-NT':['Behchoko','Fort Smith','Hay River','Inuvik','Yellowknife'],
+        'CA-NU':['Arviat','Baker Lake','Cambridge Bay','Iqaluit','Rankin Inlet'],
+        'CA-ON':['Brampton','Hamilton','Kitchener','London','Markham','Mississauga','Ottawa','Toronto','Vaughan','Windsor'],
+        'CA-PE':['Charlottetown','Cornwall','Montague','Stratford','Summerside'],
+        'CA-QC':['Gatineau','Laval','Levis','Longueuil','Montreal','Quebec City','Saguenay','Sherbrooke','Trois-Rivieres'],
+        'CA-SK':['Moose Jaw','North Battleford','Prince Albert','Regina','Saskatoon','Swift Current','Yorkton'],
+        'CA-YT':['Dawson City','Haines Junction','Watson Lake','Whitehorse'],
+        'AU-ACT':['Canberra','Queanbeyan'],
+        'AU-NSW':['Blacktown','Campbelltown','Liverpool','Newcastle','Parramatta','Penrith','Sydney','Wollongong'],
+        'AU-NT':['Alice Springs','Darwin','Katherine','Palmerston'],
+        'AU-QLD':['Brisbane','Cairns','Gold Coast','Mackay','Rockhampton','Sunshine Coast','Toowoomba','Townsville'],
+        'AU-SA':['Adelaide','Mount Gambier','Murray Bridge','Port Pirie','Whyalla'],
+        'AU-TAS':['Burnie','Devonport','Glenorchy','Hobart','Launceston'],
+        'AU-VIC':['Ballarat','Bendigo','Geelong','Melbourne','Mildura','Shepparton','Wodonga'],
+        'AU-WA':['Bunbury','Fremantle','Joondalup','Mandurah','Perth','Rockingham'],
+        'GB-ENG':['Birmingham','Bradford','Bristol','Leeds','Leicester','Liverpool','London','Manchester','Newcastle upon Tyne','Sheffield'],
+        'GB-SCT':['Aberdeen','Dundee','Edinburgh','Glasgow','Inverness','Perth','Stirling'],
+        'GB-WLS':['Barry','Bridgend','Cardiff','Neath','Newport','Swansea','Wrexham'],
+        'GB-NIR':['Armagh','Ballymena','Bangor','Belfast','Lisburn','Londonderry','Newry'],
+        'IN-AP':['Guntur','Kurnool','Nellore','Rajahmundry','Vijayawada','Visakhapatnam'],
+        'IN-GJ':['Ahmedabad','Bhavnagar','Jamnagar','Rajkot','Surat','Vadodara'],
+        'IN-HR':['Ambala','Faridabad','Gurugram','Panipat','Rohtak'],
+        'IN-KA':['Bangalore','Belgaum','Hubli','Mangalore','Mysore'],
+        'IN-KL':['Kochi','Kozhikode','Malappuram','Thiruvananthapuram','Thrissur'],
+        'IN-MP':['Bhopal','Gwalior','Indore','Jabalpur','Ujjain'],
+        'IN-MH':['Aurangabad','Kolhapur','Mumbai','Nagpur','Nashik','Pune','Solapur','Thane'],
+        'IN-PB':['Amritsar','Bathinda','Jalandhar','Ludhiana','Mohali','Patiala'],
+        'IN-RJ':['Ajmer','Bikaner','Jaipur','Jodhpur','Kota','Udaipur'],
+        'IN-TN':['Chennai','Coimbatore','Madurai','Salem','Tirunelveli','Tiruchirappalli'],
+        'IN-TG':['Hyderabad','Karimnagar','Khammam','Nizamabad','Warangal'],
+        'IN-UP':['Agra','Ghaziabad','Kanpur','Lucknow','Meerut','Prayagraj','Varanasi'],
+        'IN-WB':['Asansol','Bardhaman','Durgapur','Howrah','Kolkata','Siliguri'],
+        'IN-DL':['Delhi','Faridabad','Ghaziabad','Gurugram','Noida'],
+        'MX-BCN':['Ensenada','Mexicali','Rosarito','Tecate','Tijuana'],
+        'MX-CMX':['Coyoacan','Iztapalapa','Mexico City','Tlalpan','Xochimilco'],
+        'MX-GUA':['Celaya','Guanajuato City','Irapuato','Leon','Salamanca'],
+        'MX-JAL':['Guadalajara','Puerto Vallarta','Tlaquepaque','Tonala','Zapopan'],
+        'MX-NLE':['Apodaca','Escobedo','Guadalupe','Monterrey','San Nicolas de los Garza'],
+        'MX-PUE':['Atlixco','Puebla','San Martin Texmelucan','Tehuacan'],
+        'MX-SON':['Ciudad Obregon','Guaymas','Hermosillo','Navojoa','Nogales'],
+        'MX-TAM':['Matamoros','Nuevo Laredo','Reynosa','Tampico','Victoria'],
+        'MX-VER':['Coatzacoalcos','Cordoba','Poza Rica','Veracruz','Xalapa'],
+        'BR-BA':['CamaÃ§ari','Feira de Santana','Salvador','Vitoria da Conquista'],
+        'BR-CE':['Fortaleza','Juazeiro do Norte','Sobral'],
+        'BR-GO':['Aparecida de Goiania','Goiania'],
+        'BR-MG':['Belo Horizonte','Betim','Contagem','Juiz de Fora','Uberlandia'],
+        'BR-PA':['Ananindeua','Belem','Santarem'],
+        'BR-PR':['Curitiba','Londrina','Maringa','Ponta Grossa'],
+        'BR-PE':['Caruaru','Olinda','Recife'],
+        'BR-RJ':['Duque de Caxias','Niteroi','Nova Iguacu','Rio de Janeiro','Sao Goncalo'],
+        'BR-RS':['Canoas','Caxias do Sul','Pelotas','Porto Alegre','Santa Maria'],
+        'BR-SC':['Blumenau','Florianopolis','Joinville'],
+        'BR-SP':['Campinas','Guarulhos','Osasco','Santo Andre','Sao Bernardo do Campo','Sao Paulo','Sorocaba']
+      };
+
+      function populateCountries(){
+        var sel=document.getElementById('loc-country');
+        if(!sel) return;
+        COUNTRIES.forEach(function(c){
+          var o=document.createElement('option');
+          o.value=c.c; o.textContent=c.n;
+          if(c.c==='US') o.selected=true;
+          sel.appendChild(o);
+        });
+        populateStates();
+      }
+
+      function populateStates(){
+        var country=document.getElementById('loc-country').value;
+        var stSel=document.getElementById('loc-state');
+        var citSel=document.getElementById('loc-city');
+        stSel.innerHTML='<option value="">Select State / Province</option>';
+        citSel.innerHTML='<option value="">Select City</option>';
+        if(!country||!STATES[country]) return;
+        STATES[country].forEach(function(s){
+          var o=document.createElement('option');
+          o.value=s.c; o.textContent=s.n;
+          stSel.appendChild(o);
+        });
+      }
+
+      function populateCities(){
+        var country=document.getElementById('loc-country').value;
+        var state=document.getElementById('loc-state').value;
+        var citSel=document.getElementById('loc-city');
+        citSel.innerHTML='<option value="">Select City</option>';
+        if(!country||!state) return;
+        var key=country+'-'+state;
+        var list=CITIES[key];
+        if(list){
+          list.forEach(function(city){
+            var o=document.createElement('option');
+            o.value=city; o.textContent=city;
+            citSel.appendChild(o);
+          });
+        }
+        var other=document.createElement('option');
+        other.value='Other'; other.textContent='Other';
+        citSel.appendChild(other);
+      }
+
+      document.addEventListener('DOMContentLoaded',function(){
+        populateCountries();
+        var cSel=document.getElementById('loc-country');
+        var sSel=document.getElementById('loc-state');
+        if(cSel) cSel.addEventListener('change',populateStates);
+        if(sSel) sSel.addEventListener('change',populateCities);
+      });
+    })();
+    </script>
+
+    <!-- Leaflet map init -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      (function () {
+        window._officesMap = L.map('offices-map', { scrollWheelZoom: false }).setView([31.5, -95.5], 5);
+        window._officesMarkers = [];
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 18
+        }).addTo(window._officesMap);
+
+        window._officesRedIcon = L.icon({
+          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+          iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+        function addMarkers(offices) {
+          var withCoords = offices.filter(function (o) { return o.lat != null && o.lng != null; });
+          withCoords.forEach(function (o) {
+            var phone = [o.phone1, o.phone2].filter(Boolean).join(' / ');
+            var addr = (o.address || '') + (o.city_state ? ', ' + o.city_state : '');
+            var marker = L.marker([o.lat, o.lng], { icon: window._officesRedIcon })
+              .addTo(window._officesMap)
+              .bindPopup(
+                '<div class="map-popup-title">' + (o.name || '') + '</div>' +
+                '<div class="map-popup-addr">' + addr + '</div>' +
+                (phone ? '<div class="map-popup-phone"><i class="fa fa-phone" style="margin-right:5px;"></i>' + phone + '</div>' : '')
+              );
+            window._officesMarkers.push(marker);
+          });
+          if (window._officesMarkers.length) {
+            try { window._officesMap.fitBounds(L.featureGroup(window._officesMarkers).getBounds().pad(0.25)); } catch (e) {}
+          }
+        }
+
+        function renderGrid(offices) {
+          var grid = document.getElementById('regional-offices-grid');
+          if (!grid || !offices.length) return;
+          grid.innerHTML = offices.map(function (o) {
+            var phones = '';
+            if (o.phone1) phones += '<p><a href="tel:' + o.phone1 + '"><i class="fa fa-phone me-2"></i>' + o.phone1 + '</a></p>';
+            if (o.phone2) phones += '<p><a href="tel:' + o.phone2 + '"><i class="fa fa-phone me-2"></i>' + o.phone2 + '</a></p>';
+            var hours = o.hours ? '<span class="hours"><i class="fa fa-clock-o me-1"></i>' + o.hours + '</span>' : '';
+            var addr = (o.address || '') + (o.city_state ? '<br>' + o.city_state : '');
+            var label = '';
+            if (o.name && o.name.toLowerCase().includes('houston')) {
+                label = '<span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Manufacturing facility</span>';
+            } else {
+                label = '<span style="position:absolute; top:25px; right:20px; font-size:11px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Distribution</span>';
+            }
+            return '<div class="col-lg-4 col-md-6"><div class="office-card">' +
+              label +
+              '<div class="office-icon"><i class="fa fa-map-marker"></i></div>' +
+              '<h5>' + (o.name || '') + '</h5>' +
+              '<p><i class="fa fa-map-marker ttm-textcolor-skincolor me-2"></i>' + addr + '</p>' +
+              phones + hours +
+              '</div></div>';
+          }).join('');
+        }
+
+        // Fallback offices (used only if the API is unreachable/empty)
+        var FALLBACK_OFFICES = [
+          { name: 'Corporate Office', address: '510 O\'Neal Lane Ext.', city_state: 'Baton Rouge, LA 70819', phone1: '1-800-848-4500', phone2: '1-225-273-9600', hours: 'Mon &rdquo;“ Fri | 8AM &rdquo;“ 5PM', lat: 30.4624, lng: -91.0094 },
+          { name: 'Houston, TX', address: '5102 Galveston Rd.', city_state: 'Houston, TX 77017', phone1: '1-713-641-2727', hours: 'Mon &rdquo;“ Fri | 8AM &rdquo;“ 5PM', lat: 29.6889, lng: -95.2432 },
+          { name: 'Arlington, TX', address: '3420 Dalworth St.', city_state: 'Arlington, TX 76011', phone1: '1-972-263-5640', hours: 'Mon &rdquo;“ Fri | 8AM &rdquo;“ 5PM', lat: 32.7188, lng: -97.1281 },
+          { name: 'Corpus Christi, TX', address: '1911 North Lexington Blvd.', city_state: 'Corpus Christi, TX 78409', phone1: '1-888-635-6209', hours: 'Mon &rdquo;“ Fri | 8AM &rdquo;“ 5PM', lat: 27.7864, lng: -97.4024 },
+          { name: 'Oklahoma City, OK', address: '234 S.E. 45th Street', city_state: 'Oklahoma City, OK 73129', phone1: '1-405-444-8701', hours: 'Mon &rdquo;“ Fri | 8AM &rdquo;“ 5PM', lat: 35.4307, lng: -97.4688 }
+        ];
+
+        fetch('/api/v2/regional-offices')
+          .then(function (r) { return r.json(); })
+          .then(function (offices) {
+            if (offices && offices.length) { renderGrid(offices); addMarkers(offices); }
+            else { addMarkers(FALLBACK_OFFICES); }
+          })
+          .catch(function () { addMarkers(FALLBACK_OFFICES); });
+      })();
+    </script>
+  </body>
+</html>
+

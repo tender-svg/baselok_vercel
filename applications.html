@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,2500);
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,50);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+      <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="HTML5 Template">
+  <meta name="description"
+    content="Baselok - Over 6 Decades of Proven Technology Between Biaxial and Uniaxial Geogrid and Cellular Confinement Technologies, Geosynthetics Have Been at the Forefront of Soil Stabilization Applications Since 1959.Get In TouchIndustrial Fabrics Production Facility ~ Houston, TexasBase Reinforcement. Installed beneath an aggregate layer, this open aperture structure allows fill material to interlock, proving tensile properties to the aggregate, increasing the stiffness of ... Read More">
+  <meta name="author" content="https://www.baselok.com/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Applications - BaseLok&reg;</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+  <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798736513" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all">
+  <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798736513">
+
+  <style>
+    @media (min-width: 992px) {
+      #pills-tabContent .row {
+        align-items: stretch !important;
+      }
+      #pills-tabContent .col-lg-6:first-child {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      #pills-tabContent .application-img {
+        height: 100% !important;
+        min-height: 100% !important;
+        display: flex !important;
+        flex: 1 1 auto !important;
+      }
+      #pills-tabContent .application-img img {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        border-radius: 6px !important;
+      }
+    }
+  </style>
+</head>
+
+<body data-page-id="applications">
+  <!--page start-->
+  <div class="page">
+
+    <!--header start-->
+    <header id="masthead" class="header ttm-header-style-03">
+      <!-- topbar -->
+      <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+        <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- topbar end -->
+      <!-- site-header-menu -->
+      <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+        <div class="site-header-menu-inner ttm-stickable-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <!--site-navigation -->
+                <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                  <!-- site-branding -->
+                  <div class="site-branding">
+                    <a class="home-link" href="index.html" title="Baselok" rel="home">
+                      <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                    </a>
+                  </div>
+                  <!-- site-branding end -->
+                  <div class="d-flex flex-row ms-auto">
+                    <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                      <span class="menubar-box">
+                        <span class="menubar-inner"></span>
+                      </span>
+                    </div>
+                    <!-- menu -->
+                    <nav class="main-menu menu-mobile" id="menu">
+                      <ul class="menu">
+                          <li class="mega-menu-item">
+                          <a href="support.html">Design Support</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="baselok-pro.html">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="applications.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Applications</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="solutions.html">Solutions</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="resources.html">Resources</a>
+                        </li>
+                          <li class="mega-menu-item">
+                          <a href="case-studies.html">Project Highlights</a>
+                        </li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                    <!-- menu end -->
+                  </div>
+                  <div class="top_bar_contact_item">
+                    <div class="header_search">
+                      <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                      <div class="header_search_content">
+                        <div class="header_search_content_inner">
+                          <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                          <form id="searchbox" method="get" action="#">
+                            <input class="search_query" type="text" id="search_query_top" name="s"
+                              placeholder="Enter Keyword" value="">
+                            <button type="submit" class="btn close-search">
+                              <i class="ti ti-search"></i>
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- site-navigation end-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- site-header-menu end-->
+    </header>
+    <!--header end-->
+
+    <!-- page-title -->
+    <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix" data-cms="auto-applications-bg-93" style="background-image:url('/images/cms-uploads/applications/1784064248692_shutterstock_2690723379_Large.jpeg');">
+      <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-12">
+            <div class="ttm-page-title-row-inner">
+              <div class="page-title-heading">
+                <h2 class="title" data-cms="app-page-heading">Applications</h2>
+              </div>
+              <div class="breadcrumb-wrapper" cms-no-tag>
+                <span>
+                  <a title="Homepage" href="index.html">Home</a>
+                </span>
+                <span>Applications</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- page-title end -->
+
+    <!--site-main start-->
+    <div class="site-main">
+
+      <!-- Applications Section Start -->
+      <section class="ttm-row application-section clearfix">
+        <div class="container">
+          <!-- row -->
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- section title -->
+              <div class="section-title style2">
+                <div class="title-header">
+                  <h3 data-cms="app-hero-subtitle"><b>APPLICATIONS</b></h3>
+                  <h2 class="title" data-cms="app-hero-title">BUILT FOR CONTRACTORS<b> </b>, TRUSTED BY ENGINEERS</h2>
+                </div>
+              </div>
+              <!-- section title end -->
+            </div>
+          </div>
+
+          <div class="p-5 d-flex align-items-start">
+            <!-- Vertical Tab Nav -->
+            <ul class="nav nav-pills flex-column nav-pills border-end border-3 me-3 mt-0 align-items-end" id="pills-tab"
+              role="tablist" cms-no-tag>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold active position-relative" id="pills-roadways-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-roadways" type="button" role="tab"
+                  aria-controls="pills-roadways" aria-selected="true" data-cms="app-tab-roadways">Roadways</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold position-relative" id="pills-walls-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-walls" type="button" role="tab"
+                  aria-controls="pills-walls" aria-selected="false" data-cms="app-tab-walls">Walls & Slopes</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold position-relative" id="pills-railway-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-railway" type="button" role="tab"
+                  aria-controls="pills-railway" aria-selected="false" data-cms="app-tab-railway">Railway</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold position-relative" id="pills-structure-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-structure" type="button" role="tab"
+                  aria-controls="pills-structure" aria-selected="false" data-cms="app-tab-structure">Structure & Foundation</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold position-relative" id="pills-marine-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-marine" type="button" role="tab"
+                  aria-controls="pills-marine" aria-selected="false" data-cms="app-tab-marine">Marine</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary fw-semibold position-relative" id="pills-environmental-tab"
+                  data-bs-toggle="pill" data-bs-target="#pills-environmental" type="button" role="tab"
+                  aria-controls="pills-environmental" aria-selected="false" data-cms="app-tab-environmental">Environmental</button>
+              </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content border rounded-3 border-primary p-3 w-100" id="pills-tabContent">
+              <!-- Tab 1: Roadways -->
+              <div class="tab-pane fade show active" id="pills-roadways" role="tabpanel"
+                aria-labelledby="pills-roadways-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784063083103_IMG_1142_Large.webp" alt="Roadways" class="w-100" data-cms="app-roadways-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-roadways.html" data-cms="app-roadways-title">Roadways, Laydown Yards, &amp; Working Platforms – Paved and Unpaved</a></h4>
+                      <p data-cms="app-roadways-desc">Whether you are building a heavy haul road, crane pad, or municipal roadway, BaseLok products deliver long-lasting, cost-effective solutions. Our BaseLok product offering reduces pavement layer thicknesses, lowers labor costs, improves construction efficiency, and extends design life.</p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-roadways-subgrade-stabilization.html" data-cms="app-roadways-sub-link-1">Subgrade Stabilization/Improvement</a></li>
+                        <li><a href="sub-roadways-flexible-pavement-reinforcement.html" data-cms="app-roadways-sub-link-2">Flexible Pavement Reinforcement</a></li>
+                        <li><a href="sub-roadways-heavy-duty-surfaces.html" data-cms="app-roadways-sub-link-3">Extreme Heavy Duty Roadways & Surfaces</a></li>
+                        <li><a href="sub-roadways-crane-pad.html" data-cms="app-roadways-sub-link-4">Crane Pad Reinforcement</a></li>
+                        <li><a href="sub-structure-reduction-aggregate.html" data-cms="app-roadways-sub-link-5">Reduction of Aggregate to Achieve Desired Bearing Capacity</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-roadways.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: Walls, Slopes, Embankments -->
+              <div class="tab-pane fade" id="pills-walls" role="tabpanel" aria-labelledby="pills-walls-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784063036195_IMG_0907_Large.jpeg" alt="Walls and Slopes" class="w-100" data-cms="app-walls-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-walls-slopes.html" data-cms="app-walls-title">Walls, Slopes &amp; Embankments</a></h4>
+                      <p data-cms="app-walls-desc">BaseLok products offer aesthetically pleasing alternatives to traditional Mechanical Stabilized Earth (MSE) retaining wall facing units, erosion protection on steepened slopes, and reinforcement of critical embankments.</p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-walls-slopes-retaining-walls.html" data-cms="app-walls-sub-link-1">Retaining Walls</a></li>
+                        <li><a href="sub-walls-slopes-reinforced-slopes.html" data-cms="app-walls-sub-link-2">Slope Erosion Control</a></li>
+                        <li><a href="sub-walls-slopes-reinforced-embankments.html" data-cms="app-walls-sub-link-3">Reinforced Embankments</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-walls-slopes.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3: Railway -->
+              <div class="tab-pane fade" id="pills-railway" role="tabpanel" aria-labelledby="pills-railway-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784902616938_shutterstock_2434755829_Large.webp" alt="Railway" class="w-100" data-cms="app-railways-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-railways.html">Railway</a></h4>
+                      <p>
+                        By utilizing Baselok Geogrids and Geocell, Railway
+                        Designers can enhance the performance of costly sub
+                        ballast and ballast.
+                      </p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-railways-ballast-reinforcement.html" data-cms="app-railways-sub-link-1">Reinforce Ballast and Sub Ballast</a></li>
+                        <li><a href="sub-railways-rail-infrastructure-protection.html" data-cms="app-railways-sub-link-2">Protect Critical Rail Infrastructure From Impact Loading</a></li>
+                        <li><a href="sub-railways-ballast-fouling-prevention.html" data-cms="app-railways-sub-link-3">Eliminate Ballast Fouling Extend Service Life and Reduce Costly Track Maintenance</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-railways.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 4: Structure & Foundation Support -->
+              <div class="tab-pane fade" id="pills-structure" role="tabpanel" aria-labelledby="pills-structure-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784063537997_image-20231207-191704-71137531_Large.jpeg" alt="Structure and Foundation" class="w-100" data-cms="app-structure-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-structure-foundation-support.html"
+                          data-cms="app-structure-title">Structure &amp; Foundation Support</a></h4>
+                      <p data-cms="app-structure-desc">Utilization of Baselok Geogrids and Geocell to
+                        increase bearing capacity and decrease differential
+                        settlement.</p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-structure-increased-bearing-capacity.html" data-cms="app-structure-sub-link-1">Increased Bearing Capacity</a></li>
+                        <li><a href="sub-structure-reduction-differential-settlement.html" data-cms="app-structure-sub-link-2">Reduction of Differential Settlement</a></li>
+                        <li><a href="sub-structure-enhanced-structural-integrity.html" data-cms="app-structure-sub-link-3">Enhanced Structural Integrity</a></li>
+                        <li><a href="sub-structure-reduction-aggregate.html" data-cms="app-structure-sub-link-4">Reduction of Aggregate to Achieve Desired Bearing Capacity</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-structure-foundation-support.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 5: Marine -->
+              <div class="tab-pane fade" id="pills-marine" role="tabpanel" aria-labelledby="pills-marine-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784140146070_MRG.001-297._small_4_web.jpg" alt="Marine" class="w-100" data-cms="app-marine-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-marine.html" data-cms="app-marine-title">Marine</a></h4>
+                      <p data-cms="app-marine-desc">Baselok Marine Systems are a proven and efficient
+                        solution to protect and construct marine foundations
+                        for breakwater structures, shoreline stabilization,
+                        jetties, &amp; revetments.</p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-marine-extreme-scour-protection.html" data-cms="app-marine-sub-link-1">Marine Scour Protection</a></li>
+                        <li><a href="sub-marine-protection-resources.html" data-cms="app-marine-sub-link-2">Protection of Marine Resources</a></li>
+                        <li><a href="sub-marine-ecosystem-rehabilitation.html" data-cms="app-marine-sub-link-3">Rehabilitation and Preservation of Critical Ecosystems</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-marine.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 6: Environmental Enhancements -->
+              <div class="tab-pane fade" id="pills-environmental" role="tabpanel"
+                aria-labelledby="pills-environmental-tab">
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-img">
+                      <img src="/images/cms-uploads/applications/1784064090667_IMG_2927_Large.jpeg" alt="Environmental Enhancements" class="w-100" data-cms="app-environmental-img" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-6">
+                    <div class="application-content">
+                      <h4><a href="application-environmental.html" data-cms="app-environmental-title">Environmental Enhancements</a></h4>
+                      <p data-cms="app-environmental-desc">Utilize Baselok products to construct waste
+                        containment structures, reduce erosion impacts, and
+                        develop critical shoreline infrastructure.</p>
+                      <ul cms-no-tag>
+                        <li><a href="sub-environmental-living-shorelines.html" data-cms="app-environmental-sub-link-1">Environmentally Friendly Living Shoreline Applications</a></li>
+                        <li><a href="sub-environmental-slopes-embankments.html" data-cms="app-environmental-sub-link-2">Protection of Slopes and Embankments</a></li>
+                        <li><a href="sub-environmental-waterway-erosion.html" data-cms="app-environmental-sub-link-3">Protection of Extreme Waterway Erosion</a></li>
+                      </ul>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_top15 text-center"
+                        href="application-environmental.html">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /tab-content -->
+          </div>
+        </div>
+      </section>
+      <!-- Applications Section End -->
+
+      <!--padding_zero-section-->
+      <section class="application-title ttm-bgcolor-darkgrey ttm-row clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="ttm-bg ttm-col-bgcolor-yes ttm-bg ttm-col-bgimage-yes col-bg-img-one ttm-left-span">
+                <div class="layer-content">
+                  <!-- section title -->
+                  <div class="section-title style2">
+                    <div class="title-header">
+                      <h3 data-cms="app-markets-subtitle">OUR MARKET SECTORS</h3>
+                      <h2 class="title" data-cms="app-markets-title">Markets Served by
+                        <b>Baselok Products</b></h2>
+                    </div>
+                    <div class="title-desc" data-cms="app-markets-desc"><p>
+                        A premium suite of reinforcement and stabilization
+                        systems—designed to perform under heavy loads and
+                        harsh conditions.
+                      </p></div>
+                  </div>
+                  <!-- section title end -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--padding_zero-section end-->
+
+      <!--padding_top_zero-section-->
+      <section class="market-serve-slider ttm-bgcolor-darkgrey ttm-row padding_top_zero-section res-991-margin_top_30 clearfix">
+        <div class="container">
+
+          <style>
+            .market-flat-card {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 12px 14px;
+              border: 1px solid #dde1e7;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: all 0.25s ease;
+              background: #fff;
+              text-decoration: none !important;
+              height: 100%;
+            }
+            .market-flat-card:hover {
+              background: #e8192c;
+              border-color: #e8192c;
+            }
+            .market-flat-card .mfc-icon {
+              width: 42px;
+              height: 42px;
+              min-width: 42px;
+              border-radius: 50%;
+              background: #fff;
+              border: 1px solid #e8e8e8;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: background 0.25s ease;
+            }
+            .market-flat-card:hover .mfc-icon {
+              background: rgba(255,255,255,0.2);
+              border-color: transparent;
+            }
+            .market-flat-card .mfc-icon i {
+              color: #e8192c;
+              font-size: 17px;
+              transition: color 0.25s ease;
+            }
+            .market-flat-card:hover .mfc-icon i {
+              color: #fff;
+            }
+            .market-flat-card .mfc-label,
+            .market-flat-card .mfc-label * {
+              color: #1d2535 !important;
+              font-size: 13px;
+              font-weight: 500;
+              line-height: 1.3;
+              margin: 0;
+            }
+            .market-flat-card:hover .mfc-label,
+            .market-flat-card:hover .mfc-label * {
+              color: #fff !important;
+            }
+          </style>
+
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 pt-4 pb-4 justify-content-center">
+            <div class="col">
+              <a href="market-renewable-energy.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-bolt"></i></div>
+                <span class="mfc-label" data-cms="market-card-1-label">Renewable Energy</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-data-centers.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-server"></i></div>
+                <span class="mfc-label" data-cms="market-card-2-label">Data Centers</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-electrical-distribution.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-plug"></i></div>
+                <span class="mfc-label" data-cms="market-card-3-label">Electrical Distribution</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-petrochemical.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-flask"></i></div>
+                <span class="mfc-label" data-cms="market-card-4-label">Petrochemical</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-industrial.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-industry"></i></div>
+                <span class="mfc-label" data-cms="market-card-5-label">Industrial</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-railways.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-train"></i></div>
+                <span class="mfc-label" data-cms="market-card-6-label">Railways</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-ports-intermodal.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-anchor"></i></div>
+                <span class="mfc-label" data-cms="market-card-7-label">Port / Intermodal Facilities</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-oil-and-gas.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-tint"></i></div>
+                <span class="mfc-label" data-cms="market-card-8-label">Oil &amp; Gas</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-government-infrastructure.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-building"></i></div>
+                <span class="mfc-label" data-cms="market-card-9-label">Government Infrastructure</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-airports.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-plane"></i></div>
+                <span class="mfc-label" data-cms="market-card-10-label">Airports</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-roadways.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-road"></i></div>
+                <span class="mfc-label" data-cms="market-card-11-label">Roadways</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-commercial-residential.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-home"></i></div>
+                <span class="mfc-label" data-cms="market-card-12-label">Commercial / Residential</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-coastal-marine.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-ship"></i></div>
+                <span class="mfc-label" data-cms="market-card-13-label">Coastal / Marine Waterways</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-waste-management.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-recycle"></i></div>
+                <span class="mfc-label" data-cms="market-card-14-label">Waste Management</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-military.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-shield"></i></div>
+                <span class="mfc-label" data-cms="market-card-15-label">Military</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-mining.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-cubes"></i></div>
+                <span class="mfc-label" data-cms="market-card-16-label">Mining</span>
+              </a>
+            </div>
+            <div class="col">
+              <a href="market-federal-epa-hazmat.html" class="market-flat-card" cms-no-tag>
+                <div class="mfc-icon" cms-no-tag><i class="fa fa-home"></i></div>
+                <span class="mfc-label" data-cms="market-card-17-label">Temporary Housing</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!--padding_top_zero-section end-->
+
+    <!--dynamic-blog-section-->
+    <section class="ttm-row dynamic-blog-section clearfix">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- section title -->
+            <div class="section-title style2" cms-no-tag>
+              <div class="title-header">
+                <h3 cms-no-tag>Resources</h3>
+                <h2 class="title" data-cms="app-articles-title">Featured <b>Insights</b></h2>
+              </div>
+            </div>
+            <!-- section title end -->
+          </div>
+        </div>
+        <div id="dynamic-latest-articles-row" class="row slick_slider_dynamic mb_15"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802588659_20200923_181609978_iOS.jpeg" alt="FabGrid Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-fabgrid-blog.html">FabGrid Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Maintaining the integrity of soil layers is critical for long-term infrastructure performance. Baselok FabGrid...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-fabgrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802679146_IMG_1163_small.jpg" alt="GeoCell Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geocell-blog.html">GeoCell Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Infrastructure development in weak soil conditions requires innovative reinforcement solutions. Baselok GeoCel...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geocell-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783801987168_IMG_1142.jpg" alt="Ground Stabilization With Geosynthetics" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-ground-stabilization-with-geosynthetics.html">Ground Stabilization With Geosynthetics</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Explore how advanced geosynthetic solutions like Baselok Geogrid and FabGrid are transforming modern construct...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-ground-stabilization-with-geosynthetics.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802147231_IMG_0890.jpg" alt="Erosion Control &amp;amp; Slope Protection" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-erosion-control-slope-protection.html">Erosion Control &amp;amp; Slope Protection</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Understand how Baselok GeoCell and SiltGuard solutions help manage erosion and protect infrastructure in chall...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-erosion-control-slope-protection.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802238221_image-20230419-133814-03420124.jpeg" alt="Why Geogrid Belongs in Your Next Project" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geogrid-blog.html">Why Geogrid Belongs in Your Next Project</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Modern infrastructure projects demand solutions that are faster, more cost-effective, and more durable than wh...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geogrid-blog.html">read more</a></div></div></div></div>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30"
+              href="resources.html">View More Resources</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--dynamic-blog-section end-->
+  </div>
+  <!--site-main end-->
+
+  <!--footer start-->
+  <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+    <div class="second-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+            <div class="widget widget_text margin_right10 clearfix">
+              <div class="footer-logo mb-3">
+                <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170"
+                  src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+              </div>
+              <div class="textwidget widget-text">
+                <p>
+                  Between Biaxial and Uniaxial Geogrid and Cellular
+                  Confinement Technologies, Geosynthetics Have Been at the
+                  Forefront of Soil Stabilization Applications Since 1959.
+                </p>
+              </div>
+                  <div class="social-icons text-lg-right">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top"
+                      href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener"
+                      aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener"
+                      aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+            <div class="widget widget_nav_menu clearfix">
+              <h3 class="widget-title">Solutions</h3>
+              <ul id="menu-footer-quick-links" class="menu">
+                <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                <li><a href="solution-geocell.html">GeoCell</a></li>
+                <li><a href="solution-fps.html">FPS</a></li>
+                <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                <li><a href="solution-marine.html">Marine</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+            <div class="widget widget-recent-post clearfix">
+              <h3 class="widget-title">Resources</h3>
+              <ul id="menu-footer-quick-links" class="menu">
+                <li><a href="resources.html#pane-videos">Videos</a></li>
+                <li><a href="login.html">CMS Login</a></li>
+                <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                <li><a href="login.html">CMS Login</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+            <div class="widget widget-latest-tweets clearfix">
+              <h3 class="widget-title">Contact Us</h3>
+              <ul class="widget_contact_wrapper">
+                <li data-cms="footer-address"><i class="ttm-textcolor-skincolor fa fa-map-marker"></i>510 O'Neal Lane Ext.&nbsp;<div>Baton Rouge, LA 70819</div></li>
+                <li>
+                  <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1"><i class="ttm-textcolor-skincolor fa fa-phone"></i> +1.225.273.9600</a>
+                  <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2"><i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                </li>
+                <li data-cms="footer-email"><i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com" data-cms="auto-market-industrial-a-link-41" contenteditable="false">info@baselok.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-footer-text copyright">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-center">
+              <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                All rights reserved.
+              </span>
+
+              <ul class="footer-nav-menu">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--footer end-->
+
+  <!--back-to-top start-->
+  <a id="totop" href="#top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+  <!--back-to-top end-->
+  </div>
+  <!-- page end -->
+
+  <!-- Javascript -->
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery.easing.js" defer=""></script>
+  <script src="/js/jquery-waypoints.js" defer=""></script>
+  <script src="/js/jquery-validate.js" defer=""></script>
+  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+  <script src="/js/slick.min.js" defer=""></script>
+  <script src="/js/numinate.min.js" defer=""></script>
+  <script src="/js/imagesloaded.min.js" defer=""></script>
+  <script src="/js/jquery-isotope.js" defer=""></script>
+  <script src="/js/main.js" defer=""></script>
+  <!-- Javascript end-->
+  <script src="/js/cms.js?v=1782798736513" defer=""></script>
+  <script src="/js/search.js" defer=""></script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $('.app-market-grid-slider').slick({
+        slidesToShow: 6,
+        slidesToScroll: 2,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 2
+            }
+          },
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      });
+    });
+  </script>
+</body>
+
+</html>
