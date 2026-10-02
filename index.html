@@ -1,4 +1,5 @@
 <!DOCTYPE html><html lang="en"><head>
+
     <style id="cms-antiflicker">
 html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
 html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
@@ -73,23 +74,97 @@ setTimeout(hideLoader,50);
       #index-solutions-list .featured-title h3 span {
         color: #1d2535 !important;
       }
-      /* WHY CHOOSE image — height capped to the text/lists area, width slightly reduced */
+      /* WHY CHOOSE section title — reduce text size and block size */
+      .why-choose .section-title .title-header {
+        padding-bottom: 6px !important;
+      }
+      .why-choose .section-title h2.title {
+        font-size: 26px !important;
+        line-height: 34px !important;
+        margin-bottom: 8px !important;
+      }
+      @media (max-width: 767px) {
+        .why-choose .section-title h2.title {
+          font-size: 22px !important;
+          line-height: 28px !important;
+        }
+      }
+      /* WHY CHOOSE image — height matches adjacent text/lists content height */
       @media (min-width: 992px) {
-        .why-choose .why-choose-img > div { text-align: right !important; margin-top: 0 !important; }
+        .why-choose .row.align-items-center {
+          align-items: stretch !important;
+        }
+        .why-choose .why-choose-img {
+          display: flex !important;
+          flex-direction: column !important;
+        }
+        .why-choose .why-choose-img > div {
+          text-align: right !important;
+          margin-top: 0 !important;
+          height: 100% !important;
+          display: flex !important;
+          justify-content: flex-end !important;
+        }
         .why-choose .why-choose-img .ttm_single_image-wrapper.imagestyle-one {
           padding: 0 !important;
           margin: 0 !important;
-          display: inline-block !important;
-          width: 90% !important;
+          display: flex !important;
+          width: 100% !important;
+          height: 100% !important;
         }
         .why-choose .why-choose-img .ttm_single_image-wrapper.imagestyle-one:before { display: none !important; }
         .why-choose .why-choose-img .ttm_single_image-wrapper.imagestyle-one > img {
           width: 100% !important;
-          height: auto !important;
-          max-height: 470px !important;
+          height: 100% !important;
+          max-height: 100% !important;
           object-fit: cover !important;
           object-position: center !important;
           border-radius: 4px !important;
+        }
+      }
+      /* HOW WE WORK image — break out of Bootstrap container so image reaches section left edge */
+      section.how-we-work {
+        overflow: hidden !important;
+      }
+      @media (min-width: 992px) {
+        /* Make the container inside this section full-width — removes auto-centering margin */
+        .how-we-work > .container {
+          max-width: 100% !important;
+          width: 100% !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        .how-we-work .row.no-gutters {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        /* Inner row and col-lg-12 should have no extra spacing on left */
+        .how-we-work .col-lg-12 {
+          padding-left: 0 !important;
+        }
+        .how-we-work .row {
+          align-items: stretch !important;
+        }
+        /* Image column: flush to left edge, no padding */
+        .how-we-work .how-we-work-img-col {
+          display: flex !important;
+          padding: 0 !important;
+        }
+        .how-we-work .how-we-work-img-wrap {
+          width: 100% !important;
+          height: 100% !important;
+          display: flex !important;
+          overflow: hidden !important;
+        }
+        .how-we-work .how-we-work-img-wrap img {
+          width: 100% !important;
+          height: 100% !important;
+          min-height: 450px !important;
+          object-fit: cover !important;
+          object-position: center !important;
+          border-radius: 0 !important;
         }
       }
     </style>
@@ -204,7 +279,7 @@ setTimeout(hideLoader,50);
       <div class="banner_slider_wrapper">
         <!-- <div class="slider-textarea"><h4>Enquiry Call: 123 456 789123</h4></div> -->
         <div class="slider-textarea">
-          <h4 class="text-center" data-cms="header-enquiry">&nbsp; &nbsp; &nbsp; Contact Us:<div>+1.800.848.4500</div></h4>
+          <h4 class="text-center" data-cms="header-enquiry"></h4>
         </div>
 
         <div class="banner_slider banner_slider_wide">
@@ -215,9 +290,9 @@ setTimeout(hideLoader,50);
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="slide__content--headings ttm-textcolor-white text-center">
-                      <h3 data-animation="fadeInDown" data-cms="hero-sub-1">First Phase Civil Works</h3>
-                      <h2 data-animation="fadeInDown" data-cms="hero-title">BASELOK<sup>&reg;</sup> THE NAME TRUSTED BY GEOTECHNICAL ENGINEERS</h2>
-                      <div data-animation="fadeInDown" data-cms="hero-desc">Our BaseLok&nbsp;product line includes high-performance geogrids, geocell, laminated geogrid called FabGrid<sup>®</sup>, BallastGuard<sup>™</sup> and marine mattresses and geocomposites.&nbsp; Our team of Professional Engineers are experts at providing guidance on mechanical stabilization which can eliminate chemical stabilization, reduce expensive aggregate, expedite construction,&nbsp;<div>and extend the service life of your project</div></div>
+                      <h3 data-animation="fadeInDown" data-cms="hero-sub-1"><sup><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit; font-size: 14px;">BaseLok<sup>&reg;</sup>&nbsp; Geosynthetics | Soil Stabilization</span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 20px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span><span style="color: inherit; font-size: 18px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span><span style="color: inherit; font-size: 17px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 16px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 15px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 14px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 13px;"></span></sup><br></h3>
+                      <h2 data-animation="fadeInDown" data-cms="hero-title"><span style="color: rgb(243, 237, 237); font-weight: bold;">BASELOK<sup>&reg;</sup> GEOSYNTHETICS<div>SOIL STABILIZATION SOLUTIONS</div></span><span style="color: rgb(182, 37, 37);"><div><span style="font-weight: 400;"></span></div></span><span style="color: rgb(255, 255, 255);"><div><span style="font-weight: 400;"></span></div></span><div><span style="font-weight: 400;"></span></div></h2>
+                      <div data-animation="fadeInDown" data-cms="hero-desc"><br></div>
                       <div class="d-inline-block margin_top30 res-767-margin_top20" data-animation="fadeInUp" data-delay="1.4">
                         <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_right15" href="applications.html" data-cms="hero-btn-1">EXPLORE APPLICATIONS</a>
                         <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" href="solutions.html" data-cms="hero-btn-2">DESIGN YOUR PROJECT</a>
@@ -229,15 +304,15 @@ setTimeout(hideLoader,50);
             </div>
           </div>
           <div class="slide">
-            <div class="slide_img" data-cms="hero-bg-pro" style="background-image:url('/images/cms-uploads/bg-image/1781962835809_baselokpro.jpg');"></div>
+            <div class="slide_img" data-cms="hero-bg-pro" style="background-image:url('https://ratixwfiwhbzyjlmmhfp.supabase.co/storage/v1/object/public/cms-uploads/bg-image/1788382363948_Baselokpro_design_bgi.webp');"></div>
             <div class="slide__content">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="slide__content--headings ttm-textcolor-white text-center">
-                      <h3 data-animation="fadeInDown" data-cms="hero-sub-pro">BaseLok PRO &mdash; Design Software</h3>
-                      <h2 data-animation="fadeInDown" data-cms="hero-title-pro"><span style="font-weight: normal;">MAKE YOUR OWN PROJECT — USE OUR </span>DESIGN SOFTWARE</h2>
-                      <div data-animation="fadeInDown" data-cms="hero-desc-pro">BaseLok Pro is a free advanced design platform developed to help engineers, contractors, and owners design, evaluate, and optimize ground-improvement solutions with speed and confidence.<div>Built for real-world construction challenges, BaseLok Pro enables users to compare design alternatives, and refine stabilized section performance—all within a streamlined, easy-to-use interface.</div></div>
+                      <h3 data-animation="fadeInDown" data-cms="hero-sub-pro">BaseLok<sup>&reg;</sup>&nbsp;Geosynthetics | Engineering Design&nbsp;<br></h3>
+                      <h2 data-animation="fadeInDown" data-cms="hero-title-pro">&nbsp;BaseLok<sup>&reg;</sup> <i data-cms="auto-index-i-172" contenteditable="false" title="Click to change Icon / Icon Color">PRO</i><span style="font-weight: normal;"> |&nbsp;ADVANCED</span>&nbsp;<span style="font-weight: normal;">GEOTECHNICAL DESIGN SOFTWARE</span></h2>
+                      <div data-animation="fadeInDown" data-cms="hero-desc-pro">Cloud-Based Pavement Optimization and Geosynthetic Reinforcement Calculations for Civil Infrastruture</div>
                       <div class="d-inline-block margin_top30 res-767-margin_top20" data-animation="fadeInUp" data-delay="1.4">
                         <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_right15" href="baselok-pro.html" data-cms="hero-btn-pro-1">LAUNCH BASELOK PRO</a>
                         <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" href="baselok-pro.html#bpro-modules" data-cms="hero-btn-pro-2">EXPLORE MODULES</a>
@@ -249,13 +324,13 @@ setTimeout(hideLoader,50);
             </div>
           </div>
           <div class="slide">
-            <div class="slide_img" data-cms="hero-bg-2" style="background-image:url('https://baselok.qpaix.com/images/slides/slider-mainbg-002.jpg');"></div>
+            <div class="slide_img" data-cms="hero-bg-2" style="background-image:url('https://ratixwfiwhbzyjlmmhfp.supabase.co/storage/v1/object/public/cms-uploads/bg-image/1785442223164_image-20231207-185843-16b56515.webp');"></div>
             <div class="slide__content">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="slide__content--headings ttm-textcolor-white text-center">
-                      <h3 data-animation="fadeInDown" data-cms="hero-sub-2">BUILT FOR CRITICAL APPLICATIONS</h3>
+                      <h3 data-animation="fadeInDown" data-cms="hero-sub-2">BaseLok<sup>&reg;</sup>&nbsp;Geosynthetics | Solutions<br></h3>
                       <h2 data-animation="fadeInDown" data-cms="hero-title-2"><span style="font-weight: normal;">ENGINEERED FOR </span>STRONG ROADS, SLOPES<span style="font-weight: normal;">, RAILWAYS &amp; MARINE</span></h2>
                       <p data-animation="fadeInDown" data-cms="hero-desc-2">From paved and unpaved roads to retaining walls, embankments and marine structures — Baselok products perform in the most demanding site conditions.</p>
                       <div class="d-inline-block margin_top30 res-767-margin_top20" data-animation="fadeInUp" data-delay="1.4">
@@ -269,19 +344,19 @@ setTimeout(hideLoader,50);
             </div>
           </div>
           <div class="slide">
-            <div class="slide_img" data-cms="hero-bg-3" style="background-image:url('https://baselok.qpaix.com/images/slides/slider-mainbg-003.jpg');"></div>
+            <div class="slide_img" data-cms="hero-bg-3" style="background-image:url('https://ratixwfiwhbzyjlmmhfp.supabase.co/storage/v1/object/public/cms-uploads/bg-image/1786081723604_slider_mainbg_002-1774375517418.webp');"></div>
             <div class="slide__content">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="slide__content--headings ttm-textcolor-white text-center">
-                      <h3 data-animation="fadeInDown" data-cms="hero-sub-3">PROVEN PERFORMANCE</h3>
+                      <h3 data-animation="fadeInDown" data-cms="hero-sub-3">BaseLok<sup>&reg;</sup>&nbsp;Geosynthetics | Foundations</h3>
                       <h2 data-animation="fadeInDown" data-cms="hero-title-3"><span style="font-weight: normal;">Stronger </span>Foundations.
                         Longer Lasting<span style="font-weight: normal;"> Results</span></h2>
                       <p data-animation="fadeInDown" data-cms="hero-desc-3">Our solutions enhance soil stability, reduce maintenance costs and increase the lifespan of infrastructure with proven engineering reliability</p>
                       <div class="d-inline-block margin_top30 res-767-margin_top20" data-animation="fadeInUp" data-delay="1.4">
                         <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_right15" href="solutions.html" data-cms="hero-btn-5">VIEW SOLUTIONS</a>
-                        <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" href="contact.html" data-cms="hero-btn-6">CONTACT US</a>
+                        <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" href="https://www.baselok.com/contact-us.html" data-cms="hero-btn-6">CONTACT US</a>
                       </div>
                     </div>
                   </div>
@@ -310,12 +385,11 @@ setTimeout(hideLoader,50);
                       <!-- section title -->
                       <div class="section-title">
                         <div class="title-header">
-                          <h3 data-cms="intro-sub">SOLUTIONS</h3>
-                          <h2 class="title" data-cms="intro-title">Systems engineered for
-                            <b>strength and longevity</b></h2>
+                          <h3 data-cms="intro-sub"><b><span style="color: inherit; font-size: 22px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;">BASELOK</span></span></span></span></span></span></span><span style="color: inherit; font-size: 21px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span><span style="color: inherit; font-size: 20px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 18px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 17px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 16px;"></span></b></h3>
+                          <h2 class="title" data-cms="intro-title"><b><span style="color: inherit; font-size: 27px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;">Geosynthetic</span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 28px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span><span style="color: inherit; font-size: 29px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span><span style="color: inherit; font-size: 30px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 31px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 32px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 33px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 34px;"></span> <span style="color: inherit; font-size: 29px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;">Solutions</span></span></span></span></span></span><span style="color: inherit; font-size: 30px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 31px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 32px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 33px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 34px;"></span> </b><span style="color: inherit; font-size: 31px;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b>Across Heavy Civil <span style="color: inherit; font-size: 29px;"><span style="color: inherit;">Infrastructure</span></span><span style="color: inherit; font-size: 30px;"></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 30px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span><span style="color: inherit; font-size: 29px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span><span style="color: inherit; font-size: 30px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 31px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 32px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 33px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 34px;"></span></h2>
                         </div>
                         <div class="title-desc">
-                          <p data-cms="intro-desc">Explore our product families—trusted across transportation, energy, commercial, and marine construction</p>
+                          <p data-cms="intro-desc">BaseLok manufactures High-Performance Geosynthetics Tailored for Subgrade Reinforcement, Environmental Containment, and Structural Load Distribution.</p>
                         </div>
                         <div class="row">
                           <div class="col-lg-12 text-center">
@@ -329,7 +403,7 @@ setTimeout(hideLoader,50);
                 </div>
               </div>
               <div class="col-lg-8">
-                <div class="row" id="index-solutions-list"><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-title">GeoGrid</h3></div><div class="featured-desc"><p data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Baselok® geogrids have been used successfully in the civil construction industry for over 60 years. BaseLok™ GeoGrid is manufactured in Houston, TX from an extruded polypropylene sheet that is punched and drawn. The result is an open aperture plastic netting structure that resists high, short term dynamic loads or moderate loads over long periods of time.........</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-baselok-geogrid.html" data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-title">FabGrid</h3></div><div class="featured-desc"><p data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Baselok® FabGrid is a high-performance geotextile-based reinforcement solution designed to provide superior separation, filtration, and stabilization. Manufactured using advanced fabric technology, it effectively prevents the mixing of subgrade soil with aggregate layers while maintaining excellent drainage characteristics.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-fabgrid.html" data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-title">Geocell</h3></div><div class="featured-desc"><p data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Geocells were first used and patented in the early 80's by the United States Army Corps of Engineers. The early use of the technology was for the construction of roads over soft soils for military use. Today, BaseLok™ GeoCell is not only used for base stabilization, but also for erosion control of slopes and channels as well as in construction of retaining walls.The superior effectiveness of our BaseLok™ GeoCell is made even better thanks to our BaseLok™ team’s proficiency and technical support. We offer Lunch &amp; Learns and Webinars for PDH credits and certificates, on-site visits and design assistance. IFI Engineers are ready to provide cost-saving solutions to help meet your project requirements.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-geocell.html" data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-title">BallastGuard™</h3></div><div class="featured-desc"><p data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">BaseLok® BallastGuard is a specialized geocomposite designed to eliminate the "pumping effect" in railway track sections. By combining a BaseLok® BL6 Geogrid with a proprietary non-woven geotextile, it provides unmatched subgrade reinforcement and ballast fouling mitigation</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-ballastguard.html" data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-title">BaseLok® FPS</h3></div><div class="featured-desc"><p data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Baselok® FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.Baselok FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-fps.html" data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-title">Marine Solutions</h3></div><div class="featured-desc"><p data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">When dealing with construction projects in or around water, BaseLok® technologies showcase a line of dependable composite marine structures. We incorporate top-quality geogrids and geotextiles to create products designed to enhance the constructability and longevity of coastal and marine structures. With enhanced hydraulic capabilities and superior engineering, BaseLok® solutions diminish costs in comparison to other alternatives.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-marine.html" data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-link">READ MORE</a></div></div></div></div>
+                <div class="row" id="index-solutions-list"><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-title"><span>BASELOK BX</span>|BT</h3></div><div class="featured-desc"><p data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Punched and drawn Biaxial (BX) and Triaxial (BT) Geogrids designed for base stabilization, bridging weak subgrades, and optimizing aggregate base layers.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-baselok-geogrid.html" data-cms="index-sol-5956f7bf-5b57-416f-89cf-f05c34a5de47-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-title"><span>BASELOK FG</span></h3></div><div class="featured-desc"><p data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Next-generation thermally bonded geocomposites combining punched and drawn geogrid with non-woven geotextile fabric to provide reinforcement, filtration, and separation in one easy deployment.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-fabgrid.html" data-cms="index-sol-0ce695f4-40d5-4100-ab76-a0b1be0d3aa9-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-title">Baselok® Geocell</h3></div><div class="featured-desc"><p data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">A durable cellular confinement system that enhances soil shear strength, optimizes structural load distribution, and limits lateral aggregate movement.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-geocell.html" data-cms="index-sol-4e103030-f252-41bc-8455-a3f8fa1a6035-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-title"><span>BALLAS</span>TGUARD<sup>&trade;</sup></h3></div><div class="featured-desc"><p data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">A specialized rail track geocomposite designed to mitigate ballast fouling and eliminate the railway "pumping effect" under dynamic loads.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-ballastguard.html" data-cms="index-sol-2b0a7d9a-20e9-4244-9781-f6b8cbd8c737-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-title">BaseLok® FPS</h3></div><div class="featured-desc"><p data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Baselok® FPS improves the interaction between foundation materials and the underlying soil, creating a reinforced platform that increases bearing capacity and minimizes differential settlement. This results in stronger foundations capable of supporting heavy structural loads even in challenging ground conditions</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-fps.html" data-cms="index-sol-b29a61da-63a1-425b-833c-20bc7f62aea0-link">READ MORE</a></div></div></div><div class="col-md-4 col-sm-4"><div class="featured-icon-box icon-align-top-content style1"><div class="featured-content"><div class="featured-title"><h3 data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-title"><span>MAR</span>INE&nbsp;</h3></div><div class="featured-desc"><p data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-desc" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">Composite marine structures built with high hydraulic capabilities to enhance the longevity of coastal installations and water-adjacent civil works.</p></div><a class="ttm-btn btn-inline ttm-btn-size-md ttm-btn-color-skincolor" href="solution-marine.html" data-cms="index-sol-8f97704b-7d11-47e0-b7f8-18cfdab5bc56-link">READ MORE</a></div></div></div></div>
               </div>
             </div>
             <!-- row end -->
@@ -365,7 +439,7 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-marine.html" data-cms="app-marine-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-ship" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-ship" data-cms="app-marine-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-marine-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
                       <h5 class="text-white mb-0" data-cms="app-marine-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Marine</h5>
@@ -376,7 +450,7 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-environmental.html" data-cms="app-environmental-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-leaf" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-leaf" data-cms="app-environmental-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-environmental-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
                       <h5 class="text-white mb-0" data-cms="app-environmental-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Environmental Enhancements</h5>
@@ -387,10 +461,10 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-roadways.html" data-cms="app-roads-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-road" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-road" data-cms="app-roads-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-roads-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
-                      <h5 class="text-white mb-0" data-cms="app-roads-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Roads, Pavements & Surfaces</h5>
+                      <h5 class="text-white mb-0" data-cms="app-roads-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Roadways, Surfaces Paved & Unpaved</h5>
                    </div></a>
                 </div>
 
@@ -398,10 +472,10 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-walls-slopes.html" data-cms="app-walls-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-area-chart" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-area-chart" data-cms="app-walls-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-walls-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
-                      <h5 class="text-white mb-0" data-cms="app-walls-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Walls, & Slopes</h5>
+                      <h5 class="text-white mb-0" data-cms="app-walls-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Walls, Slopes & Embankments</h5>
                    </div></a>
                 </div>
 
@@ -409,7 +483,7 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-railways.html" data-cms="app-railway-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-train" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-train" data-cms="app-railway-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-railway-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
                       <h5 class="text-white mb-0" data-cms="app-railway-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Railway</h5>
@@ -420,7 +494,7 @@ setTimeout(hideLoader,50);
                 <div class="col-lg-12">
                    <a href="application-structure-foundation-support.html" data-cms="app-structure-link" data-link-only="true" style="display:block; text-decoration:none; color:inherit;"><div class="application-card" style="border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;  margin: 0 10px;">
                       <div style="position:relative; margin-bottom:16px;">
-                        <i class="fa fa-building-o" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
+                        <i class="fa fa-building-o" data-cms="app-structure-icon-glyph" style="font-size: 3.5rem; color: #d11f26 !important;"></i>
                         <img data-cms="app-structure-icon" src="" alt="" style="display:none; width:90px; height:90px; object-fit:cover; border-radius:50%; border:3px solid #d11f26; position:absolute; top:0; left:50%; transform:translateX(-50%);">
                       </div>
                       <h5 class="text-white mb-0" data-cms="app-structure-title" style="font-size: 1.05rem; font-weight: 600; text-align: center; padding: 0 15px;" contenteditable="false">Structure Foundation Support</h5>
@@ -438,47 +512,20 @@ setTimeout(hideLoader,50);
                   <!-- section title -->
                   <div class="section-title">
                     <div class="title-header">
-                      <h3 data-cms="why-sub">WHY CHOOSE BASELOK</h3>
-                      <h2 class="title" data-cms="why-title">Geosynthetic Solutions<div><b>Firm Foundations &amp; Longer Design Life</b></div></h2>
+                      <h3 data-cms="why-sub"><span style="color: inherit; font-weight: bold;"><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;">WHY CHOOSE BASELOK</span></span></span></span></span><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 18px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 17px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 16px;"></span></h3>
+                      <h2 class="title" data-cms="why-title" style="font-size: 26px; line-height: 34px;"><b></b><span style="color: inherit; font-size: 24px;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b></b><span style="color: inherit;"><b>BaseLok<sup>&reg;</sup> Engineering </b>and&nbsp;Technical Support for Design and Submittal Process</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 23px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 22px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 21px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 20px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 18px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 17px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 18px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span></span><span style="color: inherit; font-size: 19px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span></span><span style="color: inherit; font-size: 20px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span></span><span style="color: inherit; font-size: 21px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span></span><span style="color: inherit; font-size: 22px;"><span style="color: inherit;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span></span><span style="color: inherit; font-size: 23px;"><span style="color: inherit;"><span style="color: inherit;"></span></span></span><span style="color: inherit; font-size: 24px;"><span style="color: inherit;"></span></span><span style="color: inherit; font-size: 25px;"></span></h2>
                     </div>
                     <div class="title-desc">
-                      <p data-cms="why-desc">Baselok delivers advanced geosynthetic and soil reinforcement solutions for roads, railways, renewable energy, data centers, petrochemical, marine, environmental infrastructure, and more. Our engineered systems reduce construction cost, save time, and significantly improve the performance and durability of critical civil projects.</p>
+                      <div data-cms="why-desc"><div><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">Collaborative</span><span style="letter-spacing: 0.2px; text-align: inherit; font-size: 13px;">&nbsp;Value Engineering and Site-Specific Design for Contractors and Geotechnical Engineers.</span></div><div><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">Choosing subgrade stabilization requires balancing performance, cost, and structural reliability. The BaseLok</span><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">&nbsp;product line by Industrial Fabrics, Inc. replaces unpredictable ground improvement with mathematically verifiable mechanical stabilization.</span></div><div><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">To bridge the gap between design and jobsite execution, our dedicated BaseLok</span><span style="text-align: inherit; letter-spacing: 0.2px;"><sup>&nbsp;</sup></span><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">Engineering Team provides technical consultation and custom design recommendations from project conception through construction.&nbsp;</span></div><div><span style="text-align: inherit; letter-spacing: 0.2px; font-size: 13px;">Our mechanical stabilization guidance provides clear engineering and financial advantages:</span></div><div><ul style="list-style-type: disc;"><li><b><span style="font-size: 13px;">Eliminate Chemical Stabilization:</span></b><span style="font-size: 13px;"> Remove the high cost, environmental liabilities, and mixing complexities associated with traditional lime or cement subgrade treatment.</span></li><li><b><span style="font-size: 13px;">Reduce Aggregate Thickness:</span></b><span style="font-size: 13px;"> Optimize load distribution to decrease necessary aggregate fill volumes, lowering excavation, haul-in, and material costs.</span></li><li><b><span style="font-size: 13px;">Expedite Construction Timelines:</span></b><span style="font-size: 13px;"> Utilize rapid, straightforward installation processes to accelerate your overall project schedule.</span></li><li><b><span style="font-size: 13px;">Extend Asset Service Life:</span></b><span style="font-size: 13px;"> Prevent long-term differential settlement, minimize rut depth, and increase the bearing capacity of roads, railways, and foundations.</span></li></ul></div></div>
                     </div>
                   </div>
 
                   <!-- section title end -->
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <ul class="ttm-list ttm-bordered-lists ttm-list-style-icon ttm-list-icon-color-skincolor ttm-textcolor-darkgrey">
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-1">Reduce aggregate, asphalt & excavation cost</span>
-                        </li>
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-2">Improve soil bearing capacity & stability</span>
-                        </li>
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-3">Faster installation than conventional methods</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-sm-6">
-                      <ul class="ttm-list ttm-bordered-lists ttm-list-style-icon ttm-list-icon-color-skincolor ttm-textcolor-darkgrey">
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-4">Long design life with proven performance, utilizing mechanical stabilization</span>
-                        </li>
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-5">Suitable for roads, laydown yards, railways, slopes, marine works, & more</span>
-                        </li>
-                        <li>
-                          <i class="ti ti-check"></i><span class="ttm-list-li-content" data-cms="why-list-6">Eliminate costly and hazardous chemical stablization<br><br></span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+
                   <div class="margin_top20">
                     <div class="d-inline-block">
-                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_right20 margin_top15" href="#" data-cms="why-btn-1">VIEW APPLICATIONS</a>
-                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top15" href="https://baselok.qpaix.com/contact-us.html" data-cms="why-btn-2">GET A QUOTE</a>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor margin_right20 margin_top15" href="https://www.baselok.com/applications.html" data-cms="why-btn-1">VIEW APPLICATIONS</a>
+                      <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top15" href="https://www.baselok.com/contact-us.html" data-cms="why-btn-2">GET A QUOTE</a>
                     </div>
                   </div>
                 </div>
@@ -502,14 +549,10 @@ setTimeout(hideLoader,50);
             <div class="row no-gutters">
               <div class="col-lg-12">
                 <div class="row">
-                  <div class="col-lg-7 col-md-12">
-                    <!-- col-img-img-two -->
-                    <div class="ttm-bg ttm-col-bgimage-yes col-bg-img-two ttm-left-span z-index-2" data-cms="homepage-workflow-img" style="background-image:url('/images/cms-uploads/OTHERS/1784122274783_Ballast_Guard_Installation.jpg');">
-                      <div class="ttm-col-wrapper-bg-layer ttm-bg-layer" data-cms="homepage-workflow-img"></div>
-                      <div class="layer-content"></div>
+                  <div class="col-lg-7 col-md-12 how-we-work-img-col">
+                    <div class="how-we-work-img-wrap">
+                      <img id="work-image" class="img-fluid w-100" src="https://vowgcjubklhfxmcrozcw.supabase.co/storage/v1/object/public/cms-uploads/OTHERS/1789111994092_1782885896477_Screenshot_2026-07-01_113438.webp" alt="bg-image" data-cms="homepage-workflow-img" loading="lazy">
                     </div>
-                    <!-- col-img-bg-img-two end-->
-                    <img id="work-image" class="img-fluid ttm-equal-height-image w-100" src="/images/cms-uploads/OTHERS/1784122274783_Ballast_Guard_Installation.jpg" alt="bg-image" data-cms="homepage-workflow-img" style="position: relative; z-index: 10;" loading="lazy">
                   </div>
                   <div class="col-lg-5">
                     <div class="padding_top30 padding_bottom30 text-lg-right res-1199-padding_right15 res-991-padding_left15">
@@ -524,8 +567,8 @@ setTimeout(hideLoader,50);
                         <!-- section title -->
                         <div class="section-title">
                           <div class="title-header">
-                            <h3 data-cms="work-header">HOW WE WORK</h3>
-                            <h2 class="title" data-cms="work-title"><b>From Specifications to the Field, Baselok is there to support you!</b></h2>
+                            <h3 data-cms="work-header"><span style="color: rgb(0, 153, 255); font-size: 21px; font-weight: bold;">HOW WE WORK</span></h3>
+                            <h2 class="title" data-cms="work-title"><b><span style="font-size: 28px;">From Specifications to the Field, Baselok is there to support you!</span></b></h2>
                           </div>
                           <div class="title-desc">
                             <p data-cms="work-desc">Expedient documentation and engineering support—built for professional teams and tight schedules.</p>
@@ -538,7 +581,7 @@ setTimeout(hideLoader,50);
                             <div class="featured-icon-box icon-align-before-title style2 padding_right10">
                               <div class="featured-icon">
                                 <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-style-rounded ttm-icon_element-color-skincolor ttm-icon_element-size-xs">
-                                  <div class="fa fa-check"></div>
+                                  <i class="fa fa-check" data-cms="work-step-1-icon"></i>
                                 </div>
                               </div>
                               <div class="featured-title">
@@ -546,7 +589,7 @@ setTimeout(hideLoader,50);
                               </div>
                               <div class="featured-content">
                                 <div class="featured-desc">
-                                  <p data-cms="work-step-1-desc">Send plans, geotechnical reports, conditions, and constraints to our team.</p>
+                                  <div data-cms="work-step-1-desc"><span style="font-size: 14px;">Send plans, geotechnical reports, conditions&nbsp;</span><span style="font-size: 14px; text-align: inherit; letter-spacing: 0.2px;">and constraints to our team.</span></div>
                                 </div>
                               </div>
                             </div>
@@ -557,15 +600,15 @@ setTimeout(hideLoader,50);
                             <div class="featured-icon-box icon-align-before-title style2 padding_left15 res-767-padding_left0">
                               <div class="featured-icon">
                                 <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-style-rounded ttm-icon_element-color-skincolor ttm-icon_element-size-xs">
-                                  <div class="fa fa-check"></div>
+                                  <i class="fa fa-check" data-cms="work-step-2-icon"></i>
                                 </div>
                               </div>
                               <div class="featured-title">
-                                <h3 data-cms="work-step-2-title">Engineer The Solution.</h3>
+                                <h3 data-cms="work-step-2-title">Engineer The Solution</h3>
                               </div>
                               <div class="featured-content">
                                 <div class="featured-desc">
-                                  <p data-cms="work-step-2-desc">We match products and specs to your specific project needs.</p>
+                                  <p data-cms="work-step-2-desc"><span style="font-size: 14px;">We match products and specs to your specific project needs.</span></p>
                                 </div>
                               </div>
                             </div>
@@ -576,15 +619,15 @@ setTimeout(hideLoader,50);
                             <div class="featured-icon-box icon-align-before-title style2 padding_right10">
                               <div class="featured-icon">
                                 <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-style-rounded ttm-icon_element-color-skincolor ttm-icon_element-size-xs">
-                                  <div class="fa fa-check"></div>
+                                  <i class="fa fa-check" data-cms="work-step-3-icon"></i>
                                 </div>
                               </div>
                               <div class="featured-title">
-                                <h3 data-cms="work-step-3-title">Deliver Documentation.</h3>
+                                <h3 data-cms="work-step-3-title"><span style="font-size: 19px; color: rgb(241, 240, 240);">Deliver Documentation</span></h3>
                               </div>
                               <div class="featured-content">
                                 <div class="featured-desc">
-                                  <p data-cms="work-step-3-desc">Professional submittals, data sheets, testing, and guidance—ready for review.</p>
+                                  <div data-cms="work-step-3-desc"><span style="font-size: 14px;">Professional submittals, data sheets, testing,&nbsp;</span><span style="font-size: 14px; text-align: inherit; letter-spacing: 0.2px;">and guidance—ready for review.</span></div>
                                 </div>
                               </div>
                             </div>
@@ -595,11 +638,11 @@ setTimeout(hideLoader,50);
                             <div class="featured-icon-box icon-align-before-title style2 padding_left15 res-767-padding_left0">
                               <div class="featured-icon">
                                 <div class="ttm-icon ttm-icon_element-fill ttm-icon_element-style-rounded ttm-icon_element-color-skincolor ttm-icon_element-size-xs">
-                                  <div class="fa fa-check"></div>
+                                  <i class="fa fa-check" data-cms="work-step-4-icon"></i>
                                 </div>
                               </div>
                               <div class="featured-title">
-                                <h3 data-cms="work-step-4-title">Support Installation.</h3>
+                                <h3 data-cms="work-step-4-title"><span style="font-size: 19px; color: rgb(247, 243, 244);">Support Installation</span></h3>
                               </div>
                               <div class="featured-content">
                                 <div class="featured-desc">
@@ -636,7 +679,7 @@ setTimeout(hideLoader,50);
                 <!-- section title end -->
               </div>
             </div>
-            <div id="dynamic-latest-articles-row" class="row slick_slider_dynamic mb_15"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802588659_20200923_181609978_iOS.jpeg" alt="FabGrid Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-fabgrid-blog.html">FabGrid Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Maintaining the integrity of soil layers is critical for long-term infrastructure performance. Baselok FabGrid...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-fabgrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802679146_IMG_1163_small.jpg" alt="GeoCell Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geocell-blog.html">GeoCell Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Infrastructure development in weak soil conditions requires innovative reinforcement solutions. Baselok GeoCel...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geocell-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783801987168_IMG_1142.jpg" alt="Ground Stabilization With Geosynthetics" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-ground-stabilization-with-geosynthetics.html">Ground Stabilization With Geosynthetics</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Explore how advanced geosynthetic solutions like Baselok Geogrid and FabGrid are transforming modern construct...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-ground-stabilization-with-geosynthetics.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802147231_IMG_0890.jpg" alt="Erosion Control &amp;amp; Slope Protection" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-erosion-control-slope-protection.html">Erosion Control &amp;amp; Slope Protection</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Understand how Baselok GeoCell and SiltGuard solutions help manage erosion and protect infrastructure in chall...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-erosion-control-slope-protection.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802238221_image-20230419-133814-03420124.jpeg" alt="Why Geogrid Belongs in Your Next Project" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">July 25, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geogrid-blog.html">Why Geogrid Belongs in Your Next Project</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Modern infrastructure projects demand solutions that are faster, more cost-effective, and more durable than wh...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geogrid-blog.html">read more</a></div></div></div></div>
+            <div id="dynamic-latest-articles-row" class="row slick_slider_dynamic mb_15"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="https://ratixwfiwhbzyjlmmhfp.supabase.co/storage/v1/object/public/cms-uploads/blog/1785347404388_filtered_fabgrid_banner_Large.webp" alt="FabGrid Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">September 10, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-fabgrid-blog.html">FabGrid Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Maintaining the integrity of soil layers is critical for long-term infrastructure performance. Baselok FabGrid...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-fabgrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802679146_IMG_1163_small.jpg" alt="GeoCell Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">September 10, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geocell-blog.html">GeoCell Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Infrastructure development in weak soil conditions requires innovative reinforcement solutions. Baselok GeoCel...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geocell-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783801987168_IMG_1142.jpg" alt="Ground Stabilization With Geosynthetics" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">September 10, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-ground-stabilization-with-geosynthetics.html">Ground Stabilization With Geosynthetics</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Explore how advanced geosynthetic solutions like Baselok Geogrid and FabGrid are transforming modern construct...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-ground-stabilization-with-geosynthetics.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802147231_IMG_0890.jpg" alt="Erosion Control &amp;amp; Slope Protection" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">September 10, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-erosion-control-slope-protection.html">Erosion Control &amp;amp; Slope Protection</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Understand how Baselok GeoCell and SiltGuard solutions help manage erosion and protect infrastructure in chall...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-erosion-control-slope-protection.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802238221_image-20230419-133814-03420124.jpeg" alt="Why Geogrid Belongs in Your Next Project" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">September 10, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geogrid-blog.html">Why Geogrid Belongs in Your Next Project</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Modern infrastructure projects demand solutions that are faster, more cost-effective, and more durable than wh...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geogrid-blog.html">read more</a></div></div></div></div>
             <div class="row">
               <div class="col-lg-12 text-center">
                 <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30" href="resources.html">View More Resources</a>

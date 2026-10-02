@@ -5835,7 +5835,7 @@ body input, body textarea, body button, body select {
 }
 body,
 body :not(.fa):not(.fas):not(.far):not(.fab):not(.ti):not([class*="fa-"]):not([class^="ti-"]):not([class*=" ti-"]):not([class*="themify"]) {
-  font-family: 'Rubik', sans-serif !important;
+  font-family: 'Rubik', sans-serif;
 }
 
 /* === Market sub-page tab content: title at top + side image matched to text height === */

@@ -116,6 +116,10 @@ function vercelRewritesDev() {
       }));
       server.middlewares.use((req, res, next) => {
         const url = new URL(req.url, `http://${req.headers.host}`);
+        // /api and /admin must always hit this dev server's own proxy (-> local Spring Boot),
+        // never vercel.json's production-API rewrite — otherwise every API call gets silently
+        // redirected to https://baselokapi.qpaix.com instead of the local backend being tested.
+        if (url.pathname.startsWith('/api') || url.pathname.startsWith('/admin')) return next();
         const match = compiled.find(r => r.regex.test(url.pathname));
         const physicalPath = resolve(__dirname, url.pathname.replace(/^\//, ''));
         if (match && !fs.existsSync(physicalPath)) {
@@ -142,12 +146,12 @@ export default defineConfig({
   preview: {
     proxy: {
       '/api': {
-        target: 'https://holds-affecting-appropriations-newman.trycloudflare.com',
+        target: 'https://baselok-backend.qpaix.com',
         changeOrigin: true,
         secure: false,
       },
       '/admin': {
-        target: 'https://holds-affecting-appropriations-newman.trycloudflare.com',
+        target: 'https://baselok-backend.qpaix.com',
         changeOrigin: true,
         secure: false,
       }
@@ -155,15 +159,15 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Forward all /api requests to Spring Boot
+      // Forward all /api requests to the deployed backend (https://baselok-backend.qpaix.com)
       '/api': {
-        target: 'https://holds-affecting-appropriations-newman.trycloudflare.com',
+        target: 'https://baselok-backend.qpaix.com',
         changeOrigin: true,
         secure: false,
       },
-      // Forward all /admin requests (login/logout/status) to Spring Boot
+      // Forward all /admin requests (login/logout/status) to the deployed backend
       '/admin': {
-        target: 'https://holds-affecting-appropriations-newman.trycloudflare.com',
+        target: 'https://baselok-backend.qpaix.com',
         changeOrigin: true,
         secure: false,
       }

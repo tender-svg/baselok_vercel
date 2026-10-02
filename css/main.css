@@ -5830,7 +5830,10 @@ body input, body textarea, body button, body select {
   }
 }
 
-/* === Site-wide single font: Rubik (text only; FontAwesome/themify icons untouched) === */
+/* === Site-wide default font: Rubik (text only; FontAwesome/themify icons untouched) ===
+   Not !important anymore — the CMS per-text-selection font toolbar sets inline
+   font-family on individual <span>s, which needs to be able to override this default.
+   Rubik still applies everywhere nothing more specific is set, via normal CSS cascade. */
 :root, [data-bs-theme="light"] {
   --bs-font-sans-serif: 'Rubik', sans-serif;
   --bs-body-font-family: 'Rubik', sans-serif;
@@ -5838,7 +5841,7 @@ body input, body textarea, body button, body select {
 }
 body,
 body :not(.fa):not(.fas):not(.far):not(.fab):not(.ti):not([class*="fa-"]):not([class^="ti-"]):not([class*=" ti-"]):not([class*="themify"]) {
-  font-family: 'Rubik', sans-serif !important;
+  font-family: 'Rubik', sans-serif;
 }
 
 /* === Market sub-page tab content: title at top + side image matched to text height === */

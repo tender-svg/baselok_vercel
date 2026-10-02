@@ -507,17 +507,7 @@ const CMS = {
         // line, saving it empty. Empty CMS text elements are hidden on the live/preview site
         // (see _injectBrandStyles), so the deleted line leaves no gap. Only fires on empty text
         // elements — images (not contenteditable) are unaffected.
-        document.addEventListener('keydown', (e) => {
-            if (!this.isEditing) return;
-            if (e.key !== 'Backspace' && e.key !== 'Delete') return;
-            const el = document.activeElement;
-            if (!el || el.nodeType !== 1 || el.getAttribute('contenteditable') !== 'true' || !el.hasAttribute('data-cms')) return;
-            if ((el.textContent || '').replace(/[​\s]+/g, '') !== '') return; // only when already empty
-            e.preventDefault();
-            el.innerHTML = '';
-            el.style.display = 'none';
-            try { this.updateElement(el.getAttribute('data-cms'), 'text', ''); } catch (_) {}
-        }, true);
+        // Backspace keydown listener removed to prevent hiding elements on backspace
 
         // -- FOOTER LOGIN PROTECTION --
         // Intercept clicks on "CMS Login" links across the site if already logged in
@@ -653,6 +643,15 @@ const CMS = {
         if (this.isLoggedIn) {
             this.injectDashboard();
             this.showAdminBar();
+            // Text-formatting toolbar + icon-picker are admin-only tools — they must be
+            // initialized here, inside the isLoggedIn gate, NOT earlier (unconditionally, before
+            // _authPromise resolved). They were originally called unconditionally right after
+            // tagElements(), which meant _initTextFormatToolbar()'s internal "no dock slot yet"
+            // fallback called showAdminBar() itself for every visitor — including in Incognito
+            // with no login at all — because isLoggedIn hadn't been set yet at that point in
+            // init(). That's what made the CMS admin bar appear to "auto-login" for everyone.
+            this._initTextFormatToolbar();
+            this._setupIconClickDelegation();
             this.enableEditing();
             this.setupAutoLogout();
             this._resumeResyncIfPending(); // Re-show progress + resume polling if a Resync job was mid-flight when this page loaded (e.g. the resync itself triggered a reload)
@@ -926,8 +925,14 @@ const CMS = {
             if (el.hasAttribute('cms-no-tag') || el.closest('[cms-no-tag]') || el.getAttribute('data-cms') === 'no-edit') return;
             if (el.id && el.id.startsWith('cms-')) return;
             
+            const isIconTag = (el.tagName === 'I') || (el.tagName === 'DIV' && (el.classList.contains('fa') || el.classList.contains('ti') || el.classList.contains('featured-icon') || el.classList.contains('ttm-icon')));
+
             // Prevent auto-tagging elements inside an explicitly tagged parent block (like a UL)
-            if (el.parentElement && el.parentElement.closest('[data-cms]')) return;
+            // — EXCEPT icon glyphs: an icon's shape/color is a distinct thing from its enclosing
+            // link's URL or its sibling title's text, so an icon sitting inside an already-tagged
+            // <a data-cms="app-x-link"> (application cards) or heading block still needs its own
+            // tag to be independently editable via the icon picker.
+            if (!isIconTag && el.parentElement && el.parentElement.closest('[data-cms]')) return;
 
             // A wrapper (UL/OL/DIV-like list container) whose children already carry their own
             // data-cms tags must never be auto-tagged ITSELF — otherwise the whole wrapper's
@@ -939,7 +944,7 @@ const CMS = {
             // pile of near-duplicate auto-*-ul-NNN page_elements rows from repeated tagging passes.
             if ((el.tagName === 'UL' || el.tagName === 'OL') && el.querySelector('[data-cms]')) return;
 
-            const isTextTag = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'A', 'SPAN', 'UL', 'OL', 'B', 'STRONG'].includes(el.tagName);
+            const isTextTag = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'A', 'SPAN', 'UL', 'OL', 'B', 'STRONG'].includes(el.tagName) || isIconTag;
             const isImg = el.tagName === 'IMG';
             const bg = window.getComputedStyle(el).backgroundImage;
             const isBg = (bg !== 'none' && bg !== '' && bg.includes('url'));
@@ -1092,12 +1097,12 @@ const CMS = {
             <div class="col-lg-6 col-md-12" style="margin-bottom:20px;">
               <img src="/images/cms-uploads/OTHERS/1784809036509_baselok-pro-logo.png" data-cms="bpro-global-logo" alt="BaseLok PRO" style="max-height:65px;width:auto;display:block;margin-bottom:22px;">
               <h2 style="color:#ffffff;font-size:30px;font-weight:700;line-height:1.35;margin-bottom:18px;" data-cms="bpro-global-heading">Design with confidence,<br>from anywhere.</h2>
-              <ul style="list-style:none;padding:0;margin:0 0 28px 0;">
-                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span>Design &amp; evaluate pavement, rail, and foundation sections</li>
-                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span>Instantly compare reinforced vs. unreinforced costs</li>
-                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span>Generate exportable reports for project stakeholders</li>
-                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span>AREMA, AASHTO &amp; industry-standard calculations</li>
-                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span>US &amp; metric units &#8212; cloud-based &amp; collaborative</li>
+              <ul data-cms="bpro-promo-list" data-persistent-bullets style="list-style:none;padding:0;margin:0 0 28px 0;">
+                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>Design &amp; evaluate pavement, rail, and foundation sections</span></li>
+                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>Instantly compare reinforced vs. unreinforced costs</span></li>
+                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>Generate exportable reports for project stakeholders</span></li>
+                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>AREMA, AASHTO &amp; industry-standard calculations</span></li>
+                <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>US &amp; metric units &#8212; cloud-based &amp; collaborative</span></li>
               </ul>
               <a href="baselok-pro.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" style="margin-right:12px;margin-bottom:10px;">Learn More &#8594;</a>
               <a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" style="margin-bottom:10px;">Start Designing Now &#8594;</a>
@@ -1301,6 +1306,1236 @@ const CMS = {
         document.getElementById('cms-cookie-reject').onclick = () => dismiss('rejected');
     },
 
+    // ============================================================
+    // FLOATING TEXT-FORMAT TOOLBAR (pilot: index page only)
+    // Shows a small floating toolbar above the current text selection inside any
+    // [data-cms][contenteditable="true"] element, letting the admin set bold, font
+    // family, font size (px) and color on just the selected text. All formatting is
+    // applied as inline HTML (<b>, <span style="...">) directly inside the element via
+    // document.execCommand, then saved through the existing updateElement(elId, 'text',
+    // el.innerHTML) path — no backend/API change needed, content_value already stores
+    // arbitrary HTML.
+    _TEXT_TOOLBAR_FONTS: [
+        'Rubik', 'Arial', 'Helvetica', 'Georgia', 'Times New Roman', 'Verdana', 'Tahoma',
+        'Trebuchet MS', 'Courier New', 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Poppins',
+        'Raleway', 'Oswald', 'Merriweather', 'Playfair Display', 'Nunito', 'Ubuntu', 'PT Sans',
+        'Noto Sans', 'Inter', 'Work Sans', 'Source Sans Pro', 'Mulish', 'Rubik Mono One',
+        'Quicksand', 'Karla', 'Fira Sans', 'Cabin', 'Barlow', 'DM Sans', 'Josefin Sans',
+        'Archivo', 'Rokkitt', 'Bitter', 'Crimson Text', 'Libre Baskerville', 'Lora',
+        'PT Serif', 'Arvo', 'Domine', 'Zilla Slab', 'Abril Fatface', 'Dancing Script',
+        'Pacifico', 'Caveat', 'Comfortaa'
+    ],
+    _loadedGoogleFonts: {},
+    _ensureGoogleFontLoaded(fontName) {
+        const webSafe = ['Arial', 'Helvetica', 'Georgia', 'Times New Roman', 'Verdana', 'Tahoma', 'Trebuchet MS', 'Courier New'];
+        if (webSafe.includes(fontName) || this._loadedGoogleFonts[fontName]) return;
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName).replace(/%20/g, '+')}:wght@400;700&display=swap`;
+        document.head.appendChild(link);
+        this._loadedGoogleFonts[fontName] = true;
+    },
+
+    _initTextFormatToolbar() {
+        if (document.getElementById('cms-text-toolbar')) return; // already initialized
+
+        let parentSlot = document.getElementById('cms-tb-dock-slot');
+        if (!parentSlot) {
+            this.showAdminBar();
+            parentSlot = document.getElementById('cms-tb-dock-slot');
+        }
+
+        const bar = document.createElement('div');
+        bar.id = 'cms-text-toolbar';
+        bar.innerHTML = `
+            <button type="button" data-cmd="bold" title="Bold"><i class="fa fa-bold"></i></button>
+            <button type="button" data-cmd="italic" title="Italic"><i class="fa fa-italic"></i></button>
+            <span class="cms-tb-sep"></span>
+            <button type="button" id="cms-tb-add-block-btn" title="Add Text Block (its own alignment/spacing, independent of the rest)"><i class="fa fa-plus-square-o"></i></button>
+            <span class="cms-tb-sep"></span>
+            <div class="cms-tb-align-wrap" style="position:relative; display:inline-block;">
+                <button type="button" id="cms-tb-list-btn" title="Bullets and Numbering" style="width:36px; display:flex; align-items:center; justify-content:center; gap:2px;">
+                    <i class="fa fa-list-ul"></i>
+                    <i class="fa fa-caret-down" style="font-size:9px; opacity:0.8;"></i>
+                </button>
+                <div id="cms-tb-list-dropdown" style="display:none; position:fixed; background:#2b3640; border:1px solid rgba(255,255,255,0.2); border-radius:6px; box-shadow:0 6px 16px rgba(0,0,0,0.5); z-index:999999; min-width:190px; padding:8px;">
+                    <div style="color:#aaa; font-size:0.65rem; text-transform:uppercase; font-weight:700; padding:2px 4px 6px;">Bullets</div>
+                    <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px;">
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="disc" title="Solid dot" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:1.1rem; color:#fff;">&bull;</div>
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="circle" title="Circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:1.1rem; color:#fff;">&#9675;</div>
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="square" title="Square" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.9rem; color:#fff;">&#9632;</div>
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="check" title="Checkmark" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:1rem; color:#fff;">&#10003;</div>
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="arrow" title="Arrow" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:1rem; color:#fff;">&#10148;</div>
+                        <div class="cms-list-opt" data-list-kind="ul" data-list-style="none" title="No bullets (remove list)" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.65rem; color:#fff;">None</div>
+                    </div>
+                    <div style="color:#aaa; font-size:0.65rem; text-transform:uppercase; font-weight:700; padding:2px 4px 6px; border-top:1px solid rgba(255,255,255,0.15); padding-top:8px;">Numbering</div>
+                    <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                        <div class="cms-list-opt" data-list-kind="ol" data-list-style="decimal" title="1, 2, 3" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.75rem; color:#fff;">1.</div>
+                        <div class="cms-list-opt" data-list-kind="ol" data-list-style="lower-alpha" title="a, b, c" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.75rem; color:#fff;">a.</div>
+                        <div class="cms-list-opt" data-list-kind="ol" data-list-style="lower-roman" title="i, ii, iii" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.75rem; color:#fff;">i.</div>
+                        <div class="cms-list-opt" data-list-kind="ol" data-list-style="none" title="No numbering (remove list)" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:4px; cursor:pointer; font-size:0.65rem; color:#fff;">None</div>
+                    </div>
+                </div>
+            </div>
+            <span class="cms-tb-sep"></span>
+            <div class="cms-tb-align-wrap" style="position:relative; display:inline-block;">
+                <button type="button" id="cms-tb-align-btn" title="Text Alignment" style="width:36px; display:flex; align-items:center; justify-content:center; gap:2px;">
+                    <i class="fa fa-align-left" id="cms-tb-align-icon"></i>
+                    <i class="fa fa-caret-down" style="font-size:9px; opacity:0.8;"></i>
+                </button>
+                <div id="cms-tb-align-dropdown" style="display:none; position:fixed; background:#2b3640; border:1px solid rgba(255,255,255,0.2); border-radius:6px; box-shadow:0 6px 16px rgba(0,0,0,0.5); z-index:999999; min-width:115px; padding:4px 0;">
+                    <div class="cms-align-opt" data-align="left" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                        <i class="fa fa-align-left" style="width:14px; text-align:center;"></i> Left
+                    </div>
+                    <div class="cms-align-opt" data-align="center" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                        <i class="fa fa-align-center" style="width:14px; text-align:center;"></i> Center
+                    </div>
+                    <div class="cms-align-opt" data-align="right" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                        <i class="fa fa-align-right" style="width:14px; text-align:center;"></i> Right
+                    </div>
+                    <div class="cms-align-opt" data-align="justify" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                        <i class="fa fa-align-justify" style="width:14px; text-align:center;"></i> Justify
+                    </div>
+                </div>
+            </div>
+            <div class="cms-tb-align-wrap" style="position:relative; display:inline-block;">
+                <button type="button" id="cms-tb-case-btn" title="Change Case" style="width:36px; display:flex; align-items:center; justify-content:center; gap:2px;">
+                    <span style="font-weight:700; font-size:0.75rem;">Aa</span>
+                    <i class="fa fa-caret-down" style="font-size:9px; opacity:0.8;"></i>
+                </button>
+                <div id="cms-tb-case-dropdown" style="display:none; position:fixed; background:#2b3640; border:1px solid rgba(255,255,255,0.2); border-radius:6px; box-shadow:0 6px 16px rgba(0,0,0,0.5); z-index:999999; min-width:160px; padding:4px 0;">
+                    <div class="cms-case-opt" data-case="sentence" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer;">Sentence case</div>
+                    <div class="cms-case-opt" data-case="lower" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer;">lowercase</div>
+                    <div class="cms-case-opt" data-case="upper" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer;">UPPERCASE</div>
+                    <div class="cms-case-opt" data-case="title" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer;">Capitalize Each Word</div>
+                    <div class="cms-case-opt" data-case="toggle" style="padding:6px 12px; color:#fff; font-size:0.8rem; cursor:pointer;">tOGGLE cASE</div>
+                </div>
+            </div>
+            <span class="cms-tb-sep"></span>
+            <select id="cms-tb-font" title="Font family"></select>
+            <div class="cms-tb-size-wrap" title="Font size (px)">
+                <input id="cms-tb-size" type="number" min="6" max="120" placeholder="px">
+                <div class="cms-tb-size-arrows">
+                    <button type="button" id="cms-tb-size-up" title="Increase font size"><i class="fa fa-caret-up"></i></button>
+                    <button type="button" id="cms-tb-size-down" title="Decrease font size"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
+            <button type="button" id="cms-tb-color-swatch" title="Text color" style="background:#000000;"></button>
+            <span class="cms-tb-sep"></span>
+            <button type="button" data-cmd="reset" title="Reset formatting / Revert changes"><i class="fa fa-undo"></i></button>
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            #cms-tb-dock-slot {
+                display: flex;
+                align-items: center;
+                margin: 0 12px;
+            }
+            #cms-text-toolbar {
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                background: #2b3640 !important;
+                border: 1px solid rgba(255,255,255,0.2) !important;
+                border-radius: 6px !important;
+                padding: 3px 8px !important;
+                height: 36px !important;
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.2) !important;
+            }
+            #cms-text-toolbar * { box-sizing: border-box; }
+            #cms-text-toolbar button {
+                background:#3a3a3a; border:none; color:#fff; width:28px; height:28px;
+                border-radius:4px; cursor:pointer; font-size:0.8rem;
+                display:flex; align-items:center; justify-content:center; flex-shrink:0;
+                padding:0; margin:0;
+            }
+            #cms-text-toolbar button:hover, #cms-text-toolbar button.active { background:#d11f26; }
+            #cms-tb-align-dropdown .cms-align-opt:hover { background:#d11f26 !important; color:#fff !important; }
+            #cms-tb-align-dropdown .cms-align-opt.active { background:rgba(209,31,38,0.5) !important; color:#fff !important; font-weight:700; }
+            #cms-tb-case-dropdown .cms-case-opt:hover { background:#d11f26 !important; color:#fff !important; }
+            #cms-text-toolbar button[data-cmd="reset"]:hover { background:#ff4d4d; }
+            #cms-text-toolbar .cms-tb-sep { width:1px; height:20px; background:rgba(255,255,255,0.2); flex-shrink:0; }
+            #cms-text-toolbar select, #cms-text-toolbar input {
+                height:28px; border:none; border-radius:4px; padding:0 6px;
+                font-size:0.8rem; margin:0; background:#fff; color:#333; vertical-align:middle;
+            }
+            #cms-text-toolbar #cms-tb-font { width:120px; flex-shrink:0; }
+            #cms-text-toolbar .cms-tb-size-wrap {
+                display: flex; align-items: center; position: relative;
+                background: #fff; border-radius: 4px; height: 28px;
+                padding-right: 16px; overflow: hidden; flex-shrink: 0;
+            }
+            #cms-text-toolbar #cms-tb-size {
+                width: 44px; height: 28px; border: none; border-radius: 4px 0 0 4px;
+                padding: 0 3px; text-align: center; font-size: 0.8rem; font-weight: 700;
+                margin: 0; background: #fff; color: #111; -moz-appearance: textfield; outline: none;
+            }
+            #cms-text-toolbar #cms-tb-size::-webkit-outer-spin-button,
+            #cms-text-toolbar #cms-tb-size::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+            #cms-text-toolbar .cms-tb-size-arrows {
+                position: absolute; right: 0; top: 0; bottom: 0; width: 16px;
+                display: flex; flex-direction: column; background: #e8e8e8; border-left: 1px solid #ccc;
+            }
+            #cms-text-toolbar .cms-tb-size-arrows button {
+                width: 100% !important; height: 14px !important; border: none !important;
+                border-radius: 0 !important; background: transparent !important; color: #333 !important;
+                font-size: 9px !important; padding: 0 !important; margin: 0 !important;
+                display: flex !important; align-items: center !important; justify-content: center !important;
+                cursor: pointer !important; transition: background 0.15s, color 0.15s !important;
+            }
+            #cms-text-toolbar .cms-tb-size-arrows button:hover {
+                background: #d11f26 !important; color: #fff !important;
+            }
+            #cms-text-toolbar .cms-tb-size-arrows button:first-child {
+                border-bottom: 1px solid #ccc !important;
+            }
+            #cms-text-toolbar #cms-tb-color-swatch {
+                width:28px; height:28px; border:2px solid #555; border-radius:4px; padding:0;
+                cursor:pointer; flex-shrink:0;
+            }
+            #cms-tb-list-dropdown .cms-list-opt:hover { background:#d11f26 !important; }
+            /* "check"/"arrow" bullet shapes aren't real list-style-type keywords, so they're
+               rendered via ::marker content instead of list-style-type on lists carrying the
+               data-cms-bullet attribute this toolbar sets (list-style-type is itself forced to
+               "none" on those lists so the two never both render). */
+            ul[data-cms-bullet="check"] > li::marker { content: "\\2713  "; }
+            ul[data-cms-bullet="arrow"] > li::marker { content: "\\27A4  "; }
+        `;
+        document.head.appendChild(style);
+        if (parentSlot) {
+            parentSlot.appendChild(bar);
+        } else {
+            document.body.appendChild(bar);
+        }
+
+        const fontSelect = bar.querySelector('#cms-tb-font');
+        fontSelect.innerHTML = '<option value="">Font...</option>' +
+            this._TEXT_TOOLBAR_FONTS.map(f => `<option value="${f}">${f}</option>`).join('');
+
+        let activeEl = null;
+        const boldBtn = bar.querySelector('[data-cmd="bold"]');
+        const italicBtn = bar.querySelector('[data-cmd="italic"]');
+        const addBlockBtn = bar.querySelector('#cms-tb-add-block-btn');
+        const listBtn = bar.querySelector('#cms-tb-list-btn');
+        const listDropdown = bar.querySelector('#cms-tb-list-dropdown');
+        const alignBtn = bar.querySelector('#cms-tb-align-btn');
+        const alignIcon = bar.querySelector('#cms-tb-align-icon');
+        const alignDropdown = bar.querySelector('#cms-tb-align-dropdown');
+        const caseBtn = bar.querySelector('#cms-tb-case-btn');
+        const caseDropdown = bar.querySelector('#cms-tb-case-dropdown');
+        const sizeInput = bar.querySelector('#cms-tb-size');
+        const sizeUpBtn = bar.querySelector('#cms-tb-size-up');
+        const sizeDownBtn = bar.querySelector('#cms-tb-size-down');
+        const colorSwatchBtn = bar.querySelector('#cms-tb-color-swatch');
+        const resetBtn = bar.querySelector('[data-cmd="reset"]');
+
+        let savedOffsets = null; // { start, end }
+
+        const saveActiveEl = () => {
+            if (!activeEl) return;
+            const elId = activeEl.getAttribute('data-cms');
+            if (elId) this.updateElement(elId, 'text', activeEl.innerHTML);
+        };
+
+        const rangeToOffsets = (el, range) => {
+            if (!el || !range) return null;
+            const getCharOffset = (container, offset) => {
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+                let charIndex = 0;
+                let node;
+
+                if (container.nodeType === 3) {
+                    while ((node = walker.nextNode())) {
+                        if (node === container) {
+                            return charIndex + Math.min(offset, node.textContent.length);
+                        }
+                        charIndex += node.textContent.length;
+                    }
+                } else if (container.nodeType === 1) {
+                    const targetChild = container.childNodes[offset];
+                    if (targetChild) {
+                        while ((node = walker.nextNode())) {
+                            if (node === targetChild || targetChild.contains(node)) {
+                                return charIndex;
+                            }
+                            charIndex += node.textContent.length;
+                        }
+                    } else {
+                        return el.textContent.length;
+                    }
+                }
+                return null;
+            };
+
+            let start = getCharOffset(range.startContainer, range.startOffset);
+            let end = getCharOffset(range.endContainer, range.endOffset);
+
+            if (start === null) start = 0;
+            if (end === null) end = el.textContent.length;
+
+            const min = Math.min(start, end);
+            const max = Math.max(start, end);
+
+            if (range.collapsed) return null;
+
+            return { start: min, end: max };
+        };
+
+        const offsetsToRange = (el, start, end) => {
+            if (!el || start === null || end === null) return null;
+            const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+            let charIndex = 0;
+            let startNode = null, startOffset = 0, endNode = null, endOffset = 0;
+            let node;
+            while ((node = walker.nextNode())) {
+                const len = node.textContent.length;
+                if (!startNode && charIndex + len >= start) {
+                    startNode = node;
+                    startOffset = start - charIndex;
+                }
+                if (!endNode && charIndex + len >= end) {
+                    endNode = node;
+                    endOffset = end - charIndex;
+                    break;
+                }
+                charIndex += len;
+            }
+            if (!startNode || !endNode) return null;
+            const range = document.createRange();
+            range.setStart(startNode, Math.max(0, startOffset));
+            range.setEnd(endNode, Math.max(0, endOffset));
+            return range;
+        };
+
+        const resnapshotIfStillSelected = () => {
+            if (!activeEl) return;
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+            const range = sel.getRangeAt(0);
+            if (!activeEl.contains(range.commonAncestorContainer) && range.commonAncestorContainer !== activeEl) return;
+            const off = rangeToOffsets(activeEl, range);
+            if (off && off.start < off.end) savedOffsets = off;
+        };
+
+        bar.addEventListener('mousedown', (e) => {
+            // .cms-align-opt/.cms-case-opt are plain <div>s (not <button>s, so a click on one
+            // doesn't submit/steal focus the way a real button can) but still sit inside the
+            // dropdown menus and need the same treatment: without preventDefault here, the
+            // mousedown collapses the live text selection before the option's own click handler
+            // gets to read it, so the case-change/alignment silently becomes a no-op on whatever
+            // was selected.
+            if (e.target.closest('button, .cms-align-opt, .cms-case-opt, .cms-list-opt')) {
+                e.preventDefault();
+            } else {
+                resnapshotIfStillSelected();
+            }
+        });
+
+        const reflectCurrentStyle = (range) => {
+            let node = range ? range.startContainer : activeEl;
+            const el = node ? (node.nodeType === 1 ? node : node.parentElement) : activeEl;
+            if (!el) return;
+            const cs = window.getComputedStyle(el);
+            const family = (cs.fontFamily || '').split(',')[0].replace(/["']/g, '').trim();
+            fontSelect.value = this._TEXT_TOOLBAR_FONTS.includes(family) ? family : '';
+            const sizePx = parseInt(cs.fontSize, 10);
+            sizeInput.value = sizePx || '';
+            const rgb = cs.color;
+            const hexColor = this._rgbToHex(rgb) || '#000000';
+            colorSwatchBtn.style.background = hexColor;
+            boldBtn.classList.toggle('active', (cs.fontWeight === '700' || cs.fontWeight === 'bold' || parseInt(cs.fontWeight, 10) >= 600));
+            italicBtn.classList.toggle('active', cs.fontStyle === 'italic');
+            const computedAlign = (cs.textAlign || (activeEl ? window.getComputedStyle(activeEl).textAlign : 'left') || 'left').toLowerCase();
+            const validAlign = ['left', 'center', 'right', 'justify'].includes(computedAlign) ? computedAlign : 'left';
+            if (alignIcon) alignIcon.className = `fa fa-align-${validAlign}`;
+            if (alignDropdown) {
+                alignDropdown.querySelectorAll('.cms-align-opt').forEach(opt => {
+                    opt.classList.toggle('active', opt.getAttribute('data-align') === validAlign);
+                });
+            }
+        };
+
+        document.addEventListener('mouseup', (e) => {
+            if (!this.isEditing) return;
+            if (bar.contains(e.target)) return;
+            if (e.target.closest('#cms-color-picker-popup')) return;
+            const sel = window.getSelection();
+            if (!sel || sel.rangeCount === 0) return;
+            const range = sel.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            const el = (container.nodeType === 1 ? container : container.parentElement)?.closest('[data-cms][contenteditable="true"]');
+            if (!el) return;
+            activeEl = el;
+            if (activeEl._initialHTML === undefined) {
+                activeEl._initialHTML = activeEl.innerHTML;
+                activeEl._initialStyle = activeEl.getAttribute('style') || '';
+            }
+            if (!sel.isCollapsed) {
+                const off = rangeToOffsets(el, range);
+                if (off && off.start < off.end) savedOffsets = off;
+            }
+            reflectCurrentStyle(range);
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (!this.isEditing) return;
+            if (!['Shift', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+            const sel = window.getSelection();
+            if (!sel || sel.rangeCount === 0) return;
+            const range = sel.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            const el = (container.nodeType === 1 ? container : container.parentElement)?.closest('[data-cms][contenteditable="true"]');
+            if (!el) return;
+            activeEl = el;
+            if (activeEl._initialHTML === undefined) {
+                activeEl._initialHTML = activeEl.innerHTML;
+                activeEl._initialStyle = activeEl.getAttribute('style') || '';
+            }
+            if (!sel.isCollapsed) {
+                const off = rangeToOffsets(el, range);
+                if (off && off.start < off.end) savedOffsets = off;
+            }
+            reflectCurrentStyle(range);
+        });
+
+        const hasRealSelection = () => {
+            return !!(savedOffsets && savedOffsets.start !== null && savedOffsets.end !== null && savedOffsets.start < savedOffsets.end);
+        };
+
+        const cleanupLegacyFonts = (container) => {
+            if (!container) return;
+            const fonts = container.querySelectorAll('font');
+            fonts.forEach(f => {
+                const span = document.createElement('span');
+                if (f.getAttribute('color')) span.style.color = f.getAttribute('color');
+                if (f.getAttribute('face')) span.style.fontFamily = f.getAttribute('face');
+                if (f.getAttribute('size')) {
+                    const s = f.getAttribute('size');
+                    if (s === '7') span.style.fontSize = '36px';
+                }
+                if (f.style.cssText) span.style.cssText += ';' + f.style.cssText;
+                span.innerHTML = f.innerHTML;
+                f.replaceWith(span);
+            });
+        };
+
+        const cleanupEmptySpans = (container) => {
+            if (!container) return;
+            container.querySelectorAll('span').forEach(sp => {
+                if (!sp.getAttribute('style') || sp.getAttribute('style').trim() === '') {
+                    const parent = sp.parentNode;
+                    while (sp.firstChild) parent.insertBefore(sp.firstChild, sp);
+                    sp.remove();
+                }
+            });
+        };
+
+        const applyStyleToRange = (range, styleChanges) => {
+            if (!range || range.collapsed) return;
+
+            // Split text nodes at boundaries if needed so we don't style text outside range
+            if (range.endContainer.nodeType === 3 && range.endOffset < range.endContainer.textContent.length && range.endOffset > 0) {
+                range.endContainer.splitText(range.endOffset);
+            }
+            if (range.startContainer.nodeType === 3 && range.startOffset > 0) {
+                const splitNode = range.startContainer.splitText(range.startOffset);
+                if (range.startContainer === range.endContainer) {
+                    range.setEnd(splitNode, splitNode.textContent.length);
+                }
+                range.setStart(splitNode, 0);
+            }
+
+            const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    if (!node.textContent || node.textContent.length === 0) return NodeFilter.FILTER_REJECT;
+                    if (/^\s*$/.test(node.textContent) && (node.parentElement === activeEl || ['UL', 'OL', 'TABLE', 'TBODY', 'TR'].includes(node.parentElement?.tagName))) {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+                    const nodeRange = document.createRange();
+                    nodeRange.selectNode(node);
+                    const isAfterStart = range.compareBoundaryPoints(Range.START_TO_END, nodeRange) > 0;
+                    const isBeforeEnd = range.compareBoundaryPoints(Range.END_TO_START, nodeRange) < 0;
+                    return (isAfterStart && isBeforeEnd) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+                }
+            });
+
+            const textNodes = [];
+            let n;
+            while ((n = walker.nextNode())) {
+                textNodes.push(n);
+            }
+            if (textNodes.length === 0 && range.commonAncestorContainer.nodeType === 3) {
+                textNodes.push(range.commonAncestorContainer);
+            }
+
+            textNodes.forEach(node => {
+                const parent = node.parentElement;
+                if (parent && parent.tagName === 'SPAN' && parent.childNodes.length === 1 && activeEl.contains(parent) && parent !== activeEl) {
+                    Object.assign(parent.style, styleChanges);
+                } else {
+                    const span = document.createElement('span');
+                    Object.assign(span.style, styleChanges);
+                    parent.insertBefore(span, node);
+                    span.appendChild(node);
+                }
+            });
+        };
+
+        const applyFormatting = (changes, shouldSave = true) => {
+            if (!activeEl) return false;
+            cleanupLegacyFonts(activeEl);
+
+            if (hasRealSelection()) {
+                const range = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+                if (range && !range.collapsed) {
+                    const styleChanges = {};
+                    if (changes.color !== undefined) styleChanges.color = changes.color;
+                    if (changes.fontFamily !== undefined) {
+                        styleChanges.fontFamily = changes.fontFamily ? `'${changes.fontFamily}', sans-serif` : '';
+                    }
+                    if (changes.fontSize !== undefined) styleChanges.fontSize = changes.fontSize;
+                    if (changes.fontWeight !== undefined) styleChanges.fontWeight = changes.fontWeight;
+                    if (changes.fontStyle !== undefined) styleChanges.fontStyle = changes.fontStyle;
+
+                    applyStyleToRange(range, styleChanges);
+
+                    // Re-assert selection range so the user can still see their selection highlighted
+                    const newRange = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+                    if (newRange) {
+                        const sel = window.getSelection();
+                        if (sel) {
+                            sel.removeAllRanges();
+                            sel.addRange(newRange);
+                        }
+                    }
+                }
+            } else {
+                let targetSpan = null;
+                if (activeEl.children.length === 1 && activeEl.firstElementChild.tagName === 'SPAN') {
+                    targetSpan = activeEl.firstElementChild;
+                } else {
+                    targetSpan = activeEl;
+                }
+
+                if (changes.color !== undefined) {
+                    targetSpan.style.color = changes.color;
+                    if (targetSpan !== activeEl) {
+                        targetSpan.querySelectorAll('span').forEach(sp => { sp.style.color = ''; });
+                    }
+                }
+
+                if (changes.fontFamily !== undefined) {
+                    const fontVal = changes.fontFamily ? `'${changes.fontFamily}', sans-serif` : '';
+                    targetSpan.style.fontFamily = fontVal;
+                    if (targetSpan !== activeEl) {
+                        targetSpan.querySelectorAll('span').forEach(sp => { sp.style.fontFamily = ''; });
+                    }
+                }
+
+                if (changes.fontSize !== undefined) {
+                    targetSpan.style.fontSize = changes.fontSize;
+                    if (targetSpan !== activeEl) {
+                        targetSpan.querySelectorAll('span').forEach(sp => { sp.style.fontSize = ''; });
+                    }
+                }
+
+                if (changes.fontWeight !== undefined) {
+                    targetSpan.style.fontWeight = changes.fontWeight;
+                    if (changes.fontWeight === 'normal' || changes.fontWeight === '') {
+                        if (targetSpan !== activeEl) {
+                            targetSpan.querySelectorAll('span, b, strong').forEach(sp => { sp.style.fontWeight = ''; });
+                        }
+                    }
+                }
+
+                if (changes.fontStyle !== undefined) {
+                    targetSpan.style.fontStyle = changes.fontStyle;
+                    if (changes.fontStyle === 'normal' || changes.fontStyle === '') {
+                        if (targetSpan !== activeEl) {
+                            targetSpan.querySelectorAll('span, i, em').forEach(sp => { sp.style.fontStyle = ''; });
+                        }
+                    }
+                }
+            }
+
+            cleanupEmptySpans(activeEl);
+
+            if (shouldSave) saveActiveEl();
+            return true;
+        };
+
+        const getSelectedNodeStyle = () => {
+            if (!activeEl) return window.getComputedStyle(document.body);
+            let node = null;
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) {
+                const r = sel.getRangeAt(0);
+                if (activeEl.contains(r.commonAncestorContainer) || r.commonAncestorContainer === activeEl) {
+                    node = r.startContainer;
+                }
+            }
+            if (!node && hasRealSelection()) {
+                const r = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+                if (r) node = r.startContainer;
+            }
+            if (node) {
+                const el = node.nodeType === 1 ? node : node.parentElement;
+                if (el && activeEl.contains(el)) return window.getComputedStyle(el);
+            }
+            return window.getComputedStyle(activeEl);
+        };
+
+        boldBtn.onclick = () => {
+            if (!activeEl) return;
+            const cs = getSelectedNodeStyle();
+            const isBold = cs.fontWeight === '700' || cs.fontWeight === 'bold' || parseInt(cs.fontWeight, 10) >= 600;
+            const baseCs = window.getComputedStyle(activeEl);
+            const baseIsBold = baseCs.fontWeight === '700' || baseCs.fontWeight === 'bold' || parseInt(baseCs.fontWeight, 10) >= 600;
+            
+            let newWeight;
+            if (isBold) {
+                newWeight = baseIsBold ? 'normal' : '';
+            } else {
+                newWeight = 'bold';
+            }
+            applyFormatting({ fontWeight: newWeight });
+            
+            setTimeout(() => {
+                const updatedCs = getSelectedNodeStyle();
+                const nowBold = updatedCs.fontWeight === '700' || updatedCs.fontWeight === 'bold' || parseInt(updatedCs.fontWeight, 10) >= 600;
+                boldBtn.classList.toggle('active', nowBold);
+            }, 0);
+        };
+
+        italicBtn.onclick = () => {
+            if (!activeEl) return;
+            const cs = getSelectedNodeStyle();
+            const isItalic = cs.fontStyle === 'italic';
+            const baseCs = window.getComputedStyle(activeEl);
+            const baseIsItalic = baseCs.fontStyle === 'italic';
+            
+            let newStyle;
+            if (isItalic) {
+                newStyle = baseIsItalic ? 'normal' : '';
+            } else {
+                newStyle = 'italic';
+            }
+            applyFormatting({ fontStyle: newStyle });
+            
+            setTimeout(() => {
+                const updatedCs = getSelectedNodeStyle();
+                const nowItalic = updatedCs.fontStyle === 'italic';
+                italicBtn.classList.toggle('active', nowItalic);
+            }, 0);
+        };
+
+        // Both dropdowns are `position: fixed` (not `absolute`) specifically because their
+        // nearest positioned ancestor is #cms-admin-bar, which has `overflow: hidden` — an
+        // absolutely-positioned dropdown extending below the bar's 46px height got silently
+        // clipped there instead of floating over the page. `fixed` escapes that entirely, but
+        // then needs its own top/left computed from the toggle button's actual screen position
+        // (anchored under the button) every time it opens, since it's no longer positioned
+        // relative to anything in its own DOM ancestry.
+        const positionDropdown = (btn, dropdown) => {
+            const rect = btn.getBoundingClientRect();
+            dropdown.style.top = `${rect.bottom + 4}px`;
+            dropdown.style.left = `${rect.left}px`;
+        };
+
+        // Inserts a small independent block the user can align/space differently from the rest
+        // of a large rich-text field (see applyAlignment's data-cms-textblock check above) —
+        // works around text-align/line-height being CSS properties that can only ever apply to
+        // a whole block, never to an arbitrary text selection within one, in any browser. Only
+        // meaningful inside fields that hold multiple paragraphs already (why-desc-style content
+        // blocks); a plain heading/short field has nothing for this to usefully separate out.
+        addBlockBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!activeEl) return;
+            activeEl.focus();
+            if (savedOffsets) {
+                const range = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+                if (range) {
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+            const sel = window.getSelection();
+            const block = document.createElement('div');
+            block.setAttribute('data-cms-textblock', '');
+            block.style.textAlign = 'left';
+            block.textContent = 'New text block';
+            if (sel && sel.rangeCount) {
+                const range = sel.getRangeAt(0);
+                range.collapse(false);
+                range.insertNode(block);
+            } else {
+                activeEl.appendChild(block);
+            }
+            // Select the placeholder text so the admin can immediately start typing over it,
+            // matching how a freshly-inserted list item or similar toolbar action behaves.
+            const newRange = document.createRange();
+            newRange.selectNodeContents(block);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+            const off = rangeToOffsets(activeEl, newRange);
+            if (off) savedOffsets = off;
+            saveActiveEl();
+        };
+
+        // Every toolbar dropdown-button closes the OTHER three before opening its own, so at
+        // most one is ever visible at a time (they'd otherwise overlap — all four are
+        // position:fixed near the same corner of the toolbar).
+        const closeOtherDropdowns = (exceptDropdown) => {
+            [alignDropdown, caseDropdown, listDropdown].forEach(d => {
+                if (d && d !== exceptDropdown) d.style.display = 'none';
+            });
+        };
+
+        alignBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = alignDropdown.style.display === 'block';
+            closeOtherDropdowns(alignDropdown);
+            if (!isOpen) positionDropdown(alignBtn, alignDropdown);
+            alignDropdown.style.display = isOpen ? 'none' : 'block';
+        };
+
+        caseBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = caseDropdown.style.display === 'block';
+            closeOtherDropdowns(caseDropdown);
+            if (!isOpen) positionDropdown(caseBtn, caseDropdown);
+            caseDropdown.style.display = isOpen ? 'none' : 'block';
+        };
+
+        listBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = listDropdown.style.display === 'block';
+            closeOtherDropdowns(listDropdown);
+            if (!isOpen) positionDropdown(listBtn, listDropdown);
+            listDropdown.style.display = isOpen ? 'none' : 'block';
+        };
+
+        // Uses the browser's own native list handling (execCommand) rather than manually
+        // building <ul>/<li> markup, so Enter/Backspace/Tab inside the resulting list behave
+        // exactly like any normal contenteditable list — no custom keydown handling needed here.
+        // (The separate data-persistent-bullets keydown handler elsewhere in this file is for a
+        // different, more specialized case — pre-built lists whose <li>s each carry their own
+        // cloneable icon, like "Why Choose Baselok" — this generic toolbar button intentionally
+        // does not opt freeform lists into that icon-cloning behavior.)
+        // "none" removes the list entirely — execCommand toggles the SAME command off when the
+        // selection is already that kind of list, so insertUnorderedList/insertOrderedList
+        // double as the "no bullets"/"no numbering" action for their own kind; picking a bullet
+        // style while the selection is currently an <ol> (or vice versa) needs the CURRENT kind
+        // turned off first, or the browser nests one list type inside the other instead of
+        // converting it.
+        const applyList = (kind, styleName) => {
+            if (!activeEl) return;
+            // The mousedown handler below (bar's own listener) already preserves the live
+            // selection for buttons, but a toolbar click can still land with the selection
+            // collapsed in some browsers — re-assert the last known selection from savedOffsets
+            // first, exactly like every other formatting action in this toolbar.
+            if (savedOffsets) {
+                const range = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+                if (range) {
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+            activeEl.focus();
+
+            const command = kind === 'ol' ? 'insertOrderedList' : 'insertUnorderedList';
+            const otherCommand = kind === 'ol' ? 'insertUnorderedList' : 'insertOrderedList';
+            if (styleName === 'none') {
+                // Force off regardless of current state — querying queryCommandState here would
+                // need to run before any DOM change, so just try both; a no-op command call on a
+                // selection that isn't currently that list type is harmless.
+                if (document.queryCommandState(command)) document.execCommand(command, false, null);
+                if (document.queryCommandState(otherCommand)) document.execCommand(otherCommand, false, null);
+                saveActiveEl();
+                listDropdown.style.display = 'none';
+                return;
+            }
+            if (document.queryCommandState(otherCommand)) document.execCommand(otherCommand, false, null);
+            if (!document.queryCommandState(command)) document.execCommand(command, false, null);
+
+            // Apply the chosen visual style to whichever list(s) the selection now touches. list-
+            // style-type covers the numbering styles directly; the bullet "shapes" beyond the
+            // CSS-native disc/circle/square (check, arrow) aren't real list-style-type keywords,
+            // so they're done via a data attribute + CSS ::marker content override instead (see
+            // the injected <style> block below) rather than a list-style-image data: URI, which
+            // wouldn't recolor with the theme or scale with font-size.
+            const sel = window.getSelection();
+            if (!sel.rangeCount) { saveActiveEl(); listDropdown.style.display = 'none'; return; }
+            const range = sel.getRangeAt(0);
+            const container = range.commonAncestorContainer.nodeType === 1
+                ? range.commonAncestorContainer : range.commonAncestorContainer.parentElement;
+            const targetList = container ? container.closest(kind) : null;
+            const lists = targetList ? [targetList] : activeEl.querySelectorAll(kind === 'ol' ? 'ol' : 'ul');
+            (targetList ? [targetList] : Array.from(lists)).forEach(list => {
+                if (kind === 'ul' && (styleName === 'check' || styleName === 'arrow')) {
+                    list.style.listStyleType = 'none';
+                    list.setAttribute('data-cms-bullet', styleName);
+                } else {
+                    list.style.listStyleType = styleName;
+                    list.removeAttribute('data-cms-bullet');
+                }
+            });
+
+            saveActiveEl();
+            listDropdown.style.display = 'none';
+        };
+
+        listDropdown.querySelectorAll('.cms-list-opt').forEach(opt => {
+            opt.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                applyList(opt.getAttribute('data-list-kind'), opt.getAttribute('data-list-style'));
+            };
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!bar.contains(e.target)) {
+                if (alignDropdown) alignDropdown.style.display = 'none';
+                if (caseDropdown) caseDropdown.style.display = 'none';
+                if (listDropdown) listDropdown.style.display = 'none';
+            }
+        });
+
+        // Case-change operates on the raw text characters (not a style property like the other
+        // toolbar controls), so it walks the selection's text nodes directly and rewrites their
+        // textContent in place — this preserves any existing <b>/<i>/<span> formatting on the
+        // selected text instead of flattening it, unlike re-wrapping the selection in a new span.
+        const applyCaseChange = (mode) => {
+            if (!activeEl || !hasRealSelection()) return;
+            const range = offsetsToRange(activeEl, savedOffsets.start, savedOffsets.end);
+            if (!range || range.collapsed) return;
+
+            const transform = (text) => {
+                switch (mode) {
+                    case 'upper': return text.toUpperCase();
+                    case 'lower': return text.toLowerCase();
+                    case 'title': return text.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+                    case 'toggle': return text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+                    case 'sentence': {
+                        const lower = text.toLowerCase();
+                        return lower.replace(/(^\s*\w|[.!?]\s+\w)/g, (m) => m.toUpperCase());
+                    }
+                    default: return text;
+                }
+            };
+
+            const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            // commonAncestorContainer can itself be a text node (single-text-node selection) —
+            // the TreeWalker only visits its ELEMENT descendants in that case, missing it entirely.
+            if (range.commonAncestorContainer.nodeType === 3) {
+                textNodes.push(range.commonAncestorContainer);
+            } else {
+                let node;
+                while ((node = walker.nextNode())) {
+                    if (range.intersectsNode(node)) textNodes.push(node);
+                }
+            }
+
+            textNodes.forEach(node => {
+                const isStart = node === range.startContainer;
+                const isEnd = node === range.endContainer;
+                const start = isStart ? range.startOffset : 0;
+                const end = isEnd ? range.endOffset : node.textContent.length;
+                if (start >= end) return;
+                const before = node.textContent.slice(0, start);
+                const middle = node.textContent.slice(start, end);
+                const after = node.textContent.slice(end);
+                node.textContent = before + transform(middle) + after;
+            });
+
+            caseDropdown.style.display = 'none';
+            saveActiveEl();
+        };
+
+        caseDropdown.querySelectorAll('.cms-case-opt').forEach(opt => {
+            opt.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                applyCaseChange(opt.getAttribute('data-case'));
+            };
+        });
+
+        const applyAlignment = (alignVal) => {
+            if (!activeEl) return;
+
+            // If the cursor/selection is inside a "text block" the user explicitly added via
+            // the Add Text Block button, alignment targets ONLY that block — never the whole
+            // field — since these blocks exist specifically to let one part of a large
+            // rich-text field (like "why-desc") have different alignment/spacing than the rest.
+            // Falls through to the original whole-field behavior when there's no such block
+            // (e.g. plain headings/short fields), so nothing about existing behavior changes
+            // for content that never used this feature.
+            const sel = window.getSelection();
+            let scopedBlock = null;
+            if (sel && sel.rangeCount) {
+                const node = sel.getRangeAt(0).commonAncestorContainer;
+                const el = node.nodeType === 1 ? node : node.parentElement;
+                scopedBlock = el ? el.closest('[data-cms-textblock]') : null;
+                if (scopedBlock && !activeEl.contains(scopedBlock)) scopedBlock = null;
+            }
+
+            if (scopedBlock) {
+                scopedBlock.style.textAlign = alignVal;
+            } else {
+                activeEl.style.textAlign = alignVal;
+
+                if (activeEl.children.length === 1 && (activeEl.firstElementChild.tagName === 'SPAN' || activeEl.firstElementChild.tagName === 'DIV')) {
+                    activeEl.firstElementChild.style.display = 'block';
+                    activeEl.firstElementChild.style.textAlign = alignVal;
+                } else if (activeEl.children.length === 0 || Array.from(activeEl.childNodes).every(n => n.nodeType === 3 || ['SPAN','SUP','B','I','STRONG','EM'].includes(n.tagName))) {
+                    const span = document.createElement('span');
+                    span.style.display = 'block';
+                    span.style.textAlign = alignVal;
+                    while (activeEl.firstChild) {
+                        span.appendChild(activeEl.firstChild);
+                    }
+                    activeEl.appendChild(span);
+                }
+            }
+
+            if (alignIcon) alignIcon.className = `fa fa-align-${alignVal}`;
+            if (alignDropdown) {
+                alignDropdown.querySelectorAll('.cms-align-opt').forEach(opt => {
+                    opt.classList.toggle('active', opt.getAttribute('data-align') === alignVal);
+                });
+                alignDropdown.style.display = 'none';
+            }
+
+            saveActiveEl();
+        };
+
+        alignDropdown.querySelectorAll('.cms-align-opt').forEach(opt => {
+            opt.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const alignVal = opt.getAttribute('data-align');
+                applyAlignment(alignVal);
+            };
+        });
+
+        fontSelect.onchange = () => {
+            if (!activeEl || !fontSelect.value) return;
+            this._ensureGoogleFontLoaded(fontSelect.value);
+            applyFormatting({ fontFamily: fontSelect.value });
+        };
+
+        const onSizeUpdate = () => {
+            if (!activeEl) return;
+            const px = parseInt(sizeInput.value, 10);
+            if (!px || px < 6) return;
+            applyFormatting({ fontSize: px + 'px' });
+        };
+        sizeInput.onchange = onSizeUpdate;
+        sizeInput.oninput = onSizeUpdate;
+
+        if (sizeUpBtn) {
+            sizeUpBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!activeEl) return;
+                let cur = parseInt(sizeInput.value, 10) || 16;
+                cur = Math.min(120, cur + 1);
+                sizeInput.value = cur;
+                onSizeUpdate();
+            };
+        }
+        if (sizeDownBtn) {
+            sizeDownBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!activeEl) return;
+                let cur = parseInt(sizeInput.value, 10) || 16;
+                cur = Math.max(6, cur - 1);
+                sizeInput.value = cur;
+                onSizeUpdate();
+            };
+        }
+
+        let colorOriginalHex = null;
+        colorSwatchBtn.onclick = () => {
+            if (!activeEl) return;
+            const cs = window.getComputedStyle(activeEl);
+            colorOriginalHex = this._rgbToHex(cs.color) || '#000000';
+
+            this._openCustomColorPicker(colorSwatchBtn, (hex) => {
+                colorSwatchBtn.style.background = hex;
+                applyFormatting({ color: hex }, false);
+            }, (finalHex) => {
+                colorSwatchBtn.style.background = finalHex;
+                applyFormatting({ color: finalHex }, true);
+                colorOriginalHex = null;
+            }, () => {
+                if (colorOriginalHex) {
+                    colorSwatchBtn.style.background = colorOriginalHex;
+                    applyFormatting({ color: colorOriginalHex }, true);
+                }
+                colorOriginalHex = null;
+            });
+        };
+
+        resetBtn.onclick = () => {
+            if (!activeEl) return;
+            if (activeEl._initialHTML !== undefined) {
+                activeEl.innerHTML = activeEl._initialHTML;
+                if (activeEl._initialStyle) {
+                    activeEl.setAttribute('style', activeEl._initialStyle);
+                } else {
+                    activeEl.removeAttribute('style');
+                }
+                saveActiveEl();
+                reflectCurrentStyle();
+            }
+        };
+    },
+
+        // Self-contained HSV color picker popup (gradient saturation/value box + hue strip + R/G/B
+    // inputs + Apply/Cancel), used in place of the native <input type="color"> so an "Apply"
+    // button can live directly under the R/G/B fields, matching the requested layout — a native
+    // color popup's own UI can't be modified to add a button inside it.
+    _openCustomColorPicker(anchorEl, onPreview, onApply, onCancel) {
+        const existing = document.getElementById('cms-color-picker-popup');
+        if (existing) existing.remove();
+
+        const startHex = (() => {
+            const bg = anchorEl.style.background || '#000000';
+            if (bg.startsWith('#')) return bg;
+            const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!m) return '#000000';
+            const toHex = (n) => parseInt(n, 10).toString(16).padStart(2, '0');
+            return `#${toHex(m[1])}${toHex(m[2])}${toHex(m[3])}`;
+        })();
+
+        const hexToRgb = (hex) => {
+            const n = parseInt(hex.replace('#', ''), 16);
+            return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+        };
+        const rgbToHex = (r, g, b) => '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+        const rgbToHsv = (r, g, b) => {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+            let h = 0;
+            if (d !== 0) {
+                if (max === r) h = ((g - b) / d) % 6;
+                else if (max === g) h = (b - r) / d + 2;
+                else h = (r - g) / d + 4;
+                h *= 60;
+                if (h < 0) h += 360;
+            }
+            const s = max === 0 ? 0 : d / max;
+            return { h, s, v: max };
+        };
+        const hsvToRgb = (h, s, v) => {
+            const c = v * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = v - c;
+            let r, g, b;
+            if (h < 60) [r, g, b] = [c, x, 0];
+            else if (h < 120) [r, g, b] = [x, c, 0];
+            else if (h < 180) [r, g, b] = [0, c, x];
+            else if (h < 240) [r, g, b] = [0, x, c];
+            else if (h < 300) [r, g, b] = [x, 0, c];
+            else [r, g, b] = [c, 0, x];
+            return { r: (r + m) * 255, g: (g + m) * 255, b: (b + m) * 255 };
+        };
+
+        const startRgb = hexToRgb(startHex);
+        let hsv = rgbToHsv(startRgb.r, startRgb.g, startRgb.b);
+
+        const popup = document.createElement('div');
+        popup.id = 'cms-color-picker-popup';
+        popup.innerHTML = `
+            <div class="cms-cp-sv-box">
+                <div class="cms-cp-sv-white"></div>
+                <div class="cms-cp-sv-black"></div>
+                <div class="cms-cp-sv-cursor"></div>
+            </div>
+            <div class="cms-cp-hue-strip"><div class="cms-cp-hue-cursor"></div></div>
+            <div class="cms-cp-rgb-row">
+                <div class="cms-cp-swatch-preview"></div>
+                <input type="text" maxlength="3" id="cms-cp-r" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="3" id="cms-cp-g" inputmode="numeric" autocomplete="off">
+                <input type="text" maxlength="3" id="cms-cp-b" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="cms-cp-rgb-labels"><span>R</span><span>G</span><span>B</span></div>
+            <div class="cms-cp-actions">
+                <button type="button" class="cms-cp-cancel">Cancel</button>
+                <button type="button" class="cms-cp-apply">Apply</button>
+            </div>
+        `;
+        popup.style.cssText = `
+            position: fixed; z-index: 1000003; background: #2b2b2b; border-radius: 8px;
+            padding: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); width: 240px;
+            font-family: Arial, sans-serif; box-sizing: border-box;
+        `;
+        if (!document.getElementById('cms-color-picker-style')) {
+            const s = document.createElement('style');
+            s.id = 'cms-color-picker-style';
+            s.textContent = `
+                #cms-color-picker-popup * { box-sizing: border-box; }
+                .cms-cp-sv-box { position:relative; width:100%; height:130px; border-radius:5px; cursor:crosshair; overflow:hidden; }
+                .cms-cp-sv-white { position:absolute; inset:0; background:linear-gradient(to right, #fff, rgba(255,255,255,0)); }
+                .cms-cp-sv-black { position:absolute; inset:0; background:linear-gradient(to top, #000, rgba(0,0,0,0)); }
+                .cms-cp-sv-cursor { position:absolute; width:12px; height:12px; border:2px solid #fff; border-radius:50%; box-shadow:0 0 0 1px rgba(0,0,0,0.6); transform:translate(-50%,-50%); pointer-events:none; }
+                .cms-cp-hue-strip { position:relative; width:100%; height:14px; margin-top:10px; border-radius:7px; cursor:pointer;
+                    background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); }
+                .cms-cp-hue-cursor { position:absolute; top:-2px; width:10px; height:18px; border:2px solid #fff; border-radius:3px; box-shadow:0 0 0 1px rgba(0,0,0,0.6); transform:translateX(-50%); pointer-events:none; }
+                .cms-cp-rgb-row { display:flex; gap:6px; margin-top:12px; align-items:center; }
+                .cms-cp-swatch-preview { width:28px; height:28px; border-radius:5px; border:2px solid #555; flex-shrink:0; }
+                .cms-cp-rgb-row input {
+                    width: 0 !important;
+                    flex: 1 1 0 !important;
+                    min-width: 0 !important;
+                    height: 32px !important;
+                    line-height: 32px !important;
+                    border: 1px solid #555 !important;
+                    border-radius: 6px !important;
+                    text-align: center !important;
+                    font-size: 13px !important;
+                    font-weight: 700 !important;
+                    font-family: Arial, sans-serif !important;
+                    background: #ffffff !important;
+                    color: #111111 !important;
+                    padding: 0 4px !important;
+                    margin: 0 !important;
+                    box-sizing: border-box !important;
+                    outline: none !important;
+                    -webkit-appearance: none !important;
+                    -moz-appearance: textfield !important;
+                    appearance: textfield !important;
+                }
+                .cms-cp-rgb-row input::-webkit-outer-spin-button,
+                .cms-cp-rgb-row input::-webkit-inner-spin-button {
+                    -webkit-appearance: none !important;
+                    margin: 0 !important;
+                    display: none !important;
+                }
+                .cms-cp-rgb-labels { display:flex; gap:6px; margin-top:4px; padding-left:42px; }
+                .cms-cp-rgb-labels span { flex:1; text-align:center; font-size:0.7rem; color:#999; }
+                .cms-cp-actions { display:flex; gap:8px; margin-top:12px; width:100%; }
+                .cms-cp-actions button { flex:1 1 0; min-width:0; height:30px; border:none; border-radius:5px; cursor:pointer; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 4px; }
+                .cms-cp-cancel { background:#444; color:#ccc; }
+                .cms-cp-cancel:hover { background:#555; }
+                .cms-cp-apply { background:#d11f26; color:#fff; }
+                .cms-cp-apply:hover { background:#b01a20; }
+            `;
+            document.head.appendChild(s);
+        }
+        document.body.appendChild(popup);
+
+        // Position near the swatch button that opened it
+        const anchorRect = anchorEl.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+        let top = anchorRect.bottom + 8;
+        if (top + popupRect.height > window.innerHeight - 4) top = anchorRect.top - popupRect.height - 8;
+        let left = Math.min(anchorRect.left, window.innerWidth - popupRect.width - 4);
+        left = Math.max(4, left);
+        popup.style.top = `${top}px`;
+        popup.style.left = `${left}px`;
+
+        const svBox = popup.querySelector('.cms-cp-sv-box');
+        const svCursor = popup.querySelector('.cms-cp-sv-cursor');
+        const hueStrip = popup.querySelector('.cms-cp-hue-strip');
+        const hueCursor = popup.querySelector('.cms-cp-hue-cursor');
+        const swatchPreview = popup.querySelector('.cms-cp-swatch-preview');
+        const rInput = popup.querySelector('#cms-cp-r');
+        const gInput = popup.querySelector('#cms-cp-g');
+        const bInput = popup.querySelector('#cms-cp-b');
+
+        const currentHex = () => {
+            const rgb = hsvToRgb(hsv.h, hsv.s, hsv.v);
+            return rgbToHex(rgb.r, rgb.g, rgb.b);
+        };
+
+        const render = () => {
+            svBox.style.background = `hsl(${hsv.h}, 100%, 50%)`;
+            svCursor.style.left = `${hsv.s * 100}%`;
+            svCursor.style.top = `${(1 - hsv.v) * 100}%`;
+            hueCursor.style.left = `${(hsv.h / 360) * 100}%`;
+            const rgb = hsvToRgb(hsv.h, hsv.s, hsv.v);
+            const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+            swatchPreview.style.background = hex;
+            rInput.value = Math.round(rgb.r);
+            gInput.value = Math.round(rgb.g);
+            bInput.value = Math.round(rgb.b);
+            onPreview(hex);
+        };
+        render();
+
+        const dragHandler = (moveEvent, box, onMove) => {
+            const rect = box.getBoundingClientRect();
+            const move = (e) => {
+                const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+                onMove(x, y);
+            };
+            move(moveEvent);
+            const onMouseMove = (e) => move(e);
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        };
+
+        svBox.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            dragHandler(e, svBox, (x, y) => { hsv.s = x; hsv.v = 1 - y; render(); });
+        });
+        hueStrip.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            dragHandler(e, hueStrip, (x) => { hsv.h = x * 360; render(); });
+        });
+
+        const onRgbInputChange = () => {
+            const r = Math.max(0, Math.min(255, parseInt(rInput.value, 10) || 0));
+            const g = Math.max(0, Math.min(255, parseInt(gInput.value, 10) || 0));
+            const b = Math.max(0, Math.min(255, parseInt(bInput.value, 10) || 0));
+            hsv = rgbToHsv(r, g, b);
+            render();
+        };
+        [rInput, gInput, bInput].forEach(inp => {
+            inp.addEventListener('input', onRgbInputChange);
+            inp.addEventListener('change', onRgbInputChange);
+            inp.addEventListener('keyup', onRgbInputChange);
+        });
+
+        const closePopup = () => {
+            popup.remove();
+            document.removeEventListener('mousedown', outsideClickHandler, true);
+        };
+        const outsideClickHandler = (e) => {
+            if (!popup.contains(e.target) && e.target !== anchorEl) {
+                onCancel();
+                closePopup();
+            }
+        };
+        // Delay attaching so the click that opened the popup doesn't immediately close it
+        setTimeout(() => document.addEventListener('mousedown', outsideClickHandler, true), 0);
+
+        popup.querySelector('.cms-cp-cancel').onclick = () => { onCancel(); closePopup(); };
+        popup.querySelector('.cms-cp-apply').onclick = () => { onApply(currentHex()); closePopup(); };
+    },
+
+    // Converts a computed "rgb(r, g, b)" / "rgba(r, g, b, a)" string to "#rrggbb" so it can
+    // pre-fill an <input type="color">, which only accepts hex.
+    _rgbToHex(rgb) {
+        const m = rgb && rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (!m) return null;
+        const toHex = (n) => parseInt(n, 10).toString(16).padStart(2, '0');
+        return `#${toHex(m[1])}${toHex(m[2])}${toHex(m[3])}`;
+    },
 
     _injectListViewStyles() {
         if (document.getElementById('cms-list-view-styles')) return;
@@ -1576,6 +2811,31 @@ const CMS = {
             .bpro-promo-section .ttm-btn:hover, .bpro-promo-section .ttm-btn:hover i,
             .bpro-promo-section .ttm-btn:focus, .bpro-promo-section .ttm-btn:focus i{color:#1d2535 !important}
 
+            #cms-admin-bar {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0 15px !important;
+                gap: 8px !important;
+                overflow: hidden !important;
+            }
+            .cms-brand-text {
+                color: #d11f26 !important;
+                font-weight: 800 !important;
+                font-size: 0.78rem !important;
+                text-transform: uppercase !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                max-width: 220px !important;
+                min-width: 0 !important;
+                flex-shrink: 1 !important;
+            }
+            #cms-mode-indicator { flex-shrink: 0 !important; }
+            #cms-tb-dock-slot { flex-shrink: 0 !important; }
+            .cms-admin-actions { flex-shrink: 0 !important; display: flex !important; gap: 6px !important; }
+            .cms-admin-actions .cms-btn { flex-shrink: 0 !important; white-space: nowrap !important; }
+
             /* ===================================================================
                MOBILE CMS UI FIX Ã¢â‚¬&rdquo; only affects phones/tablets (<=768px).
                Desktop/laptop (>=769px) is completely untouched.
@@ -1671,8 +2931,25 @@ const CMS = {
                 console.warn('[CMS] Server session active but Tab session missing. Forcing logout.');
                 await this.logout();
                 this.isLoggedIn = false;
+                this.userRole = null;
+                this.currentUserId = null;
             } else {
                 this.isLoggedIn = data.loggedIn;
+                // Approval-workflow pilot (schema_v6_approval_workflow.sql): 'admin' | 'editor'.
+                // Defaults to 'admin' so any account predating this feature keeps today's
+                // behavior (direct publish, no hidden dashboard tabs) if the role is ever absent.
+                this.userRole = data.loggedIn ? (data.role || 'admin') : null;
+                // The session JWT's subject IS the admins.id (see AuthService#login/JwtUtil) —
+                // decoded client-side only to let Team & Access hide "Remove" on the logged-in
+                // admin's own row (self-delete is also blocked server-side as defense in depth,
+                // see UserManagementController#deleteUser). JWTs are not encrypted, only signed,
+                // so reading the payload here reveals nothing the cookie doesn't already expose.
+                this.currentUserId = null;
+                if (data.loggedIn && data.sessionId) {
+                    try {
+                        this.currentUserId = JSON.parse(atob(data.sessionId.split('.')[1])).sub;
+                    } catch (e) { /* malformed token — leave currentUserId null */ }
+                }
             }
 
             document.body.classList.toggle('cms-admin-active', this.isLoggedIn);
@@ -1996,7 +3273,33 @@ const CMS = {
 
                     const elements = document.querySelectorAll(`[data-cms="${item.element_id}"]`);
                     elements.forEach(element => {
-                        if (item.content_type === 'text') {
+                        if (item.content_type === 'icon') {
+                            // Icon glyphs are saved as a small {cls, color} JSON payload (see
+                            // _openIconPickerModal's save handler), never as outerHTML/innerHTML —
+                            // applying markup here would re-nest the element inside itself on
+                            // every load (the exact bug openLinkEditor once had with <a> tags).
+                            try {
+                                const val = (item.content_value || '').trim();
+                                if (val.startsWith('{')) {
+                                    const parsed = JSON.parse(val);
+                                    if (parsed.cls) element.className = parsed.cls;
+                                    const circleParent = element.closest('.ttm-icon');
+                                    if (circleParent) {
+                                        if (parsed.color) circleParent.style.setProperty("background-color", parsed.color, "important");
+                                        element.style.setProperty("color", "#ffffff", "important");
+                                    } else {
+                                        if (parsed.color) element.style.setProperty("color", parsed.color, "important");
+                                    }
+                                } else if (val.includes('class=')) {
+                                    const match = val.match(/class=["']([^"']+)["']/i);
+                                    if (match) element.className = match[1];
+                                } else if (val.startsWith('fa ') || val.startsWith('ti ') || val.includes('fa-')) {
+                                    element.className = val;
+                                }
+                            } catch (e) {
+                                console.warn(`[CMS] Failed to parse icon payload for ${item.element_id}:`, e);
+                            }
+                        } else if (item.content_type === 'text') {
                             let safeVal = this.sanitizeHtmlField(item.content_value);
 
                             // hero-title has accumulated redundant nested <sup> wrappers and
@@ -2080,7 +3383,7 @@ const CMS = {
             // 3. Load bpro-global-* keys from index slug explicitly so they
             // always reflect global saved values on every application/sub page,
             // regardless of whether the backend merges index into page responses.
-            const bproGlobalEls = ['bpro-global-logo', 'bpro-global-device', 'bpro-global-heading', 'footer-baba-logo', 'footer-iso-logo'];
+            const bproGlobalEls = ['bpro-global-logo', 'bpro-global-device', 'bpro-global-heading', 'bpro-promo-list', 'footer-baba-logo', 'footer-iso-logo'];
             const hasBproSection = bproGlobalEls.some(k => document.querySelector(`[data-cms="${k}"]`));
             if (hasBproSection && this.currentPage !== 'index' && this.currentPage !== '') {
                 try {
@@ -2893,8 +4196,9 @@ const CMS = {
         const adminBar = document.createElement('div');
         adminBar.id = 'cms-admin-bar';
         adminBar.innerHTML = `
-            <div class="cms-brand-text">BASELOK CMS - ${this.currentPage.toUpperCase().replace(/-/g, ' ')}</div>
+            <div class="cms-brand-text" title="BASELOK CMS - ${this.currentPage.toUpperCase().replace(/-/g, ' ')}">BASELOK CMS - ${this.currentPage.toUpperCase().replace(/-/g, ' ')}</div>
             <div id="cms-mode-indicator" class="cms-mode-indicator">PREVIEW MODE ACTIVE</div>
+            <div id="cms-tb-dock-slot"></div>
             <div class="cms-admin-actions">
                 <button class="cms-btn cms-btn-save" id="btn-cms-save-main"><i class="fa fa-floppy-o"></i> SAVE</button>
                 <button class="cms-btn cms-btn-dashboard" id="btn-cms-open-dashboard"><i class="fa fa-th-large"></i> DASHBOARD</button>
@@ -2924,7 +4228,8 @@ const CMS = {
                     </button>
 
                     <ul class="cms-menu">
-                        <li class="cms-menu-item active" data-tab="overview"><i class="fa fa-home"></i> Overview</li>
+                        <li class="cms-menu-item active" data-tab="overview"><i class="fa fa-home"></i> ${this.userRole === 'admin' ? 'Admin Panel' : 'Overview'}</li>
+                        <li class="cms-menu-item" data-tab="approvals"><i class="fa fa-check-square-o"></i> Pending Approvals</li>
                         <li class="cms-menu-item" data-tab="pages-content"><i class="fa fa-edit"></i> Edit This Page</li>
                         <li class="cms-menu-item" data-tab="pages"><i class="fa fa-file-text-o"></i> All Pages</li>
                         <li class="cms-menu-item" data-tab="hero"><i class="fa fa-clone"></i> Hero Section</li>
@@ -3013,11 +4318,20 @@ const CMS = {
         const menuItems = this.dashboardModal.querySelectorAll('.cms-menu-item');
 
         // Whitelist of allowed tabs per user request:
-        // Overview, All pages, Solutions, Project Highlights, Resources, Support Team, Regional Offices, Media Library, and Change History
-        const allowedTabs = ['overview', 'pages', 'solutions', 'case-studies', 'resources-page', 'support', 'locations', 'media', 'change-password', 'email-settings', 'history', 'applications-config'];
+        // Overview, Solutions, Project Highlights, Resources, Support Team, Regional Offices, Media Library, and Change History
+        // ("All Pages" removed per explicit request — hidden for both admin and editor.)
+        const allowedTabs = ['overview', 'solutions', 'case-studies', 'resources-page', 'support', 'locations', 'media', 'change-password', 'email-settings', 'history', 'applications-config'];
+
+        // Approval-workflow pilot: only an 'admin' can see/act on the review queue — an editor
+        // submits into it (via saveAll's page-elements branch) but never sees this tab at all.
+        const isAdmin = this.userRole !== 'editor';
 
         menuItems.forEach(item => {
             const tab = item.getAttribute('data-tab');
+            if (tab === 'approvals') {
+                item.style.display = isAdmin ? 'flex' : 'none';
+                return;
+            }
             const visible = allowedTabs.includes(tab);
             item.style.display = visible ? 'flex' : 'none';
         });
@@ -3029,55 +4343,75 @@ const CMS = {
         // The internal tab id ('case-studies') stays as-is everywhere else in the code — only
         // its displayed panel heading needs to match the sidebar's user-facing label, which
         // isn't always a trivial capitalization of the id (e.g. "Project Highlights").
-        const tabTitles = { 'case-studies': 'Project Highlights' };
+        const tabTitles = {
+            'case-studies': 'Project Highlights',
+            'overview': this.userRole === 'admin' ? 'Admin Panel' : 'Overview'
+        };
         title.innerText = tabTitles[tab] || (tab.charAt(0).toUpperCase() + tab.slice(1));
         
         this.activeTab = tab;
 
         switch (tab) {
-            case 'overview':
+            case 'overview': {
+                const isAdminOverview = this.userRole !== 'editor';
+                // An editor never sees Team & Access (backend 403s them anyway — see
+                // UserManagementController), so their Overview stays pixel-for-pixel what it
+                // was before this feature existed: the original stat cards + quick-action cards.
+                // An admin instead gets Team & Access leading the tab (the main reason to open
+                // Overview day-to-day — who has access, what they've been doing), with the same
+                // stat cards/quick actions condensed into a slim strip underneath so they don't
+                // push the team panel below the fold.
+                if (!isAdminOverview) {
+                    content.innerHTML = `
+                        <div class="cms-stats-grid">
+                            <div class="cms-stat-card">
+                                <div class="cms-stat-label">CURRENT PAGE</div>
+                                <div class="cms-stat-value">${this.currentPage.toUpperCase()}</div>
+                            </div>
+                            <div class="cms-stat-card">
+                                <div class="cms-stat-label">TOTAL PAGES</div>
+                                <div class="cms-stat-value">${CMS_SITE_PAGES.length}</div>
+                            </div>
+                            <div class="cms-stat-card">
+                                <div class="cms-stat-label">LAST SAVED</div>
+                                <div class="cms-stat-value">${new Date().toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                        <div class="cms-quick-actions">
+                            <h4>QUICK ACTIONS</h4>
+                            <div class="cms-actions-grid">
+                                <div class="cms-action-card" onclick="CMS.closeDashboard()">
+                                    <i class="fa fa-pencil"></i>
+                                    <span>Live Editor</span>
+                                    <small>Edit content directly</small>
+                                </div>
+                                <div class="cms-action-card" onclick="CMS.renderTab('pages')">
+                                    <i class="fa fa-files-o"></i>
+                                    <span>Manage Pages</span>
+                                    <small>Switch between site pages</small>
+                                </div>
+                                <div class="cms-action-card" onclick="CMS.renderTab('history')">
+                                    <i class="fa fa-undo"></i>
+                                    <span>View History</span>
+                                    <small>Restore previous versions</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                }
+                // Admin Panel is purely Team & Access — the page-specific stats/quick-links
+                // strip below it (Current Page, Live Editor, etc.) is redundant here since an
+                // admin already has that context from the live page they opened the dashboard
+                // from, so it's left out entirely rather than shown a second time.
                 content.innerHTML = `
-                    <div class="cms-stats-grid">
-                        <div class="cms-stat-card">
-                            <div class="cms-stat-label">CURRENT PAGE</div>
-                            <div class="cms-stat-value">${this.currentPage.toUpperCase()}</div>
-                        </div>
-                        <div class="cms-stat-card">
-                            <div class="cms-stat-label">TOTAL PAGES</div>
-                            <div class="cms-stat-value">${CMS_SITE_PAGES.length}</div>
-                        </div>
-                        <div class="cms-stat-card">
-                            <div class="cms-stat-label">LAST SAVED</div>
-                            <div class="cms-stat-value">${new Date().toLocaleDateString()}</div>
-                        </div>
-                    </div>
-                    <div class="cms-quick-actions">
-                        <h4>QUICK ACTIONS</h4>
-                        <div class="cms-actions-grid">
-                            <div class="cms-action-card" onclick="CMS.closeDashboard()">
-                                <i class="fa fa-pencil"></i>
-                                <span>Live Editor</span>
-                                <small>Edit content directly</small>
-                            </div>
-                            <div class="cms-action-card" onclick="CMS.renderTab('pages')">
-                                <i class="fa fa-files-o"></i>
-                                <span>Manage Pages</span>
-                                <small>Switch between site pages</small>
-                            </div>
-                            <div class="cms-action-card" onclick="CMS.renderTab('history')">
-                                <i class="fa fa-undo"></i>
-                                <span>View History</span>
-                                <small>Restore previous versions</small>
-                            </div>
-                            <div class="cms-action-card" onclick="CMS.resyncSite()">
-                                <i class="fa fa-refresh"></i>
-                                <span>Resync</span>
-                                <small>Sync backend data to all pages</small>
-                            </div>
-                        </div>
+                    <div class="cms-tab-scroll">
+                        <div id="cms-team-access-section"></div>
                     </div>
                 `;
+                this.renderTeamAccessPanel();
                 break;
+            }
             case 'pages':
                 content.innerHTML = `
                     <div style="margin-bottom: 25px; padding: 15px; background: #fff5f5; border-radius: 8px; border: 1px solid #ffdada; display: flex; justify-content: space-between; align-items: center;">
@@ -3161,15 +4495,31 @@ const CMS = {
                                         <th>DATE & TIME</th>
                                         <th>CHANGED BY</th>
                                         <th>CHANGES</th>
+                                        <th>STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                         `;
 
+                        // Approval-workflow pilot (schema_v6/v7): this timeline merges
+                        // page_history rows (always APPROVED — see HistoryController#getHistory)
+                        // with pending_changes rows for this page, whose status can also be
+                        // PENDING_APPROVAL or REJECTED. Color-code so an admin can tell at a
+                        // glance which rows are already live vs. still waiting vs. turned down.
+                        const statusStyle = {
+                            APPROVED: { bg: '#e9f9ee', color: '#1e8e3e', label: 'Approved' },
+                            PENDING_APPROVAL: { bg: '#fff8e1', color: '#b8860b', label: 'Pending' },
+                            REJECTED: { bg: '#fdeaea', color: '#c62828', label: 'Rejected' }
+                        };
+
                         data.forEach(row => {
                             const d = new Date(row.created_at);
                             const dateStr = d.toLocaleDateString('en-GB');
                             const timeStr = d.toLocaleTimeString('en-GB');
+                            const changesLabel = row.snapshot
+                                ? Object.keys(row.snapshot || {}).length
+                                : (row.element_key || (row.request_type ? `${row.request_type} update` : '—'));
+                            const st = statusStyle[row.status] || statusStyle.APPROVED;
 
                             html += `
                                 <tr>
@@ -3178,7 +4528,8 @@ const CMS = {
                                         <span style="color:#888; font-size:0.8rem;">${timeStr}</span>
                                     </td>
                                     <td><span class="badge badge-danger" style="background:#ffecec; color:#d11f26; padding:5px 10px; border-radius:4px;">${row.admins?.username || 'Admin'}</span></td>
-                                    <td style="color:#666">${Object.keys(row.snapshot || {}).length}</td>
+                                    <td style="color:#666">${changesLabel}</td>
+                                    <td><span style="background:${st.bg}; color:${st.color}; padding:4px 10px; border-radius:4px; font-size:11px; font-weight:600;">${st.label}</span></td>
                                 </tr>
                             `;
                         });
@@ -3189,6 +4540,9 @@ const CMS = {
                     .catch(err => {
                         content.innerHTML = this.getEmptyStateHtml('Error loading history timeline.');
                     });
+                break;
+            case 'approvals':
+                this.renderApprovalsTab();
                 break;
             case 'hero':
                 content.innerHTML = this.renderHeroForm();
@@ -3315,7 +4669,31 @@ const CMS = {
             return;
         }
 
-        if (type === 'text') {
+        if (type === 'icon') {
+                // Click handling itself lives in one document-level delegated listener (set up
+                // once in init(), see _setupIconClickDelegation) rather than here per-element —
+                // sliders like Slick clone their slides during navigation, and cloneNode() never
+                // carries over JS property handlers (el.onclick), only attributes/classes. A
+                // handler attached here would silently stop working the moment a card scrolls
+                // into a freshly-cloned slide. Only the static visual affordances are set per
+                // element; el.title also doubles as how the delegated handler recognizes "this is
+                // an icon I should open the picker for" without re-deriving the isIcon check.
+                if (this.isEditing) {
+                    el.contentEditable = 'false';
+                    el.style.cursor = 'pointer';
+                    el.title = 'Click to change Icon / Icon Color';
+                } else {
+                    el.title = '';
+                }
+                // IMPORTANT: this 'icon' call is routine visual re-tagging (fired on every
+                // togglePreview()/tab-switch re-tag pass for every icon on the page, not just
+                // ones the admin actually clicked) — it must NOT queue a pendingChanges entry,
+                // or every re-tag silently re-submits every icon on the page as a "change" with
+                // an empty before/after diff. The real icon-content edit path
+                // (_openIconPickerModal's save handler) writes pendingChanges[elId] itself once
+                // the admin actually picks a new icon/color, so returning here is safe.
+                return;
+            } else if (type === 'text') {
             // Special: Handle image links (-link suffix)
             if (id.endsWith('-link')) {
                 const imgId = id.replace('-link', '');
@@ -4786,7 +6164,7 @@ const CMS = {
             // Logo-only keys still restricted (image upload, homepage only)
             const logoOnlyKeys = ['site-logo', 'footer-logo', 'client-logo-1', 'client-logo-2', 'client-logo-3', 'client-logo-4', 'client-logo-5', 'client-logo-6', 'client-logo-1-link', 'client-logo-2-link', 'client-logo-3-link', 'client-logo-4-link', 'client-logo-5-link', 'client-logo-6-link'];
             // BaseLok PRO promo keys Ã¢â‚¬&rdquo; global images editable from any application/sub page
-            const bproGlobalKeys = ['bpro-global-logo', 'bpro-global-device', 'bpro-global-heading'];
+            const bproGlobalKeys = ['bpro-global-logo', 'bpro-global-device', 'bpro-global-heading', 'bpro-promo-list'];
             const isProtectedGlobal = logoOnlyKeys.includes(elId);
             const isEditableGlobal = editableOnAnyPage.includes(elId) || bproGlobalKeys.includes(elId);
             const isHomepage = this.currentPage === 'index' || this.currentPage === '';
@@ -4816,22 +6194,79 @@ const CMS = {
                     el.addEventListener('keydown', (e) => {
                         if (!this.isEditing) return;
 
+                        const lis = el.querySelectorAll('li');
+
                         // Prevent deleting the last LI
                         if (e.key === 'Backspace' || e.key === 'Delete') {
-                            const lis = el.querySelectorAll('li');
                             if (lis.length <= 1 && el.innerText.trim().length <= 1) {
                                 // If it's the last bullet and it's almost empty, stop deletion
                                 e.preventDefault();
+                                return;
                             }
                         }
-                        
-                        // Force list structure on Enter if browser tries to break out
+
+                        // Backspace at the very start of an <li> whose text is already empty
+                        // (only the cloned icon remains — see AUTO-CLONE below) needs to remove
+                        // that whole <li> and land the cursor at the end of the previous one.
+                        // Left to the browser's default contenteditable merge behavior, a leading
+                        // non-text element like the icon <i> makes the built-in Backspace-merge
+                        // unreliable — it can strand an empty, icon-only <li> in the list instead
+                        // of actually removing it (that <li> then persists on save/reload).
+                        if (e.key === 'Backspace' && lis.length > 1) {
+                            const sel = window.getSelection();
+                            if (!sel.rangeCount || !sel.isCollapsed) return;
+                            const range = sel.getRangeAt(0);
+                            let node = range.startContainer;
+                            const currentLi = (node.nodeType === 1 ? node : node.parentElement)?.closest('li');
+                            if (!currentLi) return;
+                            // Some lists have TWO spans per <li> (a marker/bullet-glyph span
+                            // first, then the actual text span) instead of one icon + one span
+                            // — use the LAST span so the marker glyph is never mistaken for
+                            // real typed text.
+                            const spans = currentLi.querySelectorAll('span');
+                            const span = spans[spans.length - 1];
+                            const textIsEmpty = !span || span.textContent.trim() === '';
+                            // "At the start" = collapsed selection with offset 0 in the span (or
+                            // the li itself, if the span was already emptied out by the browser).
+                            const atStart = (node === span && range.startOffset === 0) || node === currentLi;
+                            if (textIsEmpty && atStart) {
+                                e.preventDefault();
+                                const prevLi = currentLi.previousElementSibling;
+                                currentLi.remove();
+                                if (prevLi) {
+                                    const prevSpans = prevLi.querySelectorAll('span');
+                                    const prevSpan = prevSpans[prevSpans.length - 1] || prevLi;
+                                    const newRange = document.createRange();
+                                    newRange.selectNodeContents(prevSpan);
+                                    newRange.collapse(false);
+                                    sel.removeAllRanges();
+                                    sel.addRange(newRange);
+                                }
+                            }
+                        }
+
+                        // Force list structure on Enter if browser tries to break out. Directly
+                        // converting the stray <div>/<p> into a real <li> (moving its content
+                        // in, then replacing it) is used instead of calling
+                        // execCommand('insertUnorderedList') here — that command TOGGLES list
+                        // state based on the browser's own (unreliable, given the irregular
+                        // <li><i>...</i><span>...</span></li> structure these lists use) idea of
+                        // whether the selection is already "in" a list, so it could just as
+                        // easily remove the surrounding <ul> as fix the stray element, silently
+                        // breaking the whole list structure on a single Enter press.
                         if (e.key === 'Enter') {
                             setTimeout(() => {
-                                if (el.querySelector('div, p')) {
-                                    // If browser injected a div/p instead of li, fix it
-                                    document.execCommand('insertUnorderedList');
-                                }
+                                const stray = el.querySelector('div, p');
+                                if (!stray) return;
+                                const li = document.createElement('li');
+                                while (stray.firstChild) li.appendChild(stray.firstChild);
+                                stray.replaceWith(li);
+                                const newRange = document.createRange();
+                                newRange.selectNodeContents(li);
+                                newRange.collapse(true);
+                                const sel = window.getSelection();
+                                sel.removeAllRanges();
+                                sel.addRange(newRange);
                             }, 10);
                         }
                     });
@@ -4853,8 +6288,63 @@ const CMS = {
                                     const prevLi = currentLi.previousElementSibling;
                                     if (prevLi && prevLi.tagName === 'LI') {
                                         const icon = prevLi.querySelector('i.fa, i.ti');
-                                        if (icon && !currentLi.querySelector('i.fa, i.ti')) {
-                                            const newIcon = icon.cloneNode(true);
+                                        // Some lists (e.g. the BaseLok PRO promo bullets) use a
+                                        // marker <span> (a colored bullet glyph like &#9679;)
+                                        // instead of an <i> icon as the first child. Same
+                                        // rebuild-on-Enter problem applies, so handle it the same
+                                        // way: clone the marker from the previous <li> whenever
+                                        // there's no icon to clone instead.
+                                        if (!icon) {
+                                            const prevChildren = Array.from(prevLi.children);
+                                            const prevMarker = prevChildren[0];
+                                            const prevTextSpan = prevChildren[1];
+                                            const markerLooksLikeGlyph = prevMarker && prevMarker.tagName === 'SPAN' && prevTextSpan && prevTextSpan.tagName === 'SPAN';
+                                            if (markerLooksLikeGlyph) {
+                                                currentLi.style.cssText = prevLi.style.cssText;
+                                                const newMarker = prevMarker.cloneNode(true);
+
+                                                let textSpan = null;
+                                                const currentChildren = Array.from(currentLi.children);
+                                                // The browser's split may have left 0, 1, or 2 <span>s
+                                                // in the new <li> in any order — find a span that
+                                                // isn't a marker clone (i.e. has real/typeable text
+                                                // potential) to reuse as the text span; otherwise
+                                                // make a fresh one styled like prevTextSpan.
+                                                textSpan = currentChildren.find(c => c.tagName === 'SPAN' && c.textContent.trim() !== newMarker.textContent.trim()) || null;
+                                                if (!textSpan) {
+                                                    textSpan = document.createElement('span');
+                                                    if (prevTextSpan.style.cssText) textSpan.style.cssText = prevTextSpan.style.cssText;
+                                                }
+
+                                                while (currentLi.firstChild) {
+                                                    const child = currentLi.firstChild;
+                                                    if (child === newMarker || child === textSpan) { currentLi.removeChild(child); continue; }
+                                                    textSpan.appendChild(child);
+                                                }
+                                                currentLi.appendChild(newMarker);
+                                                currentLi.appendChild(textSpan);
+
+                                                const newRange = document.createRange();
+                                                newRange.selectNodeContents(textSpan);
+                                                newRange.collapse(true);
+                                                sel.removeAllRanges();
+                                                sel.addRange(newRange);
+                                            }
+                                        }
+                                        // The browser's own Enter-in-<li> split can leave an
+                                        // <i> in the new <li> already (splitting the previous
+                                        // li's content node-for-node includes the leading icon)
+                                        // — but that cloned icon has no guarantee of being the
+                                        // FIRST child (span text can end up before it) or of
+                                        // being paired with a real <span> wrapper, so checking
+                                        // "already has an i.fa/i.ti" alone isn't enough to skip
+                                        // rebuilding. Always normalize to icon-first + one
+                                        // <span> holding everything else, using the browser's
+                                        // own cloned icon if it left one, or cloning fresh from
+                                        // prevLi otherwise.
+                                        if (icon) {
+                                            const existingIcon = currentLi.querySelector('i.fa, i.ti');
+                                            const newIcon = existingIcon || icon.cloneNode(true);
                                             currentLi.style.cssText = prevLi.style.cssText;
 
                                             let span = currentLi.querySelector('span');
@@ -4864,15 +6354,28 @@ const CMS = {
                                                 if (prevSpan && prevSpan.style.cssText) {
                                                     span.style.cssText = prevSpan.style.cssText;
                                                 }
-                                                // Move all browser-injected content (like <br> or raw text) into the span
-                                                while (currentLi.firstChild) {
-                                                    span.appendChild(currentLi.firstChild);
-                                                }
-                                                currentLi.appendChild(span);
                                             }
+                                            // Move every remaining child (browser-injected text/
+                                            // <br>, and the old icon reference if it wasn't the
+                                            // one being reused) into the span, then place exactly
+                                            // one icon first — this always lands on icon+span in
+                                            // the right order regardless of what the browser built.
+                                            while (currentLi.firstChild) {
+                                                const child = currentLi.firstChild;
+                                                if (child === newIcon) { currentLi.removeChild(child); continue; }
+                                                span.appendChild(child);
+                                            }
+                                            currentLi.appendChild(newIcon);
+                                            currentLi.appendChild(span);
 
-                                            // Insert the icon before the span
-                                            currentLi.insertBefore(newIcon, currentLi.firstChild);
+                                            // Land the cursor at the start of the (now-empty,
+                                            // ready-to-type) span, matching where the admin
+                                            // expects to keep typing after pressing Enter.
+                                            const newRange = document.createRange();
+                                            newRange.selectNodeContents(span);
+                                            newRange.collapse(true);
+                                            sel.removeAllRanges();
+                                            sel.addRange(newRange);
                                         }
                                     }
                                 }
@@ -5070,7 +6573,204 @@ const CMS = {
         });
     },
 
+    // One-time delegated click handler for icon glyphs (application-card icons, why-list
+    // checkmarks, work-step badges). Deliberately NOT per-element onclick — sliders like Slick
+    // clone their slides during arrow navigation, and cloneNode() copies attributes/classes but
+    // never JS property handlers, so any onclick attached directly to an icon silently stops
+    // working the moment that icon scrolls into a freshly-cloned slide. Listening on `document`
+    // and resolving the icon from e.target at click-time sidesteps that entirely — it works
+    // identically for the original element and any clone, since both carry the same data-cms
+    // attribute and CSS classes.
+    _isIconElement(el) {
+        if (!el) return false;
+        if (el.tagName === 'I') return true;
+        const cmsKey = (el.getAttribute('data-cms') || '').toLowerCase();
+        if (cmsKey.endsWith('-icon') || cmsKey.includes('-icon-') || cmsKey.endsWith('-glyph') || cmsKey.endsWith('-checkmark')) return true;
+        const cls = typeof el.className === 'string' ? el.className : '';
+        if (cls.includes('featured-icon') || cls.includes('ttm-icon') || cls.includes('work-step-icon') || cls.includes('faq-icon')) return true;
+        if (cls.includes('fa-') || /\bfa\b/.test(cls) || cls.includes('ti-') || /\bti\b/.test(cls)) return true;
+        return false;
+    },
 
+    _setupIconClickDelegation() {
+        if (this._iconClickDelegationSetup) return;
+        this._iconClickDelegationSetup = true;
+        document.addEventListener('click', (e) => {
+            if (!this.isEditing) return;
+
+            // NEVER intercept clicks originating from CMS Admin Bar, Modals, Dashboard, or floating CMS controls
+            if (e.target.closest('#cms-admin-bar, .cms-modal, #cms-dashboard-modal, .cms-item-controls, .cms-color-controls, #cms-global-image-edit-btn')) return;
+
+            // Target ONLY genuine icon elements
+            let el = e.target.closest('i[data-cms], [data-cms$="-icon"], [data-cms*="-icon-"], [data-cms$="-glyph"], [data-cms$="-checkmark"]');
+            if (!el) {
+                const candidate = e.target.closest('[data-cms]');
+                if (candidate && this._isIconElement(candidate)) {
+                    el = candidate;
+                }
+            }
+            if (!el) {
+                // Only the tight icon-wrapper divs — NOT .featured-icon-box / .application-card,
+                // which also contain the title/description text and would make clicks anywhere
+                // in that text incorrectly open the icon picker.
+                const parentBox = e.target.closest('.ttm-icon, .featured-icon');
+                if (parentBox) {
+                    const childIcon = parentBox.querySelector('i[data-cms], [data-cms$="-icon"], [data-cms*="-icon-"], [data-cms$="-glyph"]');
+                    if (childIcon && this._isIconElement(childIcon)) el = childIcon;
+                }
+            }
+            if (!el || !el.hasAttribute('data-cms') || !this._isIconElement(el)) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            this._openIconPickerModal(el);
+        }, true);
+    },
+
+    _openIconPickerModal(iconEl) {
+        const existing = document.getElementById('cms-icon-picker-modal');
+        if (existing) existing.remove();
+
+        const currentClasses = iconEl.className || '';
+        const currentStyleColor = iconEl.style.color || '';
+
+        const modal = document.createElement('div');
+        modal.id = 'cms-icon-picker-modal';
+        modal.className = 'cms-modal';
+        modal.innerHTML = `
+            <div class="cms-modal-content" style="max-width:520px; width:90%; background:#2b2b2b; color:#fff; border-radius:10px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); font-family:Arial, sans-serif; box-sizing:border-box;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #444; padding-bottom:10px;">
+                    <h3 style="margin:0; font-size:1.2rem; color:#fff;"><i class="fa fa-icons"></i> Edit Icon / Checkmark</h3>
+                    <span class="cms-close" style="cursor:pointer; font-size:1.5rem; color:#aaa;" onclick="document.getElementById('cms-icon-picker-modal').remove()">&times;</span>
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-size:0.85rem; color:#ccc; margin-bottom:6px; font-weight:bold;">Select Preset Icon:</label>
+                    <div id="cms-icon-grid" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; max-height:160px; overflow-y:auto; background:#1e1e1e; padding:10px; border-radius:6px;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-size:0.85rem; color:#ccc; margin-bottom:6px; font-weight:bold;">Custom FontAwesome / Themify Icon Class:</label>
+                    <input type="text" id="cms-icon-class-input" value="${currentClasses}" placeholder="e.g. fa fa-check, ti ti-check, fa fa-leaf" style="width:100%; height:36px; padding:0 10px; border-radius:5px; border:1px solid #555; background:#1e1e1e; color:#fff; font-size:0.9rem; box-sizing:border-box;">
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; font-size:0.85rem; color:#ccc; margin-bottom:6px; font-weight:bold;">Icon Color:</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <button type="button" id="cms-icon-color-swatch" title="Icon color" style="width:36px; height:36px; border:2px solid #555; border-radius:5px; padding:0; cursor:pointer; background:${this._rgbToHex(currentStyleColor) || '#d11f26'};"></button>
+                        <span id="cms-icon-color-hexlabel" style="flex:1; height:36px; line-height:36px; padding:0 10px; border-radius:5px; border:1px solid #555; background:#1e1e1e; color:#fff; font-size:0.9rem; box-sizing:border-box;">${this._rgbToHex(currentStyleColor) || '#d11f26'}</span>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px; justify-content:flex-end; border-top:1px solid #444; padding-top:15px;">
+                    <button type="button" id="cms-icon-upload-img-btn" style="padding:8px 14px; background:#444; color:#fff; border:none; border-radius:5px; cursor:pointer; font-size:0.85rem;"><i class="fa fa-camera"></i> Upload Image Instead</button>
+                    <button type="button" id="cms-icon-save-btn" style="padding:8px 20px; background:#d11f26; color:#fff; border:none; border-radius:5px; cursor:pointer; font-size:0.85rem; font-weight:bold;">Save Icon</button>
+                </div>
+            </div>
+        `;
+        modal.style.cssText = 'position:fixed; inset:0; z-index:1000002; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center;';
+        document.body.appendChild(modal);
+
+        const presets = [
+            'fa fa-check', 'ti ti-check', 'fa fa-check-circle', 'fa fa-check-square',
+            'fa fa-leaf', 'fa fa-ship', 'fa fa-road', 'fa fa-area-chart', 'fa fa-train',
+            'fa fa-star', 'fa fa-thumbs-up', 'fa fa-cog', 'fa fa-shield', 'fa fa-arrow-right',
+            'fa fa-info-circle', 'fa fa-building', 'fa fa-bolt', 'fa fa-file-text'
+        ];
+
+        const grid = modal.querySelector('#cms-icon-grid');
+        const classInput = modal.querySelector('#cms-icon-class-input');
+        const colorSwatch = modal.querySelector('#cms-icon-color-swatch');
+        const colorHexLabel = modal.querySelector('#cms-icon-color-hexlabel');
+        let pickedColor = this._rgbToHex(currentStyleColor) || '#d11f26';
+
+        // Same Apply/Cancel HSV picker as the text-formatting toolbar, for a consistent color
+        // picking experience everywhere in the CMS instead of the browser's bare native <input
+        // type="color"> (which has no Apply/Cancel of its own).
+        colorSwatch.onclick = () => {
+            this._openCustomColorPicker(colorSwatch, (hex) => {
+                colorSwatch.style.background = hex;
+                colorHexLabel.textContent = hex;
+            }, (finalHex) => {
+                pickedColor = finalHex;
+                colorSwatch.style.background = finalHex;
+                colorHexLabel.textContent = finalHex;
+            }, () => {
+                colorSwatch.style.background = pickedColor;
+                colorHexLabel.textContent = pickedColor;
+            });
+        };
+
+        const updateGridActiveState = (selectedCls) => {
+            grid.querySelectorAll('button').forEach(b => {
+                const isActive = b.getAttribute('data-icon-cls') === selectedCls;
+                b.style.background = isActive ? '#d11f26' : '#2a2a2a';
+                b.style.borderColor = isActive ? '#ff4d4d' : '#444';
+            });
+        };
+
+        presets.forEach(cls => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = cls;
+            btn.setAttribute('data-icon-cls', cls);
+            btn.style.cssText = 'font-size:1.2rem; height:36px; border:1px solid #444; background:#2a2a2a; color:#fff; border-radius:4px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;';
+            btn.onmouseenter = () => { if (classInput.value !== cls) btn.style.background = '#444'; };
+            btn.onmouseleave = () => { if (classInput.value !== cls) btn.style.background = '#2a2a2a'; };
+            btn.onclick = () => {
+                classInput.value = cls;
+                updateGridActiveState(cls);
+            };
+            grid.appendChild(btn);
+        });
+        updateGridActiveState(currentClasses);
+
+        modal.querySelector('#cms-icon-save-btn').onclick = () => {
+            const newCls = classInput.value.trim();
+            const newColor = pickedColor ? pickedColor.trim() : '';
+            const elId = iconEl.getAttribute('data-cms');
+
+            const applyIconAndColor = (targetEl) => {
+                if (newCls) targetEl.className = newCls;
+                const circleParent = targetEl.closest('.ttm-icon');
+                if (circleParent) {
+                    // For round badge icons: newColor sets circle background, inner icon symbol stays crisp WHITE (#fff)
+                    if (newColor) circleParent.style.setProperty("background-color", newColor, "important");
+                    targetEl.style.setProperty("color", "#ffffff", "important");
+                } else {
+                    // For standalone icons: newColor sets icon symbol color directly
+                    if (newColor) targetEl.style.setProperty("color", newColor, "important");
+                }
+            };
+
+            applyIconAndColor(iconEl);
+
+            if (elId) {
+                document.querySelectorAll(`[data-cms="${elId}"]`).forEach(targetEl => {
+                    applyIconAndColor(targetEl);
+                });
+
+                const payload = JSON.stringify({ cls: newCls || iconEl.className, color: newColor });
+                this.pendingChanges[elId] = { type: 'icon', value: payload, page_slug: this.currentPage };
+                console.log(`[CMS] Saved icon update for ${elId}:`, payload);
+            }
+            modal.remove();
+        };
+
+        modal.querySelector('#cms-icon-upload-img-btn').onclick = () => {
+            modal.remove();
+            const parentCard = iconEl.closest('.application-card') || iconEl.closest('.featured-icon-box') || iconEl.parentElement;
+            const imgEl = parentCard ? parentCard.querySelector('img[data-cms]') : null;
+            if (imgEl) {
+                this.activeImageElement = imgEl;
+                this.openImagePicker();
+            } else {
+                this.activeImageElement = iconEl;
+                this.openImagePicker();
+            }
+        };
+    },
 
     setupGlobalImageHover() {
         if (document.getElementById('cms-global-image-edit-btn')) return;
@@ -5746,9 +7446,17 @@ const CMS = {
 
     _renderEmailSettingsView(settings) {
         const content = document.getElementById('cms-tab-content');
+        const rules = this._parseCcRoutingRules(settings.cc_routing_rules);
+        const ruleLabel = (r) => {
+            if (r.type === 'default') return 'All other submissions';
+            const list = r.type === 'country' ? this._CC_COUNTRIES : this._CC_US_STATES;
+            const match = list.find(item => item.c === r.code);
+            const name = match ? match.n : r.code;
+            return r.type === 'state' ? `US state: ${name}` : `Country: ${name}`;
+        };
         content.innerHTML = `
             <div class="cms-tab-scroll">
-                <div style="background:#f7f8fa; border:1px solid #e5e7eb; border-radius:8px; padding:14px 18px; position:relative;">
+                <div style="background:#f7f8fa; border:1px solid #e5e7eb; border-radius:8px; padding:14px 18px; position:relative; margin-bottom:16px;">
                     <i class="fa fa-pencil" id="cms-es-edit-icon" title="Edit"
                        style="position:absolute; top:14px; right:14px; cursor:pointer; color:#999;"></i>
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>SMTP Host:</strong> <span>${settings.smtp_host || ''}</span></div>
@@ -5758,9 +7466,43 @@ const CMS = {
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>From Address:</strong> <span>${settings.from_address || ''}</span></div>
                     <div class="cms-es-row" style="margin-bottom:0;"><strong>Auth / STARTTLS:</strong> <span>${settings.smtp_auth ? 'Enabled' : 'Disabled'} / ${settings.smtp_starttls ? 'Enabled' : 'Disabled'}</span></div>
                 </div>
+                <div style="background:#f7f8fa; border:1px solid #e5e7eb; border-radius:8px; padding:14px 18px;">
+                    <div class="cms-module-title" style="margin-bottom:10px;">CONTACT FORM CC ROUTING</div>
+                    ${rules.length === 0 ? '<div style="color:#999; font-size:0.85rem;">No CC routing rules configured — contact form emails will not be CC\'d to anyone.</div>' : `
+                        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                            <thead>
+                                <tr style="text-align:left; color:#888; border-bottom:1px solid #e5e7eb;">
+                                    <th style="padding:4px 8px 8px 0;">When</th>
+                                    <th style="padding:4px 8px 8px 0;">CC Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rules.map(r => `
+                                    <tr style="border-bottom:1px solid #eee;">
+                                        <td style="padding:6px 8px 6px 0;">${ruleLabel(r)}</td>
+                                        <td style="padding:6px 8px 6px 0;">${r.email}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `}
+                </div>
             </div>
         `;
         document.getElementById('cms-es-edit-icon').onclick = () => this._renderEmailSettingsForm(settings);
+    },
+
+    // cc_routing_rules is stored as a JSON string in email_settings; tolerate it being
+    // missing/blank/malformed (e.g. before the admin has ever configured it) by falling back to
+    // an empty rule set rather than throwing and breaking the whole tab.
+    _parseCcRoutingRules(raw) {
+        if (!raw) return [];
+        try {
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
     },
 
     _renderEmailSettingsForm(settings) {
@@ -5800,6 +7542,17 @@ const CMS = {
                         </label>
                     </div>
                 </div>
+                <div class="cms-form-group" style="margin-bottom:8px; padding:8px 15px;">
+                    <div class="cms-module-title" style="margin-bottom:8px;">CONTACT FORM CC ROUTING</div>
+                    <div style="font-size:0.78rem; color:#888; margin-bottom:10px;">
+                        Choose who gets CC'd on a contact-form email, based on the submitter's US state or country.
+                        "All other submissions" is the fallback used when nothing else matches.
+                    </div>
+                    <div id="cms-cc-rules-rows"></div>
+                    <button type="button" class="cms-btn" id="cms-cc-rule-add" style="background:#f0f0f0; color:#555; margin-top:6px;">
+                        <i class="fa fa-plus"></i> ADD RULE
+                    </button>
+                </div>
                 <div class="btn-row" style="display:flex; gap:10px; margin-top:2px;">
                     <button class="cms-btn" id="cms-es-cancel" style="background:#f0f0f0; color:#666;">CANCEL</button>
                     <button class="cms-btn cms-btn-save" id="cms-es-save"><i class="fa fa-save"></i> SAVE</button>
@@ -5817,6 +7570,95 @@ const CMS = {
         });
         document.getElementById('cms-es-cancel').onclick = () => this._renderEmailSettingsView(settings);
         document.getElementById('cms-es-save').onclick = () => this.saveEmailSettings();
+
+        const rows = this._parseCcRoutingRules(settings.cc_routing_rules);
+        this._ccRuleSeq = 0;
+        this._renderCcRuleRows(rows.length ? rows : []);
+        document.getElementById('cms-cc-rule-add').onclick = () => this._addCcRuleRow({ type: 'state', code: '', email: '' });
+    },
+
+    // Same US state list/codes the contact form itself uses (contact-us.html's STATES.US) — kept
+    // in sync manually since this is plain static data, not worth fetching over the network for.
+    _CC_US_STATES: [
+        {c:'AL',n:'Alabama'},{c:'AK',n:'Alaska'},{c:'AZ',n:'Arizona'},{c:'AR',n:'Arkansas'},{c:'CA',n:'California'},
+        {c:'CO',n:'Colorado'},{c:'CT',n:'Connecticut'},{c:'DE',n:'Delaware'},{c:'FL',n:'Florida'},{c:'GA',n:'Georgia'},
+        {c:'HI',n:'Hawaii'},{c:'ID',n:'Idaho'},{c:'IL',n:'Illinois'},{c:'IN',n:'Indiana'},{c:'IA',n:'Iowa'},
+        {c:'KS',n:'Kansas'},{c:'KY',n:'Kentucky'},{c:'LA',n:'Louisiana'},{c:'ME',n:'Maine'},{c:'MD',n:'Maryland'},
+        {c:'MA',n:'Massachusetts'},{c:'MI',n:'Michigan'},{c:'MN',n:'Minnesota'},{c:'MS',n:'Mississippi'},{c:'MO',n:'Missouri'},
+        {c:'MT',n:'Montana'},{c:'NE',n:'Nebraska'},{c:'NV',n:'Nevada'},{c:'NH',n:'New Hampshire'},{c:'NJ',n:'New Jersey'},
+        {c:'NM',n:'New Mexico'},{c:'NY',n:'New York'},{c:'NC',n:'North Carolina'},{c:'ND',n:'North Dakota'},{c:'OH',n:'Ohio'},
+        {c:'OK',n:'Oklahoma'},{c:'OR',n:'Oregon'},{c:'PA',n:'Pennsylvania'},{c:'RI',n:'Rhode Island'},{c:'SC',n:'South Carolina'},
+        {c:'SD',n:'South Dakota'},{c:'TN',n:'Tennessee'},{c:'TX',n:'Texas'},{c:'UT',n:'Utah'},{c:'VT',n:'Vermont'},
+        {c:'VA',n:'Virginia'},{c:'WA',n:'Washington'},{c:'WV',n:'West Virginia'},{c:'WI',n:'Wisconsin'},{c:'WY',n:'Wyoming'},
+        {c:'DC',n:'District of Columbia'}
+    ],
+
+    // Same country list the contact form's project_country dropdown offers, restricted here to
+    // the ones a CC rule would realistically target (the rest fall through to "All other
+    // submissions" anyway).
+    _CC_COUNTRIES: [
+        {c:'CA',n:'Canada'},{c:'MX',n:'Mexico'},{c:'GB',n:'United Kingdom'},{c:'AU',n:'Australia'},{c:'IN',n:'India'},{c:'BR',n:'Brazil'}
+    ],
+
+    _renderCcRuleRows(rules) {
+        const container = document.getElementById('cms-cc-rules-rows');
+        container.innerHTML = '';
+        rules.forEach(r => this._addCcRuleRow(r));
+    },
+
+    _ccRuleCodeOptionsHtml(type, selectedCode) {
+        const list = type === 'country' ? this._CC_COUNTRIES : this._CC_US_STATES;
+        const placeholder = type === 'country' ? 'Select country...' : 'Select state...';
+        return `<option value="" disabled ${!selectedCode ? 'selected' : ''}>${placeholder}</option>` +
+            list.map(item => `<option value="${item.c}" ${item.c === selectedCode ? 'selected' : ''}>${item.n}</option>`).join('');
+    },
+
+    _addCcRuleRow(rule) {
+        const container = document.getElementById('cms-cc-rules-rows');
+        const rowId = `cms-cc-rule-${this._ccRuleSeq++}`;
+        const row = document.createElement('div');
+        row.id = rowId;
+        row.style.cssText = 'display:flex; gap:8px; align-items:center; margin-bottom:8px;';
+        row.innerHTML = `
+            <select class="cms-input cc-rule-type" style="flex:1.2;">
+                <option value="state" ${rule.type === 'state' ? 'selected' : ''}>US State</option>
+                <option value="country" ${rule.type === 'country' ? 'selected' : ''}>Country</option>
+                <option value="default" ${rule.type === 'default' ? 'selected' : ''}>All other submissions</option>
+            </select>
+            <select class="cms-input cc-rule-code" style="flex:1; ${rule.type === 'default' ? 'display:none;' : ''}">
+                ${this._ccRuleCodeOptionsHtml(rule.type, rule.code)}
+            </select>
+            <input type="email" class="cms-input cc-rule-email" placeholder="email@ind-fab.com"
+                   value="${rule.email || ''}" style="flex:2;">
+            <i class="fa fa-trash cc-rule-remove" title="Remove" style="cursor:pointer; color:#c33; padding:0 6px;"></i>
+        `;
+        container.appendChild(row);
+
+        const typeSelect = row.querySelector('.cc-rule-type');
+        const codeSelect = row.querySelector('.cc-rule-code');
+        typeSelect.onchange = () => {
+            if (typeSelect.value === 'default') {
+                codeSelect.style.display = 'none';
+            } else {
+                codeSelect.style.display = '';
+                codeSelect.innerHTML = this._ccRuleCodeOptionsHtml(typeSelect.value, '');
+            }
+        };
+        row.querySelector('.cc-rule-remove').onclick = () => row.remove();
+    },
+
+    _collectCcRoutingRules() {
+        const rows = document.querySelectorAll('#cms-cc-rules-rows > div');
+        const rules = [];
+        rows.forEach(row => {
+            const type = row.querySelector('.cc-rule-type').value;
+            const code = row.querySelector('.cc-rule-code').value.trim().toUpperCase();
+            const email = row.querySelector('.cc-rule-email').value.trim();
+            if (!email) return;
+            if (type !== 'default' && !code) return;
+            rules.push({ type, code: type === 'default' ? '' : code, email });
+        });
+        return rules;
     },
 
     async saveEmailSettings() {
@@ -5828,7 +7670,8 @@ const CMS = {
             smtp_password: document.getElementById('cms-es-password').value,
             from_address: document.getElementById('cms-es-from').value.trim(),
             smtp_auth: document.getElementById('cms-es-auth').checked,
-            smtp_starttls: document.getElementById('cms-es-starttls').checked
+            smtp_starttls: document.getElementById('cms-es-starttls').checked,
+            cc_routing_rules: JSON.stringify(this._collectCcRoutingRules())
         };
 
         if (!body.smtp_host || !body.smtp_port || !body.smtp_username || !body.from_address) {
@@ -6101,7 +7944,7 @@ const CMS = {
                 'site-logo', 'footer-logo', 'header-enquiry',
                 'client-logo-1', 'client-logo-2', 'client-logo-3', 'client-logo-4', 'client-logo-5', 'client-logo-6',
                 'client-logo-1-link', 'client-logo-2-link', 'client-logo-3-link', 'client-logo-4-link', 'client-logo-5-link', 'client-logo-6-link',
-                'bpro-global-logo', 'bpro-global-device', 'bpro-global-heading'
+                'bpro-global-logo', 'bpro-global-device', 'bpro-global-heading', 'bpro-promo-list'
             ];
             const saveSlug = globalContentKeys.includes(element_id) ? 'index' : this.currentPage;
 
@@ -6274,6 +8117,14 @@ const CMS = {
                     body: JSON.stringify(body)
                 });
                 if (!res.ok) throw new Error(`Save failed for ${element_id}`);
+                // Every save route (page-elements, and every entity PATCH: solutions/
+                // applications/stories/resources) can be diverted into the approval queue for
+                // an 'editor' (ApprovalGateService, schema_v6/v7_approval_workflow*.sql) — all
+                // of them return this same {status:'PENDING_APPROVAL'} shape when that happens.
+                try {
+                    const data = await res.clone().json();
+                    if (data && data.status === 'PENDING_APPROVAL') return 'pending';
+                } catch (_) { /* non-JSON or unexpected shape — treat as a normal publish */ }
                 return true;
             } catch (err) {
                 console.error(`[CMS] Save error for ${element_id}:`, err);
@@ -6283,32 +8134,45 @@ const CMS = {
 
         const results = await Promise.all(savePromises);
         const successCount = results.filter(r => r === true).length;
+        const pendingCount = results.filter(r => r === 'pending').length;
 
-        if (successCount > 0) {
-            this.showStatus(`Successfully saved ${successCount} changes!`, 'success');
+        if (pendingCount > 0 || successCount > 0) {
+            if (pendingCount > 0 && successCount > 0) {
+                this._showAlertAsync('Submitted for Approval', `Saved ${successCount} change${successCount > 1 ? 's' : ''}, and ${pendingCount} change${pendingCount > 1 ? 's' : ''} submitted successfully for admin approval.`);
+            } else if (pendingCount > 0) {
+                // Editor-role saves are queued instead of published (ApprovalGateService) — a
+                // blocking OK-modal (not the auto-dismissing toast used elsewhere) makes sure the
+                // editor actually registers that nothing went live yet, before continuing to edit.
+                this._showAlertAsync('Submitted for Approval', `${pendingCount > 1 ? 'Your changes were' : 'Your change was'} submitted successfully for admin approval.`);
+            } else {
+                this.showStatus(`Successfully saved ${successCount} changes!`, 'success');
+            }
             this.pendingChanges = {};
-            // Saved edits must never be masked by stale visitor cache.
-            this.clearContentCache();
 
-            // Snapshot history
-            try {
-                const snapshot = {};
-                document.querySelectorAll('[data-cms]').forEach(el => {
-                    const elId = el.getAttribute('data-cms');
-                    const bg = window.getComputedStyle(el).backgroundImage;
-                    const isImg = el.tagName === 'IMG' || (bg !== 'none' && bg.includes('url'));
-                    const val = isImg ? (el.tagName === 'IMG' ? el.src : bg.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '')) : el.innerHTML.trim();
-                    snapshot[elId] = { type: isImg ? 'image' : 'text', value: val };
-                });
-                await fetch(`/api/v2/history`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ page_slug: this.currentPage, snapshot })
-                });
-            } catch (e) { }
+            if (successCount > 0) {
+                // Saved edits must never be masked by stale visitor cache.
+                this.clearContentCache();
 
-            setTimeout(() => this.refreshWithState(), 1200);
+                // Snapshot history
+                try {
+                    const snapshot = {};
+                    document.querySelectorAll('[data-cms]').forEach(el => {
+                        const elId = el.getAttribute('data-cms');
+                        const bg = window.getComputedStyle(el).backgroundImage;
+                        const isImg = el.tagName === 'IMG' || (bg !== 'none' && bg.includes('url'));
+                        const val = isImg ? (el.tagName === 'IMG' ? el.src : bg.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '')) : el.innerHTML.trim();
+                        snapshot[elId] = { type: isImg ? 'image' : 'text', value: val };
+                    });
+                    await fetch(`/api/v2/history`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ page_slug: this.currentPage, snapshot })
+                    });
+                } catch (e) { }
+
+                setTimeout(() => this.refreshWithState(), 1200);
+            }
         } else {
             this.showStatus('Save failed. Check console for details.', 'error');
         }
@@ -6563,9 +8427,17 @@ const CMS = {
             const bg = window.getComputedStyle(el).backgroundImage;
             const isImg = el.tagName === 'IMG';
             const isBg = (bg !== 'none' && bg !== '' && bg.includes('url'));
-            const isText = !(isImg || isBg);
+            // Icon glyphs (FontAwesome/Themify <i>, or the round <div class="fa ..."> work-step
+            // badges) render via a CSS ::before content character, not real text — contentEditable
+            // on them lets the admin accidentally type/delete inside an empty element with nothing
+            // to show for it. They get their own click-to-open-picker behavior (updateElement's
+            // 'icon' branch + _openIconPickerModal) instead of the normal text path below.
+            const isIcon = this._isIconElement(el);
+            const isText = !(isImg || isBg || isIcon);
 
-            if (isText) {
+            if (isIcon) {
+                this.updateElement(el.getAttribute('data-cms'), 'icon', el.outerHTML);
+            } else if (isText) {
                 // DON'T set contentEditable for <a> tags to avoid click interference
                 // Link editing is handled by Global Event Delegation
                 if (el.tagName !== 'A') {
@@ -6610,13 +8482,7 @@ const CMS = {
                     el.contentEditable = 'false';
                 }
 
-                if (this.isEditing) {
-                    if (el.tagName === 'A') {
-                        el.style.outline = '2px dashed #00b05b'; // GREEN for links
-                        el.style.display = 'inline-block';
-                        el.style.padding = '2px';
-                    }
-                } else {
+                if (!this.isEditing) {
                     if (el.tagName === 'A') {
                         el.style.outline = '';
                         el.style.display = '';
@@ -6625,7 +8491,6 @@ const CMS = {
                 }
             } else {
                 if (this.isEditing) {
-                    el.style.outline = '2px dashed #00b05b';
                     el.style.cursor = 'pointer';
                     el.addEventListener('click', CMS._imageClickListener);
                 } else {
@@ -6639,6 +8504,15 @@ const CMS = {
     },
 
     openLinkEditor(linkEl) {
+        // The Applications page's 6 vertical tab-nav buttons (data-cms="app-tab-roadways" etc.)
+        // are real <button> elements, not links — they have no URL to edit, just a plain label.
+        // Whatever the actual click path that reaches this (tabName-A checks elsewhere are meant
+        // to already exclude non-<a> elements, but this is cheap, explicit insurance against any
+        // path that doesn't), never open the Link Editor for them — the admin should be able to
+        // edit their text like any other label with a normal click.
+        const cmsKeyEarly = linkEl.getAttribute('data-cms') || '';
+        if (/^app-tab-/.test(cmsKeyEarly)) return;
+
         const currentHref = linkEl.getAttribute('href') || '';
         const cmsKey = linkEl.getAttribute('data-cms') || '';
         const isLinkOnly = linkEl.hasAttribute('data-link-only');
@@ -7275,10 +9149,20 @@ const CMS = {
 
     async logout() {
         sessionStorage.removeItem('cms_tab_session');
-        await fetch(`/api/admin/logout`, { 
-            method: 'POST',
-            credentials: 'include'
-        });
+        try {
+            // Best-effort server-side session cleanup — if the backend is unreachable (down,
+            // network error, etc.) this throws and, without the try/catch, silently aborted the
+            // whole function before reaching reload() below, making the Logout button appear to
+            // do nothing. The local tab-session flag above is already cleared regardless, so the
+            // reload always lands the user back in a logged-out state client-side even when the
+            // server-side cookie couldn't be cleared.
+            await fetch(`/api/admin/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+        } catch (e) {
+            console.warn('[CMS] Logout request failed (backend may be unreachable) — proceeding with local logout anyway:', e);
+        }
         window.location.reload();
     },
 
@@ -8254,6 +10138,325 @@ const CMS = {
             });
     },
 
+    // Approval-workflow pilot (schema_v6_approval_workflow.sql, TEXT content only): admin-only
+    // review queue for changes an 'editor' submitted via saveAll's page-elements branch.
+    // Admin-only "Team & Access" panel embedded in the Overview tab (UserManagementController,
+    // /api/v2/team-access/*): list every admins-table row with a per-user activity count, a
+    // form to provision a brand-new user (creates the Supabase Auth account AND the matching
+    // admins row in one call), and per-row Reset Password / Remove actions.
+    renderTeamAccessPanel() {
+        const section = document.getElementById('cms-team-access-section');
+        if (!section) return;
+        section.innerHTML = `<div style="color:#999; font-size:0.85rem;"><i class="fa fa-spinner fa-spin"></i> Loading team...</div>`;
+
+        fetch('/api/v2/team-access/users', { credentials: 'include' })
+            .then(res => res.json())
+            .then(users => {
+                if (!Array.isArray(users)) {
+                    section.innerHTML = `<div class="text-danger" style="font-size:0.85rem;">Could not load team members.</div>`;
+                    return;
+                }
+                const roleBadge = (role) => role === 'admin'
+                    ? `<span style="background:#ffecec; color:#d11f26; padding:3px 9px; border-radius:4px; font-size:11px; font-weight:700;">ADMIN</span>`
+                    : `<span style="background:#eef3ff; color:#2f5fd1; padding:3px 9px; border-radius:4px; font-size:11px; font-weight:700;">EDITOR</span>`;
+                // Mirrors the server-side "keep at least one admin" rule (UserManagementController
+                // #deleteUser) so the button is simply absent here rather than clicked and rejected.
+                const adminCount = users.filter(u => u.role === 'admin').length;
+
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:10px;">
+                        <h4 style="margin:0; font-size:1.1rem;">Team &amp; Access</h4>
+                        <button class="cms-add-btn" onclick="CMS.toggleAddUserForm()" style="float:none; flex-shrink:0; white-space:nowrap;"><i class="fa fa-plus"></i> ADD NEW USER</button>
+                    </div>
+                    <div id="cms-add-user-form" style="display:none; background:#fafafa; border:1px solid #eee; border-radius:8px; padding:15px; margin-bottom:15px;">
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">
+                            <div style="flex:2; min-width:180px;">
+                                <label style="display:block; font-size:11px; color:#888; margin-bottom:4px;">Email</label>
+                                <input id="cms-new-user-email" type="email" class="cms-input" placeholder="name@baselok.com" style="width:100%; height:38px; box-sizing:border-box;">
+                            </div>
+                            <div style="flex:2; min-width:150px;">
+                                <label style="display:block; font-size:11px; color:#888; margin-bottom:4px;">Password</label>
+                                <input id="cms-new-user-password" type="password" class="cms-input" placeholder="At least 6 characters" style="width:100%; height:38px; box-sizing:border-box;">
+                            </div>
+                            <div style="flex:1; min-width:110px;">
+                                <label style="display:block; font-size:11px; color:#888; margin-bottom:4px;">Role</label>
+                                <select id="cms-new-user-role" class="cms-input" style="width:100%; height:38px; box-sizing:border-box; padding-top:0; padding-bottom:0; line-height:36px;">
+                                    <option value="editor">Editor</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <button class="cms-btn cms-btn-save" onclick="CMS.createTeamUser()" style="height:38px; box-sizing:border-box; display:inline-flex; align-items:center;"><i class="fa fa-plus"></i>&nbsp;CREATE</button>
+                        </div>
+                        <small style="color:#999; display:block; margin-top:8px;">Editors' text/image/icon and content changes go into Pending Approvals; admins publish directly.</small>
+                    </div>
+                    <div style="background:#fff; border:1px solid #eee; border-radius:8px; overflow:hidden; margin-bottom:15px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                            <thead>
+                                <tr style="background:#fafafa; text-align:left;">
+                                    <th style="padding:10px 12px; color:#888; font-size:11px; text-transform:uppercase;">User</th>
+                                    <th style="padding:10px 12px; color:#888; font-size:11px; text-transform:uppercase;">Role</th>
+                                    <th style="padding:10px 12px; color:#888; font-size:11px; text-transform:uppercase;">Changes</th>
+                                    <th style="padding:10px 12px; color:#888; font-size:11px; text-transform:uppercase; text-align:right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${users.map(u => {
+                                    const isSelf = u.id === this.currentUserId;
+                                    const isLastAdmin = u.role === 'admin' && adminCount <= 1;
+                                    const canRemove = !isSelf && !isLastAdmin;
+                                    return `
+                                    <tr style="border-top:1px solid #f0f0f0;">
+                                        <td style="padding:10px 12px;">${u.username}${isSelf ? ' <span style="color:#999; font-size:11px;">(you)</span>' : ''}</td>
+                                        <td style="padding:10px 12px;">${roleBadge(u.role)}</td>
+                                        <td style="padding:10px 12px; color:#666;">${u.changes_count ?? 0}</td>
+                                        <td style="padding:10px 12px; text-align:right; white-space:nowrap;">
+                                            <button class="btn btn-sm btn-link" style="color:#2f5fd1;" onclick="CMS.resetUserPassword('${u.id}', '${u.username}')"><i class="fa fa-key"></i> Reset Password</button>
+                                            ${canRemove ? `<button class="btn btn-sm btn-link text-danger" onclick="CMS.deleteTeamUser('${u.id}', '${u.username}')"><i class="fa fa-trash"></i> Remove</button>`
+                                                : (isLastAdmin ? '<span style="color:#bbb; font-size:12px;" title="At least one admin must remain">Last admin</span>' : '')}
+                                        </td>
+                                    </tr>
+                                `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                section.innerHTML = html;
+            })
+            .catch(err => {
+                console.error('[CMS] Error loading team:', err);
+                section.innerHTML = `<div class="text-danger" style="font-size:0.85rem;">Error loading team members.</div>`;
+            });
+    },
+
+    toggleAddUserForm() {
+        const form = document.getElementById('cms-add-user-form');
+        if (!form) return;
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    },
+
+    async createTeamUser() {
+        const email = document.getElementById('cms-new-user-email').value.trim();
+        const password = document.getElementById('cms-new-user-password').value;
+        const role = document.getElementById('cms-new-user-role').value;
+        if (!email || !password) {
+            await this._showAlertAsync('Missing Info', 'Email and password are required.');
+            return;
+        }
+        try {
+            const res = await fetch('/api/v2/team-access/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email, password, role })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Could not create user.');
+            this.showStatus(`User ${email} created.`, 'success');
+            this.renderTeamAccessPanel();
+        } catch (e) {
+            await this._showAlertAsync('Could Not Create User', e.message);
+        }
+    },
+
+    // No existing app-styled "prompt for text input" dialog exists (_showAlertAsync/
+    // _showConfirmAsync only render a message + OK/Cancel, no input field) — building a small
+    // dedicated modal here rather than touching that shared overlay's markup, and rather than
+    // using the browser's native prompt() which looks out of place next to the rest of the UI.
+    _showPasswordPromptAsync(username) {
+        return new Promise((resolve) => {
+            const existing = document.getElementById('cms-pw-prompt-modal');
+            if (existing) existing.remove();
+            const modal = document.createElement('div');
+            modal.id = 'cms-pw-prompt-modal';
+            modal.className = 'cms-modal';
+            // Must exceed the dashboard modal's own z-index (.cms-modal = 2000000, see cms.css)
+            // or this prompt renders visually behind the dashboard instead of on top of it.
+            modal.style.cssText = 'display:flex; z-index:2100000;';
+            modal.innerHTML = `
+                <div style="background:#fff; border-radius:12px; padding:25px; width:360px; max-width:92vw; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+                    <h3 style="margin:0 0 6px; font-size:1rem; color:#333;">Reset Password</h3>
+                    <p style="margin:0 0 14px; font-size:0.8rem; color:#777;">New password for <strong>${username}</strong>:</p>
+                    <input id="cms-pw-prompt-input" type="password" class="cms-input" placeholder="At least 6 characters" style="width:100%; margin-bottom:16px;">
+                    <div style="display:flex; gap:10px; justify-content:flex-end;">
+                        <button id="cms-pw-prompt-cancel" style="padding:9px 18px; border:1px solid #ddd; background:#fff; color:#333; border-radius:6px; cursor:pointer; font-size:0.85rem;">Cancel</button>
+                        <button id="cms-pw-prompt-ok" style="padding:9px 18px; background:#28a745; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:700;">Reset</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const input = document.getElementById('cms-pw-prompt-input');
+            input.focus();
+            const cleanup = (value) => { modal.remove(); resolve(value); };
+            document.getElementById('cms-pw-prompt-ok').onclick = () => cleanup(input.value);
+            document.getElementById('cms-pw-prompt-cancel').onclick = () => cleanup(null);
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') cleanup(input.value); });
+            modal.onclick = (e) => { if (e.target === modal) cleanup(null); };
+        });
+    },
+
+    async resetUserPassword(id, username) {
+        const newPassword = await this._showPasswordPromptAsync(username);
+        if (!newPassword) return;
+        if (newPassword.length < 6) {
+            await this._showAlertAsync('Password Too Short', 'Password must be at least 6 characters.');
+            return;
+        }
+        try {
+            const res = await fetch(`/api/v2/team-access/users/${id}/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ newPassword })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Could not reset password.');
+            this.showStatus(`Password reset for ${username}.`, 'success');
+        } catch (e) {
+            await this._showAlertAsync('Could Not Reset Password', e.message);
+        }
+    },
+
+    async deleteTeamUser(id, username) {
+        if (!await this._showConfirmAsync('Remove User', `Remove ${username}? They will no longer be able to log in.`)) return;
+        try {
+            const res = await fetch(`/api/v2/team-access/users/${id}`, { method: 'DELETE', credentials: 'include' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Could not remove user.');
+            this.showStatus(`${username} removed.`, 'info');
+            this.renderTeamAccessPanel();
+        } catch (e) {
+            await this._showAlertAsync('Could Not Remove User', e.message);
+        }
+    },
+
+    renderApprovalsTab() {
+        const content = document.getElementById('cms-tab-content');
+        content.innerHTML = `<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i><p class="mt-3 text-muted">Loading pending approvals...</p></div>`;
+
+        fetch('/api/v2/approvals', { credentials: 'include' })
+            .then(res => res.json())
+            .then(list => {
+                if (!Array.isArray(list) || list.length === 0) {
+                    content.innerHTML = this.getEmptyStateHtml('No changes waiting for approval.');
+                    return;
+                }
+
+                const stripTags = (html) => (html || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+                const truncate = (s, n) => s.length > n ? s.slice(0, n) + '…' : s;
+                const requestTypeLabels = {
+                    'page-elements': 'Page content', solutions: 'Solution', applications: 'Application',
+                    stories: 'Success Story', resources: 'Resource'
+                };
+
+                const isImageUrl = (v) => typeof v === 'string' && /^https?:\/\/.*\.(png|jpe?g|webp|gif|svg)(\?|$)/i.test(v);
+                const renderVal = (v) => isImageUrl(v)
+                    ? `<img src="${v}" style="width:240px; height:100px; object-fit:cover; border-radius:4px; vertical-align:middle; border:1px solid #ddd;">`
+                    : (truncate(stripTags(String(v ?? '')), 160) || '(empty)');
+
+                // page-elements rows carry their single value inside request_payload.content_value
+                // / current_payload.content_value (ApprovalGateService writes every request_type
+                // the same way — see CmsController#updatePageElement/#currentElementSnapshot).
+                // Older rows from before schema_v7 may still only have the legacy
+                // current_value/proposed_value columns populated, so fall back to those.
+                // Every entity-PATCH row (solutions/applications/stories/resources) instead
+                // carries several fields at once in those same JSON columns — diff every field
+                // present in either side so nothing is silently hidden.
+                const diffRows = (change) => {
+                    if (change.request_type && change.request_type !== 'page-elements') {
+                        const before = change.current_payload || {};
+                        const after = change.request_payload || {};
+                        const fields = Array.from(new Set([...Object.keys(before), ...Object.keys(after)]))
+                            .filter(f => !['id', 'created_at', 'updated_at', 'is_deleted', 'is_active'].includes(f));
+                        return fields.map(f => ({
+                            label: f,
+                            before: renderVal(before[f]),
+                            after: renderVal(after[f])
+                        }));
+                    }
+                    const beforeVal = (change.current_payload && change.current_payload.content_value) ?? change.current_value;
+                    const afterVal = (change.request_payload && change.request_payload.content_value) ?? change.proposed_value;
+                    return [{
+                        label: change.element_key || 'value',
+                        before: renderVal(beforeVal),
+                        after: renderVal(afterVal)
+                    }];
+                };
+
+                let html = `
+                    <div class="cms-tab-scroll">
+                        <div style="margin-bottom:15px; color:#666; font-size:0.85rem;">
+                            Changes submitted by editors wait here until an admin approves them. Nothing here is live yet.
+                        </div>
+                `;
+
+                list.forEach(change => {
+                    const submitted = change.created_at ? new Date(change.created_at).toLocaleString('en-GB') : '';
+                    const typeLabel = requestTypeLabels[change.request_type] || change.request_type || 'Page content';
+                    const rows = diffRows(change);
+                    html += `
+                        <div class="cms-page-card" style="display:flex; flex-direction:column; background:#fff; padding:15px; border-radius:8px; border:1px solid #eee; box-shadow:0 2px 8px rgba(0,0,0,0.05); gap:10px; margin-bottom:12px;">
+                            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                                <strong style="font-size:14px;">${typeLabel}</strong>
+                                <span style="font-size:11px; color:#999;">${change.page_slug || ''} ${submitted}</span>
+                            </div>
+                            <div style="font-size:12px;">
+                                ${rows.map(r => `
+                                    <div style="margin-bottom:8px;">
+                                        <div style="color:#888; font-size:10px; text-transform:uppercase; margin-bottom:2px;">${r.label}</div>
+                                        <div style="display:flex; align-items:center; color:#a33; background:#fff5f5; border-radius:4px; padding:6px 8px; margin-bottom:4px;"><strong style="display:inline-block; width:52px; flex-shrink:0;">Before:</strong> ${r.before}</div>
+                                        <div style="display:flex; align-items:center; color:#2a7a2a; background:#f2fbf2; border-radius:4px; padding:6px 8px;"><strong style="display:inline-block; width:52px; flex-shrink:0;">After:</strong> ${r.after}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #eee; padding-top:10px;">
+                                <button class="cms-btn-outline-delete" onclick="CMS.rejectChange('${change.id}')"><i class="fa fa-times"></i> REJECT</button>
+                                <button class="cms-btn cms-btn-save" onclick="CMS.approveChange('${change.id}')"><i class="fa fa-check"></i> APPROVE & PUBLISH</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                content.innerHTML = html;
+            })
+            .catch(err => {
+                console.error('[CMS] Error loading pending approvals:', err);
+                content.innerHTML = this.getEmptyStateHtml('Error loading pending approvals.');
+            });
+    },
+
+    async approveChange(id) {
+        try {
+            const res = await fetch(`/api/v2/approvals/${id}/approve`, { method: 'POST', credentials: 'include' });
+            if (!res.ok) throw new Error('Approve failed');
+            this.showStatus('Change approved and published.', 'success');
+            this.clearContentCache();
+            this.renderApprovalsTab();
+        } catch (e) {
+            console.error('[CMS] Approve error:', e);
+            this.showStatus('Could not approve this change.', 'error');
+        }
+    },
+
+    async rejectChange(id) {
+        if (!await this._showConfirmAsync('Reject Change', 'This change will not be published. Continue?')) return;
+        try {
+            const res = await fetch(`/api/v2/approvals/${id}/reject`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({})
+            });
+            if (!res.ok) throw new Error('Reject failed');
+            this.showStatus('Change rejected.', 'info');
+            this.renderApprovalsTab();
+        } catch (e) {
+            console.error('[CMS] Reject error:', e);
+            this.showStatus('Could not reject this change.', 'error');
+        }
+    },
+
     showTeamMemberForm(member = null) {
         const isUpdate = !!member;
         const formId = isUpdate ? member.id : '';
@@ -8925,11 +11128,20 @@ const CMS = {
 
                 // Render as a single-row Slick slider (3 visible at a time), modelled
                 // on the "Latest Articles" carousel so it auto-slides through all members.
+                // These members come from the `team_members` table via /api/v2/team-members,
+                // NOT from page_elements — there is no pendingChanges/saveAll() path for them.
+                // The photo <img> is deliberately marked data-cms="no-edit" so the generic
+                // hover-to-change-image button (which only checks for a data-cms attribute,
+                // not what it's wired to) never appears here: clicking it would visually swap
+                // the <img src> but never persist anywhere, since updateActiveImage() only
+                // queues a pendingChanges entry when the target has a REAL data-cms key. Editing
+                // must go through the Dashboard's "Support Team" tab (showTeamMemberForm /
+                // saveTeamMember), which PATCHes /api/v2/team-members/{id} directly.
                 container.innerHTML = members.map(member => `
                     <div class="col-lg-4 px-3">
                         <div class="team-member-row">
-                            <div class="team-member-photo">
-                                <img src="${member.photo_url || 'https://via.placeholder.com/400x400'}" alt="${member.name}" />
+                            <div class="team-member-photo" title="Edit in Dashboard → Support Team">
+                                <img src="${member.photo_url || 'https://via.placeholder.com/400x400'}" alt="${member.name}" data-cms="no-edit" />
                             </div>
                             <div class="team-member-info">
                                 <span class="role-tag">${member.role}</span>

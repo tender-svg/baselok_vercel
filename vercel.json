@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://holds-affecting-appropriations-newman.trycloudflare.com/api/:path*" },
-    { "source": "/admin/:path*", "destination": "https://holds-affecting-appropriations-newman.trycloudflare.com/admin/:path*" },
+    { "source": "/api/:path*", "destination": "https://baselok-backend.qpaix.com/api/:path*" },
+    { "source": "/admin/:path*", "destination": "https://baselok-backend.qpaix.com/admin/:path*" },
     { "source": "/case-study-:slug.html", "destination": "/case-study-details.html" },
     { "source": "/blog-:slug.html", "destination": "/blog-details.html" },
     { "source": "/webinar-:slug.html", "destination": "/blog-details.html" },

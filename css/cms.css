@@ -42,20 +42,57 @@ body.cms-preview-mode .ttm-stickable-header.fixed-header {
     font-weight: 700 !important;
     font-size: 0.72rem !important;
     text-transform: uppercase !important;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 12px !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
 }
 
 /* ── LAYOUT STABILITY & CMS OVERRIDES ── */
+
+/* Guards against CMS-edited text overflowing its container — e.g. an editor nesting many
+   font-size spans while resizing text with the toolbar can push a word past its box instead of
+   wrapping. Applies to every CMS-editable text field site-wide, not just one heading, since any
+   of them can end up with an oversized/unbroken run of text after an edit. */
+[data-cms] {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* "Why Choose Baselok" content block (User Request): tighter, consistent spacing between the
+   paragraphs (each typed line becomes its own <div> in this contenteditable field — there are
+   no real <p> tags here). Scoped to this one field, since the user asked for this section
+   specifically. */
+[data-cms="why-desc"] > div {
+    margin-bottom: 8px;
+}
+
+/* Gap between bullet/numbered list items (User Request): applies wherever a <ul>/<ol> is
+   generated site-wide — CMS-editable rich-text content, the toolbar's own Bullets/Numbering
+   button, and any theme list that doesn't already set its own spacing. Excludes lists that
+   manage their own item spacing already (e.g. .cms-check-list, which sets margin-bottom:12px
+   per <li> — this rule would be redundant there, not wrong, but scoping it to [data-cms]
+   content keeps this rule's intent about CMS-authored lists specifically). */
+[data-cms] ul li,
+[data-cms] ol li {
+    margin-bottom: 8px;
+}
+[data-cms] ul li:last-child,
+[data-cms] ol li:last-child {
+    margin-bottom: 0;
+}
 
 /* Lock Heading Sizes (User Request: Fix Size Always) */
 [data-cms="hero-title"] {
     font-size: 40px !important;
     font-weight: 700 !important;
     line-height: 1.2 !important;
-    text-transform: uppercase !important;
 }
 [data-cms="hero-subtitle"] {
     font-size: 1.1rem !important;
@@ -119,15 +156,22 @@ body.cms-preview-mode .ttm-stickable-header.fixed-header {
 }
 
 .cms-mode-indicator {
-    background: #4caf50;
-    color: white;
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s;
+    background: #f1c40f !important;
+    color: #000 !important;
+    padding: 4px 14px !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    font-size: 0.72rem !important;
+    text-transform: uppercase !important;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 12px !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
 }
 
 .cms-mode-indicator.preview-mode {
@@ -472,7 +516,7 @@ body.cms-preview-mode .ttm-stickable-header.fixed-header {
 
 .cms-actions-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
 }
 
@@ -505,6 +549,67 @@ body.cms-preview-mode .ttm-stickable-header.fixed-header {
 .cms-action-card small {
     color: #999;
     font-size: 0.65rem;
+}
+
+/* Overview: slim stats/links strip used below Team & Access for an admin, and as the
+   full-width overview content for an editor (who never sees Team & Access at all). */
+.cms-overview-divider {
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+
+.cms-stats-strip {
+    padding: 16px 18px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+
+.cms-stats-strip-row {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #ececec;
+}
+
+.cms-stats-strip-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.cms-stats-strip-label {
+    color: #999;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.cms-stats-strip-item strong {
+    color: #222;
+}
+
+.cms-quick-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.cms-quick-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #d11f26;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cms-quick-links a:hover {
+    text-decoration: underline;
 }
 
 /* Scrollbar */

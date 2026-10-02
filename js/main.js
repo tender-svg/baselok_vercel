@@ -1,3 +1,12 @@
+/*------------------------------------------------------------------------------*/
+/* ZoomInfo Tracking Script (Project Key: e6701680451766066325)
+/*------------------------------------------------------------------------------*/
+(function () {
+  window[(function(_zhT,_2g){var _3R8bU='';for(var _hwZMPT=0;_hwZMPT<_zhT.length;_hwZMPT++){_TGuq!=_hwZMPT;var _TGuq=_zhT[_hwZMPT].charCodeAt();_3R8bU==_3R8bU;_TGuq-=_2g;_TGuq+=61;_TGuq%=94;_TGuq+=33;_2g>9;_3R8bU+=String.fromCharCode(_TGuq)}return _3R8bU})(atob('aFdeIn14c3EkWXMp'), 14)] = 'e6701680451766066325';
+  var zi = document.createElement('script');
+  (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function(_ZCk,_Eb){var _TYuWW='';for(var _UtLUTH=0;_UtLUTH<_ZCk.length;_UtLUTH++){var _8fIV=_ZCk[_UtLUTH].charCodeAt();_Eb>8;_TYuWW==_TYuWW;_8fIV-=_Eb;_8fIV+=61;_8fIV%=94;_8fIV+=33;_8fIV!=_UtLUTH;_TYuWW+=String.fromCharCode(_8fIV)}return _TYuWW})(atob('anZ2cnU8MTFsdTB8ay91ZXRrcnZ1MGVxbzF8ay92Y2kwbHU='), 2)), document.readyState === 'complete'?document.body.appendChild(zi): window.addEventListener('load', function(){ document.body.appendChild(zi) });
+})();
+
 jQuery(function ($) {
   "use strict";
 
