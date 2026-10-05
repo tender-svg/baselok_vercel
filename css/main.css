@@ -266,6 +266,34 @@ body .page.sidebar-true .site-main {
   margin-left: auto;
   margin-right: auto;
 }
+/* Progressive widening for large/4K monitors — the theme was never designed past 1230px, so on
+   anything wider (1600px+, 1920px+, 2560px+/4K) the fixed container left a huge empty gap on
+   both sides. Each tier below only ever widens the container a bit further than the viewport
+   grew, so text lines stay a readable length instead of stretching edge-to-edge on a 3840px
+   screen — capped at 1900px so even an ultra-wide/4K display doesn't get unreadably long lines. */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+@media (min-width: 2560px) {
+  .container {
+    max-width: 1900px;
+  }
+}
+/* min-width here is slightly below actual 3840px — on a real 4K display the viewport reports a
+   touch less than the full panel width once OS scaling/scrollbar are accounted for, so this
+   stays just under 3840 to reliably still catch genuine 4K monitors. */
+@media (min-width: 3800px) {
+  .container {
+    max-width: 3650px;
+  }
+}
 .site-header-menu {
   position: relative;
   z-index: 1000;

@@ -1,5 +1,3 @@
 node_modules/
 dist/
-dist.zip
-dist*.zip
-dist (*).zip
+*.zip

@@ -266,6 +266,26 @@ body .page.sidebar-true .site-main {
   margin-left: auto;
   margin-right: auto;
 }
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+@media (min-width: 2560px) {
+  .container {
+    max-width: 1900px;
+  }
+}
+@media (min-width: 3800px) {
+  .container {
+    max-width: 3650px;
+  }
+}
 .site-header-menu {
   position: relative;
   z-index: 1000;
