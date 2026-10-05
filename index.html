@@ -37,7 +37,11 @@ var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
 var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
 window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
 Promise.all([p1,p2]).then(function(){
-setTimeout(hideLoader,400);
+if(document.body.classList.contains('cms-loaded')){hideLoader();return;}
+var obs=new MutationObserver(function(){
+if(document.body.classList.contains('cms-loaded')){obs.disconnect();hideLoader();}
+});
+obs.observe(document.body,{attributes:true,attributeFilter:['class']});
 }).catch(hideLoader);
 }catch(e){hideLoader();}
 })();</script>

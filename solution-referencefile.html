@@ -41,7 +41,7 @@ var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
 var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
 window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
 Promise.all([p1,p2]).then(function(){
-setTimeout(hideLoader,50);
+setTimeout(hideLoader,400);
 }).catch(hideLoader);
 }catch(e){hideLoader();}
 })();</script>

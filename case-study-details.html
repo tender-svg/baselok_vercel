@@ -45,12 +45,19 @@ window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
 // hero image, owner/date/products) comes from the success_stories row inside site-data, which
 // cms.js's init() only applies to the DOM *after* this fetch resolves (via
 // _renderStoryDetailsFromState, further gated behind an image-load wait) — site-data resolving
-// does not mean that rendering has happened yet. Letting this fire early used to reveal the
-// template's static placeholder text/image for a flash before init() swapped in the real values
-// a beat later. init()'s own reveal() (cms.js) is solely responsible for calling hideLoader()
-// here, since that only runs once the real story content is actually in the DOM.
+// does not mean that rendering has happened yet. Letting this fire on a fixed short delay used
+// to reveal the template's static placeholder text/image for a flash before init() swapped in
+// the real values a beat later. Instead, wait for body.cms-loaded — the class cms.js's init()
+// adds only once the real story content is actually written into the DOM (see init()'s own
+// reveal(), case-study-details.html's single source of truth for "is this page's content
+// actually ready"). The 2500ms timer set above is still the hard safety net if cms-loaded is
+// somehow never reached.
 Promise.all([p1,p2]).then(function(){
-setTimeout(hideLoader,50);
+if(document.body.classList.contains('cms-loaded')){hideLoader();return;}
+var obs=new MutationObserver(function(){
+if(document.body.classList.contains('cms-loaded')){obs.disconnect();hideLoader();}
+});
+obs.observe(document.body,{attributes:true,attributeFilter:['class']});
 }).catch(hideLoader);
 }catch(e){hideLoader();}
 })();</script>
