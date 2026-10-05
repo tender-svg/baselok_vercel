@@ -5285,6 +5285,7 @@ section.error-404 .page-content p {
   padding-bottom: 0;
   color: #222222 !important;
   background-color: #fdfdfd !important;
+  font-size: 15px;
 }
 
 .faq-item.open .faq-answer {
@@ -5295,13 +5296,14 @@ section.error-404 .page-content p {
   border: 1px solid #e0e0e0;
 }
 
-.faq-answer p, 
-.faq-answer span, 
+.faq-answer p,
+.faq-answer span,
 .faq-answer div {
   margin: 0 !important;
   color: #222222 !important;
   line-height: 1.6 !important;
   background: transparent !important;
+  font-size: 15px !important;
 }
 
 /* ////////////////////// */

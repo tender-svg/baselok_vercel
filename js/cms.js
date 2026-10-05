@@ -1105,7 +1105,7 @@ const CMS = {
                 <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>US &amp; metric units &#8212; cloud-based &amp; collaborative</span></li>
               </ul>
               <a href="baselok-pro.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-white" style="margin-right:12px;margin-bottom:10px;">Learn More &#8594;</a>
-              <a href="contact-us.html" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" style="margin-bottom:10px;">Start Designing Now &#8594;</a>
+              <a href="https://www.baselokpro.com" target="_blank" rel="noopener" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" style="margin-bottom:10px;">Start Designing Now &#8594;</a>
             </div>
             <div class="col-lg-6 col-md-12 text-center">
               <img data-cms="bpro-global-device" src="/images/cms-uploads/OTHERS/1784800783736_Gemini_Generated_Image_y4axw6y4axw6y4ax__1_-Photoroom.png" class="img-fluid" alt="BaseLok PRO Design Software" style="width:100%;height:auto;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.4));">

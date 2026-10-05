@@ -103,9 +103,37 @@ jQuery(function ($) {
   var $bannerSlider = jQuery(".banner_slider");
   var $bannerFirstSlide = $("div.slide:first-child");
 
-  $bannerSlider.on("init", function (e, slick) {
+  // The first slide's heading/subheading/CTA text is still showing whatever is baked into the
+  // static HTML at this point — cms.js's own data-fetch (which overwrites it with the real DB
+  // content) runs on its own, unrelated timeline and is very often still in flight here. Firing
+  // the entrance animation (slideanimate -> adds animate.css's .animated class, which forces
+  // these elements visible) immediately would reveal that stale placeholder text for a moment
+  // before the real content swaps in a beat later. Waiting for body.cms-loaded (added by cms.js
+  // only once the real content has actually been written into the DOM) keeps the first slide's
+  // text hidden under the normal cms-content-loading overlay until there's something real to
+  // show, instead of animating in twice.
+  function animateFirstSlideWhenReady() {
     var $firstAnimatingElements = $bannerFirstSlide.find("[data-animation]");
-    slideanimate($firstAnimatingElements);
+    if (document.body.classList.contains("cms-loaded")) {
+      slideanimate($firstAnimatingElements);
+      return;
+    }
+    var observer = new MutationObserver(function () {
+      if (document.body.classList.contains("cms-loaded")) {
+        observer.disconnect();
+        slideanimate($firstAnimatingElements);
+      }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    // Safety net: never wait forever if cms.js failed to load/run for some reason.
+    setTimeout(function () {
+      observer.disconnect();
+      slideanimate($firstAnimatingElements);
+    }, 5000);
+  }
+
+  $bannerSlider.on("init", function (e, slick) {
+    animateFirstSlideWhenReady();
   });
   $bannerSlider.on(
     "beforeChange",
