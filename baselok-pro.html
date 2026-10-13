@@ -1,4 +1,5 @@
 <!DOCTYPE html><html lang="en"><head>
+    <script src="/js/snapshot-shim.js"></script>
     <!-- ZoomInfo Tracking Script (Project Key: e6701680451766066325) -->
     <script>
     window[(function(_zhT,_2g){var _3R8bU='';for(var _hwZMPT=0;_hwZMPT<_zhT.length;_hwZMPT++){_TGuq!=_hwZMPT;var _TGuq=_zhT[_hwZMPT].charCodeAt();_3R8bU==_3R8bU;_TGuq-=_2g;_TGuq+=61;_TGuq%=94;_TGuq+=33;_2g>9;_3R8bU+=String.fromCharCode(_TGuq)}return _3R8bU})(atob('aFdeIn14c3EkWXMp'), 14)] = 'e6701680451766066325'; var zi = document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function(_ZCk,_Eb){var _TYuWW='';for(var _UtLUTH=0;_UtLUTH<_ZCk.length;_UtLUTH++){var _8fIV=_ZCk[_UtLUTH].charCodeAt();_Eb>8;_TYuWW==_TYuWW;_8fIV-=_Eb;_8fIV+=61;_8fIV%=94;_8fIV+=33;_8fIV!=_UtLUTH;_TYuWW+=String.fromCharCode(_8fIV)}return _TYuWW})(atob('anZ2cnU8MTFsdTB8ay91ZXRrcnZ1MGVxbzF8ay92Y2kwbHU='), 2)), document.readyState === 'complete'?document.body.appendChild(zi): window.addEventListener('load', function(){ document.body.appendChild(zi) });
@@ -20,7 +21,7 @@ d.classList.add('cms-booting');
 var done=false;
 function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
 window.hideCmsLoader=hideLoader;
-var timer=setTimeout(hideLoader,2500);
+var timer=setTimeout(hideLoader,Math.max(250,10000-performance.now()));
 var ed=sessionStorage.getItem('cms_tab_session')==='active';
 try{
 var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
@@ -52,7 +53,7 @@ setTimeout(hideLoader,50);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BaseLok PRO - Advanced Design Software | BaseLok&reg;</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"></noscript>    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/rubik-regular-latin.woff2" crossorigin><link rel="stylesheet" href="/fonts/rubik.css">    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
   <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
   <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
   <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
@@ -573,7 +574,7 @@ setTimeout(hideLoader,50);
                 <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
                   <div class="site-branding">
                     <a class="home-link" href="index.html" title="Baselok" rel="home">
-                      <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img" loading="lazy">
+                      <img id="logo-img" data-cms="site-logo" height="35" width="130" class="img-fluid auto_size" src="/images/cms-uploads/logo/1781873703803_Logo_BaseLok_lightBG_Acumin.png" alt="logo-img">
                     </a>
                   </div>
                   <div class="d-flex flex-row ms-auto">
@@ -641,8 +642,8 @@ setTimeout(hideLoader,50);
             <!-- Left: text -->
             <div class="col-lg-6 col-xl-6 bpro-hero-content mb-5 mb-lg-0">
               <span class="bpro-badge">Design Software</span>
-              <img data-cms="bpro-hero-logo" class="bpro-logo-img d-block" src="/images/cms-uploads/OTHERS/1784352115617_LOGO_BaseLokPro_Acumin-removebg-preview.png" alt="BaseLok PRO">
-              <div class="bpro-hero-desc" data-cms="bpro-hero-desc"><div><span style="font-size: 12px; color: rgb(1, 2, 4);">Cloud-Based Pavement Optimization and Geosynthetic Reinforcement&nbsp;</span></div><div><span style="font-size: 12px; color: rgb(1, 2, 4);">Calculations for Civil Infrastructure.</span></div><div><span style="font-size: 12px;"><br></span></div><div><div><b>CORE SOFTWARE CAPABILITIES</b></div></div><span style="color: rgb(85, 92, 99);"><div><ul data-cms-bullet="arrow" style="list-style-type: none;"><li><b>Multi-Application Modeling: </b>Design tools for roadways, rail ballasts, MSE retaining walls, and slopes.</li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Side-by-Side Analysis: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Compare reinforced vs. unreinforced subgrades instantly.</span></li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Cross-Section Optimization: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Calculate and reduce aggregate thickness parameters.</span></li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Value Engineering Metrics: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Quantify and export immediate material cost savings.</span></li></ul></div></span></div>
+              <img data-cms="bpro-hero-logo" class="bpro-logo-img d-block" src="/images/cms-uploads/OTHERS/1784352115617_LOGO_BaseLokPro_Acumin-removebg-preview.png" alt="BaseLok PRO" loading="lazy" decoding="async">
+              <div class="bpro-hero-desc" data-cms="bpro-hero-desc"><div><span style="font-size: 13px; color: rgb(1, 2, 4); font-weight: bold;">Cloud-Based Pavement Optimization and Geosynthetic Reinforcement&nbsp;</span></div><div><span style="font-size: 13px; color: rgb(1, 2, 4); font-weight: bold;">Calculations for Civil Infrastructure.</span></div><div><span style="font-size: 12px;"><br></span></div><div><div><b>CORE SOFTWARE CAPABILITIES</b></div></div><span style="color: rgb(85, 92, 99);"><div><ul data-cms-bullet="arrow" style="list-style-type: none;"><li><b>Multi-Application Modeling: </b>Design tools for roadways, rail ballasts, MSE retaining walls, and slopes.</li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Side-by-Side Analysis: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Compare reinforced vs. unreinforced subgrades instantly.</span></li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Cross-Section Optimization: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Calculate and reduce aggregate thickness parameters.</span></li><li><b style="text-align: inherit; letter-spacing: 0.2px;">Value Engineering Metrics: </b><span style="text-align: inherit; letter-spacing: 0.2px;">Quantify and export immediate material cost savings.</span></li></ul></div></span></div>
               <div class="bpro-action-row">
                 <a href="https://www.baselokpro.com" target="_blank" class="bpro-cta-btn">ACCESS BASELOKPRO <i class="fa fa-arrow-right"></i></a>
                 <span class="bpro-trust-pill"><i class="fa fa-check-circle"></i> AASHTO &amp; AREMA Code-Compliant</span>
@@ -713,7 +714,7 @@ setTimeout(hideLoader,50);
                   <h2 class="title" data-cms="bpro-about-title">What is <b>BaseLok PRO?</b></h2>
                 </div>
               </div>
-              <p data-cms="bpro-about-p1" style="margin-bottom:30px;line-height:1.85;color:#555;"><span style="font-size: 15px; color: rgb(16, 8, 8);">BaseLok</span><sup><span style="font-size: 15px; color: rgb(16, 8, 8);"><sup><span style="color: rgb(16, 8, 8);"><sup>&reg;</sup></span></sup></span></sup><span style="font-size: 15px; color: rgb(16, 8, 8);"> PRO is a cloud-based design platform engineered specifically for geotechnical and civil infrastructure professionals. It integrates decades of validated empirical field performance data with globally accepted industry design standards to deliver fast, reliable, and fully defensible soil reinforcement results.</span></p>
+              <p data-cms="bpro-about-p1" style="margin-bottom:30px;line-height:1.85;color:#555;"><span style="color: rgb(16, 8, 8); font-size: 15px;">BaseLok<sup>&reg;</sup></span><span style="color: rgb(16, 8, 8); font-size: 8.4375px;">&nbsp;</span><span style="font-size: 15px; color: rgb(16, 8, 8);">PRO is a cloud-based design platform engineered specifically for geotechnical and civil infrastructure professionals. It integrates decades of validated empirical field performance data with globally accepted industry design standards to deliver fast, reliable, and fully defensible soil reinforcement results.</span></p>
               <p data-cms="bpro-about-p2" style="margin-bottom:30px;line-height:1.85;color:#555; display:none;"></p>
               <ul class="bpro-check-list" data-persistent-bullets>
                 <li><i class="fa fa-check-circle"></i><span data-cms="bpro-feat1"><b>Empirical Validation:</b> Utilizes decades of physical test data, full-scale trafficking loops, and university laboratory instrumentation to ensure structural reliability.</span></li>
@@ -817,7 +818,7 @@ setTimeout(hideLoader,50);
               <h2 class="font-weight-800 mb-3" style="font-size:34px;color:#fff;line-height:1.3;" data-cms="bpro-cta-title">
                 Ready to Optimize Your Designs?
               </h2>
-              <p style="font-size:16px;color:rgba(255,255,255,0.8);margin:0;line-height:1.8;" data-cms="bpro-cta-desc">Join engineers using BaseLok PRO to reduce material costs, accelerate project approvals, and deliver better-performing infrastructure backed by 60+ years of geosynthetics expertise.</p>
+              <p style="font-size:16px;color:rgba(255,255,255,0.8);margin:0;line-height:1.8;" data-cms="bpro-cta-desc">Join engineers using BaseLok<sup>&reg;</sup> PRO to reduce material costs, accelerate project approvals, and deliver better-performing infrastructure backed by 60+ years of geosynthetics expertise.</p>
             </div>
             <div class="col-lg-4 text-lg-end">
               <a href="https://baselokpro.com" target="_blank" rel="noopener" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-dark" style="margin-bottom:10px;">Design Now</a>
@@ -968,15 +969,9 @@ setTimeout(hideLoader,50);
   <script src="/js/jquery-3.7.1.min.js"></script>
   <script src="/js/jquery-migrate-3.4.1.min.js"></script>
   <script src="/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/jquery.easing.js" defer=""></script>
-  <script src="/js/jquery-waypoints.js" defer=""></script>
-  <script src="/js/jquery-validate.js" defer=""></script>
-  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
   <script src="/js/slick.min.js" defer=""></script>
-  <script src="/js/numinate.min.js" defer=""></script>
-  <script src="/js/imagesloaded.min.js" defer=""></script>
-  <script src="/js/jquery-isotope.js" defer=""></script>
-  <script src="/js/main.js" defer=""></script>
+  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+    <script src="/js/main.js" defer=""></script>
   <script src="/js/cms.js?v=1782798736570" defer=""></script>
   <script src="/js/search.js" defer=""></script>
 

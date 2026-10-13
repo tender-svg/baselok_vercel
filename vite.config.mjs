@@ -68,7 +68,9 @@ function copyStaticAssets() {
   return {
     name: 'copy-static-assets',
     closeBundle() {
-      const dirsToCopy = ['css', 'images', 'js', 'fonts', 'pdf', 'pages', 'assets'];
+      // 'data' is the read-only API snapshot (data/api/v2/**.json) that js/snapshot-shim.js
+      // serves fetch() responses from — must ship in dist/ or every page loads with empty content.
+      const dirsToCopy = ['css', 'images', 'js', 'fonts', 'pdf', 'pages', 'assets', 'data'];
       dirsToCopy.forEach(dir => {
         const src = resolve(__dirname, dir);
         const dest = resolve(__dirname, 'dist', dir);
@@ -116,9 +118,9 @@ function vercelRewritesDev() {
       }));
       server.middlewares.use((req, res, next) => {
         const url = new URL(req.url, `http://${req.headers.host}`);
-        // /api and /admin must always hit this dev server's own proxy (-> local Spring Boot),
-        // never vercel.json's production-API rewrite — otherwise every API call gets silently
-        // redirected to https://baselokapi.qpaix.com instead of the local backend being tested.
+        // /api and /admin must always hit this dev server's own proxy (a dead address — see
+        // above), never vercel.json's rewrite, which is also a dead address in this snapshot
+        // build. Either way no live backend is ever reachable; the shim answers everything first.
         if (url.pathname.startsWith('/api') || url.pathname.startsWith('/admin')) return next();
         const match = compiled.find(r => r.regex.test(url.pathname));
         const physicalPath = resolve(__dirname, url.pathname.replace(/^\//, ''));
@@ -143,15 +145,20 @@ export default defineConfig({
       input: 'dummy.js'
     }
   },
+  // This is a read-only snapshot build (see js/snapshot-shim.js) — every page's own fetch()
+  // wrapper answers /api/v2/* from /data before a request would ever reach this proxy, and
+  // blocks every other /api call outright. These proxy targets point at a deliberately dead
+  // address purely as defense-in-depth, so nothing can reach a real backend even if the shim
+  // were ever bypassed or disabled.
   preview: {
     proxy: {
       '/api': {
-        target: 'https://baselok-backend.qpaix.com',
+        target: 'https://backend-not-connected.invalid',
         changeOrigin: true,
         secure: false,
       },
       '/admin': {
-        target: 'https://baselok-backend.qpaix.com',
+        target: 'https://backend-not-connected.invalid',
         changeOrigin: true,
         secure: false,
       }
@@ -159,16 +166,21 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Forward all /api requests to the deployed backend (https://baselok-backend.qpaix.com)
+      // Forward /api and /admin to the live multi-site backend (https://cmsapi.qpaix.com). All sites share that one
+      // address; the site is chosen by the first part of the path, so '/baselok' is put in front of every request.
+      // (Before: http://localhost:8127 with Host pinned to baselok.localhost:8127.)
+      // Only takes effect because js/snapshot-shim.js's USE_BACKEND flag was also set to true —
+      // otherwise the shim intercepts every /api/* call in the browser before it would reach this proxy.
       '/api': {
-        target: 'https://baselok-backend.qpaix.com',
+        target: 'https://cmsapi.qpaix.com',
         changeOrigin: true,
+        rewrite: (p) => '/baselok' + p,
         secure: false,
       },
-      // Forward all /admin requests (login/logout/status) to the deployed backend
       '/admin': {
-        target: 'https://baselok-backend.qpaix.com',
+        target: 'https://cmsapi.qpaix.com',
         changeOrigin: true,
+        rewrite: (p) => '/baselok' + p,
         secure: false,
       }
     }

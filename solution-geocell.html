@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/js/snapshot-shim.js"></script>
+    <!-- ZoomInfo Tracking Script (Project Key: e6701680451766066325) -->
+    <script>
+    window[(function(_zhT,_2g){var _3R8bU='';for(var _hwZMPT=0;_hwZMPT<_zhT.length;_hwZMPT++){_TGuq!=_hwZMPT;var _TGuq=_zhT[_hwZMPT].charCodeAt();_3R8bU==_3R8bU;_TGuq-=_2g;_TGuq+=61;_TGuq%=94;_TGuq+=33;_2g>9;_3R8bU+=String.fromCharCode(_TGuq)}return _3R8bU})(atob('aFdeIn14c3EkWXMp'), 14)] = 'e6701680451766066325'; var zi = document.createElement('script'); (zi.type = 'text/javascript'), (zi.async = true), (zi.src = (function(_ZCk,_Eb){var _TYuWW='';for(var _UtLUTH=0;_UtLUTH<_ZCk.length;_UtLUTH++){var _8fIV=_ZCk[_UtLUTH].charCodeAt();_Eb>8;_TYuWW==_TYuWW;_8fIV-=_Eb;_8fIV+=61;_8fIV%=94;_8fIV+=33;_8fIV!=_UtLUTH;_TYuWW+=String.fromCharCode(_8fIV)}return _TYuWW})(atob('anZ2cnU8MTFsdTB8ay91ZXRrcnZ1MGVxbzF8ay92Y2kwbHU='), 2)), document.readyState === 'complete'?document.body.appendChild(zi): window.addEventListener('load', function(){ document.body.appendChild(zi) });
+    </script>
+
+    <style id="cms-antiflicker">
+html.cms-booting::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:999998;}
+html.cms-booting::after{content:"";position:fixed;top:50%;left:50%;width:0;height:0;border-radius:50%;transform:translate(-50%,-50%);animation:cms-bounce 1s infinite ease-in-out;z-index:999999;}
+@keyframes cms-bounce{0%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}16%{box-shadow:-18px -13px 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}33%{box-shadow:-18px 0 0 6px #d11f26,0 -13px 0 6px #d11f26,18px 0 0 6px #d11f26;}50%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px -13px 0 6px #d11f26;}66%,100%{box-shadow:-18px 0 0 6px #d11f26,0 0 0 6px #d11f26,18px 0 0 6px #d11f26;}}
+html.cms-content-loading [data-cms]{opacity:0 !important;}
+html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
+[data-cms]{transition:opacity .35s ease-in-out;}
+.slick_slider_dynamic:not(.slick-initialized), .market_serve_slider:not(.slick-initialized), [data-slick]:not(.slick-initialized) { opacity: 0 !important; visibility: hidden !important; min-height: 300px; }
+</style>
+    <script>(function(){
+var d=document.documentElement;
+d.classList.add('cms-content-loading');
+d.classList.add('cms-booting');
+var done=false;
+function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
+window.hideCmsLoader=hideLoader;
+var timer=setTimeout(hideLoader,Math.max(250,10000-performance.now()));
+var ed=sessionStorage.getItem('cms_tab_session')==='active';
+try{
+var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+function cg(k){return null;}
+function ld(k,u,c){
+var net=fetch(u,{credentials:'include'}).then(function(r){
+if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
+return r;
+}).catch(function(){return null;});
+if(c!=null){net.catch(function(){});return Promise.resolve(new Response(JSON.stringify(c),{status:200,headers:{'Content-Type':'application/json'}}));}
+return net;
+}
+var t=Date.now();
+var siteC=cg('cms_site_data'),pageC=cg('cms_page_'+s);
+var p1=ld('cms_site_data','/api/v2/site-data?t='+t,siteC);
+var p2=ld('cms_page_'+s,'/api/v2/page-elements/'+s+'?t='+t,pageC);
+window.__cmsFetch={slug:s,t:t,siteData:p1,pageElements:p2};
+Promise.all([p1,p2]).then(function(){
+setTimeout(hideLoader,400);
+}).catch(hideLoader);
+}catch(e){hideLoader();}
+})();</script>
+
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="HTML5 Template">
+  <meta name="description" content="BaseLok<sup>&reg;</sup> Solution Details and Specifications Template.">
+  <meta name="author" content="https://www.baselok.com/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solutions - BaseLok&reg;</title>
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/rubik-regular-latin.woff2" crossorigin><link rel="stylesheet" href="/fonts/rubik.css">    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png">
+  <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/animate-CVv_hnhT.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/font-awesome-B1qnvkb-.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/themify-icons-_wmxc7JA.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/slick-BrpjDtzs.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/prettyPhoto-D_U4jgcq.css" media="print" onload="this.media=&#39;all&#39;">
+  <link rel="stylesheet" type="text/css" href="/assets/shortcodes-DI2R6V-_.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/main-wb452y_J.css?v=1782798737236" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/megamenu-C0Ea8bYq.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/assets/responsive-5M1pmfno.css" media="all">
+
+  <style>
+    /* â”€â”€ CMS LAYOUT STABILITY â”€â”€ */
+    [data-cms-wrapper], .cms-wrapper {
+        display: contents !important;
+    }
+    .resource-tabs {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 20px !important;
+        overflow-x: auto !important;
+    }
+    .resource-tabs .nav-link {
+        white-space: nowrap !important;
+        min-width: max-content !important;
+    }
+    .cms-hero-title-style {
+        font-size: 40px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+    .resource-tabs .nav-link.active {
+        border-bottom: 2px solid #ffffff !important;
+    }
+    .resource-tabs .nav-link:hover {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+    }
+    .application-type [data-cms] {
+        color: #ffffff;
+    }
+    .page, header, #masthead {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    /* â”€â”€ CUSTOM RED LIST (MANUAL) â”€â”€ */
+    .custom-red-list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .custom-red-list li {
+        margin-bottom: 25px;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.85);
+        font-size: 0.95rem;
+    }
+    .custom-red-list li strong, 
+    .custom-red-list li strong[data-cms] {
+        color: #d11f26 !important; /* Theme Red - Forced override for all states */
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 1rem;
+        display: inline-block;
+    }
+    /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  </style>
+
+  <!--page start-->
+  <link rel="stylesheet" crossorigin href="/assets/cms-DJWDLI1S.css?v=1782798737236">
+  <link rel="stylesheet" crossorigin href="/assets/application-gallery-Bsnwq7d-.css">
+    <style>
+    .product-gallery-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:#fdfdfd;border:1px solid #eee;border-radius:8px;margin-bottom:8px}
+    .pgal-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s;padding:0}
+    .pgal-btn:hover{background:rgba(232,25,44,.82)}
+    .pgal-prev{left:10px}.pgal-next{right:10px}
+    .pgal-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:6px;background:rgba(0,0,0,.75);padding:5px 12px;border-radius:20px}
+    .pgal-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.7);cursor:pointer;border:none;padding:0;transition:background .2s}
+    .pgal-dot.active{background:#ffffff}
+    .pgal-thumb{border-radius:4px!important;border:2px solid transparent!important;transition:border-color .2s}
+    .pgal-thumb.active-pgal-thumb{border-color:#ffffff!important}
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!--header start-->
+    <header id="masthead" class="header ttm-header-style-03">
+      <!-- topbar -->
+      <div class="top_bar ttm-bgcolor-darkgrey clearfix">
+        <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-xl-12 d-flex flex-row align-items-center">
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="ti ti-email"></i></div>
+                <a href="mailto:info@baselok.com" data-cms="header-email-link" data-link-only="true"><span data-cms="header-email">info@baselok.com</span></a>
+              </div>
+              <div class="top_bar_contact_item">
+                <div class="top_bar_icon"><i class="fa fa-phone"></i></div>
+                <span data-cms="header-address">+1.800.848.4500</span>
+              </div>
+              <div class="top_bar_contact_item top_bar_social p-0 ms-auto">
+                <ul class="social-icons list-inline">
+                  <li>
+                    <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198"
+                       rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"
+                       data-cms="header-facebook-link" data-link-only="true">
+                      <i class="fa fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="tooltip-top" href="https://www.linkedin.com/company/baselok"
+                       rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"
+                       data-cms="header-linkedin-link" data-link-only="true">
+                      <i class="fa fa-linkedin"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- topbar end -->
+      <!-- site-header-menu -->
+      <div id="site-header-menu" class="site-header-menu ttm-bgcolor-white">
+        <div class="site-header-menu-inner ttm-stickable-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <!--site-navigation -->
+                <div class="site-navigation d-flex flex-row align-items-center justify-content-between">
+                  <!-- site-branding -->
+                  <div class="site-branding">
+                    <a class="home-link" href="index.html" title="Baselok" rel="home">
+                      <img id="logo-img" height="35" width="130" class="img-fluid auto_size" src="/assets/Artboard-1-empVzWn6.png" alt="logo-img" data-cms="site-logo">
+                    </a>
+                  </div>
+                  <!-- site-branding end -->
+                  <div class="d-flex flex-row ms-auto">
+                    <div class="btn-show-menu-mobile menubar menubar--squeeze">
+                      <span class="menubar-box">
+                        <span class="menubar-inner"></span>
+                      </span>
+                    </div>
+                    <!-- menu -->
+                    <nav class="main-menu menu-mobile" id="menu">
+                      <ul class="menu">
+                          <li class="mega-menu-item"><a href="support.html">Design Support</a></li>
+                          <li class="mega-menu-item">
+                          <a href="baselok-pro.html">BaseLok PRO</a>
+                        </li>
+                          <li class="mega-menu-item"><a href="applications.html">Applications</a></li>
+                          <li class="mega-menu-item"><a href="solutions.html" class="cms-active-nav" style="color:#d11f26 !important; font-weight:700 !important;">Solutions</a></li>
+                          <li class="mega-menu-item"><a href="resources.html">Resources</a></li>
+                          <li class="mega-menu-item"><a href="case-studies.html">Project Highlights</a></li>
+                          <li class="mega-menu-item"><a href="contact-us.html">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                    <!-- menu end -->
+                  </div>
+                  <div class="top_bar_contact_item">
+                    <div class="header_search">
+                      <a href="#" class="btn-default search_btn"><i class="fa fa-search"></i></a>
+                      <div class="header_search_content">
+                        <div class="header_search_content_inner">
+                          <a href="#" class="close_btn"><i class="ti ti-close"></i></a>
+                          <form id="searchbox" method="get" action="#">
+                            <input class="search_query" type="text" id="search_query_top" name="s" placeholder="Enter Keyword" value="">
+                            <button type="submit" class="btn close-search"><i class="ti ti-search"></i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- site-navigation end-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- site-header-menu end-->
+    </header>
+    <!--header end-->
+
+    <!-- page-title -->
+    <div class="ttm-page-title-row ttm-bg ttm-bgimage-yes ttm-bgcolor-darkgrey clearfix" data-cms="ref-hero-bg-1" style="background-image: url('/images/cms/OTHERS/1789127040727_1782887154105_Screenshot_2026-07-01_115546.webp'); background-attachment: fixed; background-position: center 30%; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative;">
+      <div class="ttm-row-wrapper-bg-layer ttm-bg-layer" style="background-color: rgba(0,0,0,0.6);"></div>
+      <div class="container" style="position: relative; z-index: 2;">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="ttm-page-title-row-inner" style="padding: 60px 0 40px;">
+              <div class="page-title-heading">
+                <h1 class="title text-white" style="font-size: 56px; font-weight: 700; text-transform: capitalize; margin-bottom: 15px;" data-cms="hero-title">[Insert Solution Name]</h1>
+              </div>
+              <div class="breadcrumb-wrapper" style="color: #fff; font-size: 16px; font-weight: 500;">
+                <span><a title="Homepage" href="index.html" style="color: #fff; text-decoration: none;">Home</a></span>
+                <span data-cms="ref-hero-breadcrumb-active">Solution</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- page-title end -->
+
+    <!--site-main start-->
+    <div class="site-main">
+
+      <section class="product-detail">
+        <div class="container py-5">
+          <div class="row">
+            <!-- Product Image Section (LEFT) -->
+            <div class="col-md-6">
+                                <!-- Main Image Slideshow -->
+                <div class="product-gallery-wrap">
+                  <img id="mainImage" src="/assets/prod_geogrids-B8w0bo_I.png" style="width:100%;height:100%;object-fit:cover;display:block;" onload="if(this.src.indexOf(&#39;/assets/&#39;)===-1)this.style.filter=&#39;&#39;" onerror="this.style.filter=&#39;&#39;">
+                  <button class="pgal-btn pgal-prev" onclick="pgalNav(-1)" title="Previous">&#8249;</button>
+                  <button class="pgal-btn pgal-next" onclick="pgalNav(1)" title="Next">&#8250;</button>
+                  <div class="pgal-dots" id="pgal-dots"></div>
+                </div>
+
+                <!-- Thumbnail Gallery -->
+                <div class="row product-thumb-gallery" style="margin-left: -5px; margin-right: -5px;">
+                  <div class="col-3" style="padding-left: 5px; padding-right: 5px;">
+                    <img data-cms="product-thumb-1" src="/images/cms/OTHERS/1789126988511_1782887187230_Screenshot_2026-07-01_115619.webp" class="img-fluid pgal-thumb" style="cursor: pointer; aspect-ratio: 1; object-fit: cover; width: 100%;" onclick="pgalSelect(this)" loading="lazy">
+                  </div>
+                  <div class="col-3" style="padding-left: 5px; padding-right: 5px;">
+                    <img data-cms="product-thumb-2" src="/images/cms/OTHERS/1789127004356_1782887227922_Screenshot_2026-07-01_115643.webp" class="img-fluid pgal-thumb" style="cursor: pointer; aspect-ratio: 1; object-fit: cover; width: 100%;" onclick="pgalSelect(this)" loading="lazy">
+                  </div>
+                  <div class="col-3" style="padding-left: 5px; padding-right: 5px;">
+                    <img data-cms="product-thumb-3" src="/images/cms/OTHERS/1789127007816_1775205758247_Screenshot_2026-04-03_141202.webp" class="img-fluid pgal-thumb" style="cursor: pointer; aspect-ratio: 1; object-fit: cover; width: 100%;" onclick="pgalSelect(this)" loading="lazy">
+                  </div>
+                  <div class="col-3" style="padding-left: 5px; padding-right: 5px;">
+                    <img data-cms="product-thumb-4" src="/images/cms/OTHERS/1789127017516_1782887292620_Screenshot_2026-07-01_115802.webp" class="img-fluid pgal-thumb" style="cursor: pointer; aspect-ratio: 1; object-fit: cover; width: 100%;" onclick="pgalSelect(this)" loading="lazy">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product Details (RIGHT) -->
+            <div class="col-md-6">
+              <div class="section-title mt-3 mt-lg-0">
+                <div class="title-header">
+                  <h3 data-cms="hero-subtitle">GEOCELL</h3>
+                  <h2 class="title" data-cms="ref-detail-title">BaseLok<sup>&reg;</sup> Geocell Solution</h2>
+                </div>
+                <div class="title-desc">
+                  <!-- Stats Block from Image -->
+                  <div class="product-stats d-flex justify-content-between mb-4 text-center border-bottom pb-4" data-cms="ref-hero-stats"><div class="stat-item flex-fill">
+                      <strong class="d-block" style="color:#d11f26; font-size:1.4rem;">100% US</strong>
+                      <span style="font-size:0.75rem; text-transform:uppercase; color:#777;">Sourced &amp; Manufactured</span>
+                    </div>
+                    <div class="stat-item flex-fill border-start border-end">
+                      <strong class="d-block" style="color:#d11f26; font-size:1.4rem;">50+ Years</strong>
+                      <span style="font-size:0.75rem; text-transform:uppercase; color:#777;">Proven Technology</span></div></div>
+                  
+                  <p data-cms="hero-desc" style="font-size: 0.95rem; line-height: 1.7;">Geocells were first used and patented in the early 80's by the United States Army Corps of Engineers. The early utilization of the cellular confinement technology involved construction of roads over soft soils for military use. Today, BaseLok GeoCell is not only used for base stabilization, but also for erosion control of slopes and channels as well as in construction of retaining walls. The superior effectiveness of our BaseLok GeoCell is made even better thanks to our BaseLok team’s proficiency and technical support. We offer Lunch & Learns and Webinars for PDH credits and certificates, on-site visits and design assistance. IFI Engineers are ready to provide cost-saving solutions to help meet your project requirements.</p>
+                  
+                  <ul class="mb-4" data-cms="ref-hero-bullets" data-persistent-bullets="true" style="padding-left: 20px;"><li class="mb-2" data-cms="auto-solution-geocell-text-14" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">Superior Ground Stabilization:</span> The 3D cellular structure confines soil and aggregates, improving load distribution and reducing settlement.</li></ul>
+                  
+                  <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top15" href="support.html" data-cms="distributor-btn">Find a Distributor</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Application Types Section -->
+      <section class="application-type ttm-bgcolor-darkgrey ttm-row clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2 mb-4">
+                <div class="title-header">
+                  <h2 class="title" cms-no-tag>Application <b>Types</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resource-tabs-wrapper mb-4">
+            <ul class="resource-tabs border-0" id="applicationTabs" role="tablist" cms-no-tag style="display: flex; gap: 30px; list-style: none; padding: 0; border-bottom: 1px solid rgba(255,255,255,0.1) !important;">
+              <li class="nav-item" role="presentation" cms-no-tag>
+                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" cms-no-tag style="background: none; border: none; color: #fff; padding: 15px 0; font-weight: 700; text-transform: uppercase; font-size: 13px; border-bottom: 2px solid transparent;">OVERVIEW</button>
+              </li>
+
+              <li class="nav-item" role="presentation" cms-no-tag>
+                <button class="nav-link" id="downloads-tab" data-bs-toggle="tab" data-bs-target="#downloads" type="button" role="tab" cms-no-tag style="background: none; border: none; color: #fff; padding: 15px 0; font-weight: 700; text-transform: uppercase; font-size: 13px; border-bottom: 2px solid transparent;">DOWNLOADS</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content text-white" id="applicationTabContent">
+            <!-- Overview Pane -->
+            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+              <h3 class="mb-3 text-white" style="font-weight: 700;" data-cms="ref-works-heading">How BaseLok<sup>&reg;</sup> Solution Works -</h3>
+              <div class="mb-4" style="color: rgba(255,255,255,0.8); line-height: 1.8;" data-cms="ref-overview-text">BaseLok GeoCell is a high-performance cellular confinement system made from durable polymer materials, forming a honeycomb-like structure that effectively confines soil and aggregates. This confinement enhances load distribution, improves shear strength, and significantly reduces lateral movement, making it ideal for weak and unstable ground conditions.<div><br></div><div>Compared to traditional stabilization methods, BaseLok GeoCell offers enhanced performance by reducing the need for excessive aggregate fill and minimizing long-term settlement. Its flexible structure adapts to varying terrains, providing consistent support and stability across a wide range of applications.</div><div><br></div><div>Designed for use in roads, slope protection, retaining structures, and erosion control systems, BaseLok GeoCell improves structural integrity while enabling faster installation. It also supports vegetation growth and natural drainage, contributing to eco-friendly and sustainable infrastructure development.</div></div>
+              
+              <ul class="cms-check-list mb-5" data-cms="ref-overview-bullets"><li data-cms="auto-solution-geocell-text-20" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">Versatile:</span> Ideal for load support, slope protection, erosion control, and retaining structures.</li><li data-cms="auto-solution-geocell-text-20" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">Sustainable: </span>Promotes natural drainage and supports vegetation growth for eco-friendly solutions.</li><li data-cms="auto-solution-geocell-text-20" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">High Strength: </span>3D cellular confinement provides superior load distribution and stability.</li><li data-cms="auto-solution-geocell-text-20" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">Flexible: </span>Adapts to uneven terrain and performs effectively in weak soil conditions.</li><li data-cms="auto-solution-geocell-text-20" style="transition: opacity 0.4s ease-in-out;"><span style="font-weight: bolder;">Fast Install:</span> Lightweight panels expand quickly, enabling rapid and efficient installation.</li></ul>
+
+              <h3 class="mb-4 text-white" style="font-weight: 700; text-transform: uppercase;" data-cms="ref-overview-heading">APPLICATIONS OF GEOCELL :-</h3>
+              
+              <ol class="custom-red-list" data-cms="ref-overview-list"><li>Baselok GeoCell is widely used for ground stabilization, load support, and erosion control across a variety of civil engineering and infrastructure projects.</li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Road Construction –</span> Improves load distribution and stabilizes weak subgrades for longer-lasting pavements.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Slope Protection –</span> Prevents soil erosion and enhances stability on embankments and steep slopes.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Retaining Walls </span>– Reinforces soil structures and improves wall stability.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Railway Infrastructure – </span>Provides subgrade reinforcement and reduces track settlement.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Channel &amp; Riverbank Protection –</span> Controls erosion caused by flowing water and wave action.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Parking Areas &amp; Industrial Yards </span>– Supports heavy loads while minimizing rutting and surface deformation.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Landfill &amp; Waste Containment – </span>Stabilizes cover systems and access roads in landfill environments.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Temporary Access Roads –</span> Creates stable working surfaces in soft or challenging ground conditions.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Coastal &amp; Marine Protection –</span> Helps protect shorelines, canals, and coastal infrastructure from erosion.</span></li><li data-cms="auto-solution-geocell-text-25" style="transition: opacity 0.4s ease-in-out;"><span style="color: rgb(255, 255, 255); text-align: inherit; letter-spacing: 0.2px;"><span style="font-weight: bolder;">• Mining &amp; Construction Sites –</span> Provides durable working platforms for heavy equipment and machinery.</span></li></ol>
+
+              <!-- Dynamic Application Gallery -->
+              <div class="row g-4 mt-4 justify-content-center" id="application-gallery">
+                <!-- Dynamically added items will appear here -->
+              </div>
+
+            </div>
+            
+            <!-- Downloads Pane -->
+            <div class="tab-pane fade" id="downloads" role="tabpanel">
+              <div class="row py-4" id="product-downloads-row">
+                <!-- Dynamic grid items will be injected here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    
+        <!--Project Highlights-section-->
+      <section class="ttm-row blog-section case-study-sec clearfix">
+        <div class="container">
+          <!-- Section Title -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2">
+                <div class="title-header">
+                  <h2 class="title">Project <b>Highlights</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row cms-highlights-slider mb_15" id="cms-related-highlights-row"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="https://iuvjtyvmhajxxewqnwik.supabase.co/storage/v1/object/public/cms_upload_baselok/stories/1785345990839_JCVG5737.webp" alt="Scour Protection"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">Marine</span></div><div class="post-meta"><span class="ttm-meta-line byline">SANIBEL ISLAND, FLORIDA</span></div><div class="featured-title"><h3><a href="case-study-scour-protection.html">Scour Protection</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-scour-protection.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="/images/cms-uploads/stories/1784064984421_image-20231207-195337-5d90f73a_Large.jpeg" alt="Heavy Haul Roads"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">BFPS</span></div><div class="post-meta"><span class="ttm-meta-line byline">Baton Rouge, LA</span></div><div class="featured-title"><h3><a href="case-study-heavy-haul-roads.html">Heavy Haul Roads</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-heavy-haul-roads.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="/images/cms-uploads/stories/1783946775552_image-20230316-210718-5af2ca44.jpeg" alt="Site Raise"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">GeoGrid</span></div><div class="post-meta"><span class="ttm-meta-line byline">SOUTH CHARLESTON, WV</span></div><div class="featured-title"><h3><a href="case-study-site-raise.html">Site Raise</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-site-raise.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="/images/cms-uploads/stories/1784143100981_IMG_9606_Medium.jpeg" alt="Cost-Effective Subgrade Stabilization For A Laydown Yard"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">FabGrid</span></div><div class="post-meta"><span class="ttm-meta-line byline">SOUTHEAST TEXAS</span></div><div class="featured-title"><h3><a href="case-study-cost-effective-subgrade-stabilization-for-a-150-acre-gulf-coast-laydown-yard.html">Cost-Effective Subgrade Stabilization For A Laydown Yard</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-cost-effective-subgrade-stabilization-for-a-150-acre-gulf-coast-laydown-yard.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="/images/cms-uploads/stories/1781793195252_arkansa_fabgrid_cs.png" alt="Solar Farm Access Roads - Alternative to Chemical Stabilization"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">FabGrid</span></div><div class="post-meta"><span class="ttm-meta-line byline">WEST MEMPHIS, AR</span></div><div class="featured-title"><h3><a href="case-study-solar-farm-lime-mechanical-stabilization.html">Solar Farm Access Roads - Alternative to Chemical Stabilization</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-solar-farm-lime-mechanical-stabilization.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1"><div class="featured-thumbnail"><img class="img-fluid" src="/images/cms-uploads/stories/1782912806252_70163046013--D7546999-85D5-4E2C-89AE-364613C467C5.jpg" alt="Baselok&amp;reg;&amp;nbsp;Geocell Passenger Vehicle Parking Area"></div><div class="featured-content"><div class="ttm-box-post-date"><span class="ttm-entry-date">GeoCell</span></div><div class="post-meta"><span class="ttm-meta-line byline">HOUSTON, TX</span></div><div class="featured-title"><h3><a href="case-study-baselok-geocell-gc304-p.html">Baselok&lt;sup&gt;&amp;reg;&lt;/sup&gt;&amp;nbsp;Geocell Passenger Vehicle Parking Area</a></h3></div><div class="featured-desc"><p><b>Application: </b>Soil Reinforcement</p></div><div class="featured-desc"><p><b>Benefit: </b>Efficiency &amp; Cost Savings</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline mt-2" href="case-study-baselok-geocell-gc304-p.html">read more</a></div></div></div></div>
+        </div>
+      </section>
+
+<!--grid-section-->
+    <section class="ttm-row grid-section product-list clearfix">
+      <div class="container">
+        <!-- Section Title -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title style2">
+              <div class="title-header">
+                <h2 class="title" data-cms="related-title">Related Products</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row mb_15 mt_15" id="cms-related-products-row">
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-fabgrid.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-253" class="img-fluid w-100" src="/assets/prod_fabgrid-SfGHsaT3.png" alt="FabGrid" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="FabGrid" href="solution-fabgrid.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-fabgrid.html" data-cms="rel-title-1">FabGrid</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-1">Composite reinforcement layer designed for unpaved and paved surfaces.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-geocell.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-87" class="img-fluid w-100" src="/assets/prod_geocell-S9iUpb9E.png" alt="GeoCell" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="GeoCell" href="solution-geocell.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-geocell.html" data-cms="rel-title-2">GeoCell</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-2">Cellular confinement technology for challenging soils and slopes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-ballastguard.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-441" class="img-fluid w-100" src="/assets/prod_ballastguard-CTfHmtIy.png" alt="BallastGuard" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="BallastGuard" href="solution-ballastguard.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-ballastguard.html" data-cms="rel-title-3">BallastGuard</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-3">Specifically engineered to protect railway infrastructure and eliminate track
+                    fouling.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-siltguard.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-408" class="img-fluid w-100" src="/assets/prod_siltguard-TVuj0Mm9.png" alt="SiltGuard" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="SiltGuard" href="solution-siltguard.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-siltguard.html" data-cms="rel-title-4">SiltGuard</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-4">Protective barrier to prevent sediment runoff on slopes and embankments.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-marine.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-736" class="img-fluid w-100" src="/assets/prod_marine-iqcBitkK.png" alt="Marine Mattresses" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="Marine Mattresses" href="solution-marine.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-marine.html" data-cms="rel-title-5">Marine Mattresses</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-5">Extreme marine scour protection and shoreline structure support.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='solution-marine.html';" style="cursor: pointer;">
+              <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
+                <div class="featured-thumbnail">
+                  <img data-cms="related-img-884" class="img-fluid w-100" src="/assets/prod_gabion-CQfu-VZz.png" alt="Gabions Gabion Mats" loading="lazy">
+                </div>
+                <div class="ttm-media-link">
+                  <a class="ttm_image" title="Gabions / Gabion Mats" href="solution-marine.html" tabindex="0">
+                    <i class="fa fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="featured-title">
+                  <h3><a href="solution-marine.html" data-cms="rel-title-6">Gabions / Gabion Mats</a></h3>
+                </div>
+                <div class="featured-desc">
+                  <p data-cms="rel-desc-6">Robust wire-mesh baskets for significant earth retention and flow control.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--grid-section end-->
+
+      <!-- BaseLok Pro Promo -->
+      <div class="bpro-promo-inject"></div>
+
+      <!--featured-insights-section-->
+      <section class="ttm-row dynamic-blog-section clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title style2">
+                <div class="title-header">
+                  <h3>Resources</h3>
+                  <h2 class="title">Featured <b>Insights</b></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="dynamic-latest-articles-row" class="row slick_slider_dynamic mb_15"><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802238221_image-20230419-133814-03420124.jpeg" alt="Why Geogrid Belongs in Your Next Project" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">October 12, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geogrid-blog.html">Why Geogrid Belongs in Your Next Project</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Modern infrastructure projects demand solutions that are faster, more cost-effective, and more durable than wh...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geogrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms/blog/1785347404388_filtered_fabgrid_banner_Large.webp" alt="FabGrid Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">October 12, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-fabgrid-blog.html">FabGrid Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Maintaining the integrity of soil layers is critical for long-term infrastructure performance. Baselok FabGrid...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-fabgrid-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802679146_IMG_1163_small.jpg" alt="GeoCell Blog" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Article</span></div><div class="post-meta"><span class="ttm-meta-line byline">October 12, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="blog-geocell-blog.html">GeoCell Blog</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Infrastructure development in weak soil conditions requires innovative reinforcement solutions. Baselok GeoCel...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="blog-geocell-blog.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783801987168_IMG_1142.jpg" alt="Ground Stabilization With Geosynthetics" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">October 12, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-ground-stabilization-with-geosynthetics.html">Ground Stabilization With Geosynthetics</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Explore how advanced geosynthetic solutions like Baselok Geogrid and FabGrid are transforming modern construct...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-ground-stabilization-with-geosynthetics.html">read more</a></div></div></div><div class="col-lg-4"><div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;"><div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;"><img class="img-fluid w-100" src="/images/cms-uploads/OTHERS/1783802147231_IMG_0890.jpg" alt="Erosion Control &amp;amp; Slope Protection" style="width: 100% !important; height: 100%; object-fit: cover; display: block;"></div><div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;"><div class="ttm-box-post-date"><span class="ttm-entry-date">Webinar</span></div><div class="post-meta"><span class="ttm-meta-line byline">October 12, 2026</span></div><div class="featured-title"><h3 style="font-size: 1.1rem; min-height: 2.8em; line-height: 1.4;"><a href="webinar-erosion-control-slope-protection.html">Erosion Control &amp;amp; Slope Protection</a></h3></div><div class="featured-desc" style="flex-grow:1;"><p style="font-size: 0.9rem; line-height: 1.6; color: #666;">Understand how Baselok GeoCell and SiltGuard solutions help manage erosion and protect infrastructure in chall...</p></div><a class="ttm-btn ttm-btn-size-md ttm-btn-color-dark btn-inline" href="webinar-erosion-control-slope-protection.html">read more</a></div></div></div></div>
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <a class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-border ttm-btn-color-dark margin_top30" href="resources.html">View More Resources</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--featured-insights-section end-->
+
+  </div>
+  <!--site-main end-->
+
+  <!--footer start-->
+  <footer class="footer widget-footer ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+        <div class="second-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
+                <div class="widget widget_text margin_right10 clearfix">
+                  <div class="footer-logo mb-3">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/assets/Artboard-white-wtJsGuI3.png" alt="image" loading="lazy">
+                  </div>
+                  <div class="textwidget widget-text">
+                    <p>
+                      Between Biaxial and Uniaxial Geogrid and Cellular
+                      Confinement Technologies, Geosynthetics Have Been at the
+                      Forefront of Soil Stabilization Applications Since 1959.
+                    </p>
+                  </div>
+                  <div class="social-icons text-lg-right">
+                    <ul class="social-icons list-inline">
+                      <li>
+                        <a class="tooltip-top" href="https://www.facebook.com/BaseLok-by-Industrial-Fabrics-Inc-114493230378198" rel="noopener" aria-label="facebook" data-tooltip="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a class="tooltip-top" href="https://www.linkedin.com/company/baselok" rel="noopener" aria-label="linkedin" data-tooltip="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget_nav_menu clearfix">
+                  <h3 class="widget-title">Solutions</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="solution-baselok-geogrid.html">GeoGrid</a></li>
+                      <li><a href="solution-fabgrid.html">FabGrid<sup>&reg;</sup></a></li>
+                      <li><a href="solution-geocell.html">GeoCell</a></li>
+                      <li><a href="solution-fps.html">FPS</a></li>
+                      <li><a href="solution-ballastguard.html">BallastGuard<sup>&trade;</sup></a></li>
+                      <li><a href="solution-marine.html">Marine</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 widget-area">
+                <div class="widget widget-recent-post clearfix">
+                  <h3 class="widget-title">Resources</h3>
+                    <ul id="menu-footer-quick-links" class="menu">
+                      <li><a href="resources.html#pane-videos">Videos</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                      <li><a href="baselok-pro.html">BaseLok Pro</a></li>
+                      <li><a href="login.html">CMS Login</a></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 widget-area">
+                <div class="widget widget-latest-tweets clearfix">
+                  <h3 class="widget-title">Contact Us</h3>
+                  <ul class="widget_contact_wrapper">
+                    <li data-cms="footer-address">
+                      <i class="ttm-textcolor-skincolor fa fa-map-marker"></i>+1.800.848.4500
+                    </li>
+                    <li>
+                      <a href="tel:+17136412727" class="d-block" data-cms="footer-phone-1">
+                        <i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.713.641.2727</a>
+                      <a href="tel:+18008484500" class="d-block" data-cms="footer-phone-2">
+                        <i class="ttm-textcolor-skincolor fa fa-phone"></i>+1.800.848.4500</a>
+                    </li>
+                    <li data-cms="footer-email">
+                      <i class="ttm-textcolor-skincolor fa fa-envelope-o"></i><a href="mailto:info@baselok.com">info@baselok.com</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-footer-text copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-center">
+                  <span class="cpy-text">Copyright &copy; <span id="year"></span> Baselok<sup>&reg;</sup>, Inc. All Rights Reserved.</span>
+                    <a href="#" class="ttm-textcolor-skincolor font-weight-500">Baselok</a>
+                    All rights reserved.
+                  </span>
+
+                  <ul class="footer-nav-menu">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+  <!--footer end-->
+
+  <!--back-to-top start-->
+  <a id="totop" href="#top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+  <!--back-to-top end-->
+  
+  <!-- page end -->
+
+  <!-- Javascript -->
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/jquery-migrate-3.4.1.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/slick.min.js" defer=""></script>
+  <script src="/js/jquery.prettyPhoto.js" defer=""></script>
+    <script src="/js/main.js" defer=""></script>
+  <!-- Javascript end-->
+  <script src="/js/cms.js?v=1782798737236" defer></script>
+
+    <script>
+    (function(){
+      var _i=0,_t=null;var _mi=document.getElementById('mainImage');if(_mi)_mi._galleryActive=true;
+      function thumbs(){return Array.from(document.querySelectorAll('.pgal-thumb'))}
+      function sel(x){
+        var ts=thumbs();if(!ts.length)return;
+        _i=(typeof x==='number')?(((x%ts.length)+ts.length)%ts.length):Math.max(0,ts.indexOf(x));
+        var m=document.getElementById('mainImage');
+        if(m&&ts[_i]&&ts[_i].src){var _src=ts[_i].src;if(m.src!==_src){if(ts[_i].complete&&ts[_i].naturalWidth>0){m.style.transition='none';m.style.filter='';m.src=_src;}else{m.style.transition='filter .2s ease';m.style.filter="";var _clr=function(){m.style.filter='';};m.addEventListener('load',_clr,{once:true});m.addEventListener('error',_clr,{once:true});m.src=_src;setTimeout(_clr, 300);}}}
+        ts.forEach(function(t,j){t.classList.toggle('active-pgal-thumb',j===_i)});
+        document.querySelectorAll('.pgal-dot').forEach(function(d,j){d.classList.toggle('active',j===_i)});
+      }
+      function nav(d){sel(_i+d)}
+      window.pgalSelect=sel;window.pgalNav=nav;
+      function startAuto(){stopAuto();_t=setInterval(function(){nav(1)},15000)}
+      function stopAuto(){if(_t){clearInterval(_t);_t=null}}
+      function init(){
+        var ts=thumbs(),de=document.getElementById('pgal-dots');
+        if(de&&!de.hasChildNodes()){ts.forEach(function(_,j){var d=document.createElement('button');d.className='pgal-dot';d.setAttribute('aria-label','Image '+(j+1));d.onclick=function(){sel(j)};de.appendChild(d)})}
+        sel(0);thumbs().forEach(function(t){new MutationObserver(function(){sel(_i);}).observe(t,{attributes:true,attributeFilter:['src']});});setTimeout(function(){if(_mi)_mi.style.filter='';},8000);
+        var w=document.querySelector('.product-gallery-wrap');
+        if(w){w.addEventListener('mouseenter',stopAuto);w.addEventListener('mouseleave',startAuto)}
+        startAuto();
+      }
+      var ob=new MutationObserver(function(){if(document.body.classList.contains('cms-loaded')){ob.disconnect();init()}});
+      ob.observe(document.body,{attributes:true,attributeFilter:['class']});
+      window.addEventListener('load',function(){setTimeout(init,600)});
+    })();
+    </script>
+  <script src="/js/search.js" defer=""></script>
+
+
+</body></html>

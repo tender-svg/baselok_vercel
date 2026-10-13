@@ -1095,7 +1095,7 @@ const CMS = {
         <div class="container" style="position:relative;z-index:1;">
           <div class="row align-items-center">
             <div class="col-lg-6 col-md-12" style="margin-bottom:20px;">
-              <img src="/images/cms-uploads/OTHERS/1784809036509_baselok-pro-logo.png" data-cms="bpro-global-logo" alt="BaseLok PRO" style="max-height:65px;width:auto;display:block;margin-bottom:22px;">
+              <img src="/images/cms-uploads/OTHERS/1784809036509_baselok-pro-logo.png" data-cms="bpro-global-logo" alt="BaseLok PRO" style="max-height:65px;width:auto;display:block;margin-bottom:22px;" loading="lazy" decoding="async">
               <h2 style="color:#ffffff;font-size:30px;font-weight:700;line-height:1.35;margin-bottom:18px;" data-cms="bpro-global-heading">Design with confidence,<br>from anywhere.</h2>
               <ul data-cms="bpro-promo-list" data-persistent-bullets style="list-style:none;padding:0;margin:0 0 28px 0;">
                 <li style="color:rgba(255,255,255,0.75);padding:5px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px;"><span style="color:#c8102e;flex-shrink:0;margin-top:2px;">&#9679;</span><span>Design &amp; evaluate pavement, rail, and foundation sections</span></li>
@@ -1108,7 +1108,7 @@ const CMS = {
               <a href="https://www.baselokpro.com" target="_blank" rel="noopener" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" style="margin-bottom:10px;">Start Designing Now &#8594;</a>
             </div>
             <div class="col-lg-6 col-md-12 text-center">
-              <img data-cms="bpro-global-device" src="/images/cms-uploads/OTHERS/1784800783736_Gemini_Generated_Image_y4axw6y4axw6y4ax__1_-Photoroom.png" class="img-fluid" alt="BaseLok PRO Design Software" style="width:100%;height:auto;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.4));">
+              <img data-cms="bpro-global-device" src="/images/cms-uploads/OTHERS/1784800783736_Gemini_Generated_Image_y4axw6y4axw6y4ax__1_-Photoroom.png" class="img-fluid" alt="BaseLok PRO Design Software" style="width:100%;height:auto;filter:drop-shadow(0 8px 20px rgba(0,0,0,0.4));" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -1133,7 +1133,7 @@ const CMS = {
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 widget-area">
                 <div class="widget widget_text margin_right10 clearfix">
                   <div class="footer-logo mb-3">
-                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/images/Artboard-white.png" alt="Baselok" data-cms="footer-logo">
+                    <img id="footer-logo-img" class="img-fluid auto_size" height="46" width="170" src="/images/Artboard-white.png" alt="Baselok" data-cms="footer-logo" loading="lazy" decoding="async">
                   </div>
                   <div class="textwidget widget-text">
                     <p data-cms="footer-tagline">Between Biaxial and Uniaxial Geogrid and Cellular Confinement Technologies, Geosynthetics Have Been at the Forefront of Soil Stabilization Applications Since 1959.</p>
@@ -1145,8 +1145,8 @@ const CMS = {
                     </ul>
                   </div>
                   <div class="footer-cert-logos mt-2 d-flex align-items-center" style="gap: 20px;">
-                    <img src="/images/cms-uploads/OTHERS/1782222601791_BABA-320x326.png" alt="BABA Logo" data-cms="footer-baba-logo" class="img-fluid" style="width: 95px; height: 95px; object-fit: contain; cursor: pointer;">
-                    <img src="/images/cms-uploads/OTHERS/1782222609613_Screenshot_2026-06-23_150958.png" alt="ISO Logo" data-cms="footer-iso-logo" class="img-fluid" style="width: 95px; height: 95px; object-fit: contain; cursor: pointer;">
+                    <img src="/images/cms-uploads/OTHERS/1782222601791_BABA-320x326.png" alt="BABA Logo" data-cms="footer-baba-logo" class="img-fluid" style="width: 95px; height: 95px; object-fit: contain; cursor: pointer;" loading="lazy" decoding="async">
+                    <img src="/images/cms-uploads/OTHERS/1782222609613_Screenshot_2026-06-23_150958.png" alt="ISO Logo" data-cms="footer-iso-logo" class="img-fluid" style="width: 95px; height: 95px; object-fit: contain; cursor: pointer;" loading="lazy" decoding="async">
                   </div>
                 </div>
               </div>
@@ -3459,7 +3459,7 @@ const CMS = {
             <div class="col-lg-4">
                 <div class="featured-imagebox featured-imagebox-post style1" style="height:100%; display:flex; flex-direction:column; margin: 10px;">
                     <div class="featured-thumbnail" style="aspect-ratio: 16/10; overflow: hidden; background: #f4f4f4;">
-                        <img class="img-fluid w-100" src="${res.thumbnail_url}" alt="${res.title}" style="width: 100% !important; height: 100%; object-fit: cover; display: block;">
+                        <img class="img-fluid w-100" src="${res.thumbnail_url}" alt="${res.title}" style="width: 100% !important; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
                     </div>
                     <div class="featured-content" style="flex-grow:1; display:flex; flex-direction:column;">
                         <div class="ttm-box-post-date">
@@ -3556,7 +3556,7 @@ const CMS = {
                 <div class="story-carousel-item" data-story-id="${story.id}">
                     <div class="featured-imagebox featured-imagebox-post style1 mx-2">
                         <div class="featured-thumbnail" style="aspect-ratio: 16 / 9; overflow: hidden; background: #f4f4f4; border-radius: 8px 8px 0 0;">
-                            <img class="img-fluid w-100" src="${story.hero_image_url || 'images/stories/story-geogrid.png'}" alt="${story.title}" data-cms="story-carousel-${story.id}-img" style="width: 100% !important; height: 100%; object-fit: cover; display: block;">
+                            <img class="img-fluid w-100" src="${story.hero_image_url || 'images/stories/story-geogrid.png'}" alt="${story.title}" data-cms="story-carousel-${story.id}-img" style="width: 100% !important; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
                         </div>
                         <div class="featured-content" style="padding: 20px; border: 1px solid #eee; border-top: none; border-radius: 0 0 8px 8px; background: #fff; min-height: 220px; display: flex; flex-direction: column;">
                             <div class="ttm-box-post-date" style="background: transparent !important; height: auto !important; width: auto !important; padding: 0 !important; text-align: center;">
@@ -3655,7 +3655,7 @@ const CMS = {
                 <div class="product-card">
                     <div class="product-img">
                         <a href="${storyUrl}">
-                            <img src="${story.hero_image_url || ''}" class="img-fluid w-100" alt="${story.title}" data-cms="story-${story.id}-img">
+                            <img src="${story.hero_image_url || ''}" class="img-fluid w-100" alt="${story.title}" data-cms="story-${story.id}-img" loading="lazy" decoding="async">
                         </a>
                     </div>
                     <div class="pt-3">
@@ -3735,7 +3735,7 @@ const CMS = {
                 col.innerHTML = `
                     <div class="product-card text-center" style="cursor:pointer;border:none;background:transparent;box-shadow:none;padding:4px;" onclick="window.open('${finalLink}','_blank')">
                         <div style="position:relative;display:inline-block;width:100%;">
-                            <img src="${docImg}" data-cms="v2res-${res.id}-img" style="width:100%;height:85px;object-fit:contain;border-radius:4px;">
+                            <img src="${docImg}" data-cms="v2res-${res.id}-img" style="width:100%;height:85px;object-fit:contain;border-radius:4px;" loading="lazy" decoding="async">
                             <span style="position:absolute;top:4px;left:4px;background:#c8102e;color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;letter-spacing:1px;">PDF</span>
                         </div>
                         <p style="margin-top:5px;font-size:11px;font-weight:600;color:#1d2535;line-height:1.3;" data-cms="v2res-${res.id}-title">${this.sanitizeHtmlField(res.title)}</p>
@@ -3746,7 +3746,7 @@ const CMS = {
 
             let cardMedia = `
                 <a href="${finalLink}" ${(tab === 'pane-blog' || tab === 'pane-webinar') ? '' : 'target="_blank"'}>
-                    <img src="${docImg}" data-cms="v2res-${res.id}-img">
+                    <img src="${docImg}" data-cms="v2res-${res.id}-img" loading="lazy" decoding="async">
                 </a>`;
 
             if (tab === 'pane-videos') {
@@ -3846,7 +3846,7 @@ const CMS = {
                     <div class="featured-imagebox featured-imagebox-services style1" style="height:100%; display:flex; flex-direction:column; border: 1px solid #eee; transition: all 0.3s ease;">
                         <div class="featured-thumbnail" style="aspect-ratio: 4/3; overflow: hidden; position: relative;">
                             <a href="${finalLink}">
-                                <img class="img-fluid w-100 h-100" src="${sol.icon_image_url || 'images/products/prod_geogrid.png'}" alt="${sol.title}" style="object-fit: cover;" data-cms="sol-${sol.id}-img">
+                                <img class="img-fluid w-100 h-100" src="${sol.icon_image_url || 'images/products/prod_geogrid.png'}" alt="${sol.title}" style="object-fit: cover;" data-cms="sol-${sol.id}-img" loading="lazy" decoding="async">
                             </a>
                         </div>
                         <div class="featured-content pt-3 px-3" style="flex-grow:1; display:flex; flex-direction:column; padding-bottom:12px;">
@@ -5699,7 +5699,7 @@ const CMS = {
                 col.setAttribute('data-res-id', savedResource.id);
 
                 const finalLink = savedResource.file_url;
-                let cardMedia = `<a href="${finalLink}" ${(tab === 'pane-blog' || tab === 'pane-webinar') ? '' : 'target="_blank"'}><img src="${img || ''}" onerror="this.src='https://picsum.photos/seed/${nextIdx}/400/225'" data-cms="res-${nextIdx}-img"></a>`;
+                let cardMedia = `<a href="${finalLink}" ${(tab === 'pane-blog' || tab === 'pane-webinar') ? '' : 'target="_blank"'}><img src="${img || ''}" onerror="this.src='https://picsum.photos/seed/${nextIdx}/400/225'" data-cms="res-${nextIdx}-img" loading="lazy" decoding="async"></a>`;
 
                 if (tab === 'pane-videos') {
                     let videoSrc = finalLink;
@@ -6113,7 +6113,7 @@ const CMS = {
             <div class="col-lg-4">
                 <div class="featured-imagebox featured-imagebox-post style1">
                     <div class="featured-thumbnail">
-                        <img class="img-fluid" src="images/blog/blog-01-600x430.jpg" data-cms="post-${nextIdx}-img" />
+                        <img class="img-fluid" src="images/blog/blog-01-600x430.jpg" data-cms="post-${nextIdx}-img" loading="lazy" decoding="async" />
                     </div>
                     <div class="featured-content">
                         <div class="ttm-box-post-date">
@@ -6491,7 +6491,7 @@ const CMS = {
         col.innerHTML = `
             <div class="app-gallery-item" id="${itemId}">
                 <div class="app-gallery-img-container">
-                    <img data-cms="${pageSlug}-app-img-${index}" src="images/placeholder.png" alt="Application" class="img-fluid">
+                    <img data-cms="${pageSlug}-app-img-${index}" src="images/placeholder.png" alt="Application" class="img-fluid" loading="lazy" decoding="async">
                     <div class="cms-item-controls">
                         <button class="cms-ctrl-btn edit-img" onclick="CMS.editItemImage(this)" title="Change Image"><i class="fa fa-camera"></i></button>
                         <button class="cms-ctrl-btn toggle-img" onclick="CMS.toggleItemImage(this)" title="Show/Hide Image"><i class="fa fa-image"></i></button>
@@ -9025,7 +9025,7 @@ const CMS = {
                 <div class="col-lg-4">
                     <div class="featured-imagebox featured-imagebox-post style1">
                         <div class="featured-thumbnail">
-                            <img class="img-fluid" src="${img}" data-cms="post-${id}-img" />
+                            <img class="img-fluid" src="${img}" data-cms="post-${id}-img" loading="lazy" decoding="async" />
                         </div>
                         <div class="featured-content">
                             <div class="ttm-box-post-date">
@@ -9055,7 +9055,7 @@ const CMS = {
                     <a href="#" class="product-card-link">
                         <div class="product-card">
                             <div class="product-img">
-                                <img src="${img}" class="img-fluid w-100" data-cms="story-${id}-img" />
+                                <img src="${img}" class="img-fluid w-100" data-cms="story-${id}-img" loading="lazy" decoding="async" />
                             </div>
                             <div class="pt-3">
                                 <h6 data-cms="story-${id}-title">${title}</h6>
@@ -9077,7 +9077,7 @@ const CMS = {
             const isBlogOrWebinar = fileUrl.includes('.html') && (fileUrl.includes('blog-') || fileUrl.includes('webinar-'));
             let cardMedia = `
                 <a href="${fileUrl}" ${isBlogOrWebinar ? '' : 'target="_blank"'}>
-                    <img src="${img}" class="img-fluid w-100" data-cms="res-${id}-img" />
+                    <img src="${img}" class="img-fluid w-100" data-cms="res-${id}-img" loading="lazy" decoding="async" />
                 </a>`;
 
             if (isVideo) {
@@ -9697,11 +9697,14 @@ const CMS = {
         });
     },
 
-    /**
-        });
+    // Strips HTML tags AND decodes entities (&reg;, &nbsp;, etc.) for use in document.title,
+    // which (unlike innerHTML) never decodes entities on its own — a tag-only strip left raw
+    // "&reg;&nbsp;" text visible in the browser tab.
+    _stripToPlainText(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html || '';
+        return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
     },
-
-
 
     /**
      * Renders Case Study primary details from state object
@@ -9711,7 +9714,7 @@ const CMS = {
         if (!story) return;
         console.log(`[CMS] Rendering primary story details for: ${story.title}`);
 
-        const plainTitle = (story.title || '').replace(/<[^>]*>/g, '');
+        const plainTitle = this._stripToPlainText(story.title || '');
         document.title = plainTitle + ' | BaseLok®';
 
         const titleEl = document.querySelector('[data-cms="story-title"]');
@@ -9727,15 +9730,9 @@ const CMS = {
             // Sync to main preview image
             const mainImg = document.getElementById('mainImage');
             if (mainImg) this._setImgWithBlur(mainImg, story.hero_image_url);
-            // Sync the product-gallery thumbnails too — the template's own gallery script
-            // (case-study-details.html's pgalInit()) runs after this and forces mainImage back
-            // to whatever story-thumb-1's src currently is (real multi-image galleries aren't a
-            // thing stories have; there's only ever one real hero image). Left unsynced, that
-            // static placeholder thumb would silently overwrite the just-rendered live hero
-            // image a moment after it appears.
-            document.querySelectorAll('[data-cms^="story-thumb-"]').forEach(thumbEl => {
-                this._setImgWithBlur(thumbEl, story.hero_image_url);
-            });
+            // story-thumb-1..4 each carry their own distinct baked image in the static HTML —
+            // leave them alone so the gallery shows 4 different photos instead of 4 copies of
+            // the single hero image.
         }
         
         const challengeEl = document.querySelector('[data-cms="story-challenge-body"]');
@@ -9770,7 +9767,7 @@ const CMS = {
         console.log(`[CMS] Rendering primary resource details for: ${resource.title}`);
 
         const typeLabel = resource.document_type === 'pane-webinar' ? 'Webinar' : 'Blog';
-        const plainTitle = (resource.title || '').replace(/<[^>]*>/g, '');
+        const plainTitle = this._stripToPlainText(resource.title || '');
         document.title = plainTitle + ' | BaseLok\u00ae';
 
         const pageTypeEl = document.querySelector('[data-cms="blog-page-type"]');
@@ -9813,14 +9810,15 @@ const CMS = {
         if (!solution) return;
         console.log(`[CMS] Rendering primary solution details for: ${solution.title}`);
 
-        const plainTitle = (solution.title || '').replace(/<[^>]*>/g, '');
+        const plainTitle = this._stripToPlainText(solution.title || '');
         document.title = plainTitle + ' | BaseLok\u00ae';
 
         const titleEl = document.querySelector('[data-cms="hero-title"]');
         if (titleEl) titleEl.innerHTML = this.sanitizeHtmlField(solution.title || '');
 
-        const subtitleEl = document.querySelector('[data-cms="hero-subtitle"]');
-        if (subtitleEl) subtitleEl.innerText = solution.category || 'Solution';
+        // hero-subtitle is a short baked label (e.g. "GEOGRID") set directly in each solution's
+        // static HTML — solution.category holds the long comma-separated filter-tag list instead,
+        // so it must NOT overwrite this element.
 
         const descEl = document.querySelector('[data-cms="hero-desc"]');
         if (descEl && solution.short_description) descEl.innerHTML = this.sanitizeHtmlField(solution.short_description);
@@ -9915,7 +9913,7 @@ const CMS = {
                 <div class="featured-imagebox featured-imagebox-portfolio style2" onclick="window.location.href='${detailUrl}';" style="cursor: pointer;">
                     <div class="ttm-box-view-overlay ttm-portfolio-box-view-overlay">
                         <div class="featured-thumbnail">
-                            <img class="img-fluid w-100" src="${imgUrl}" alt="${sol.title.replace(/<[^>]*>/g, '')}" style="aspect-ratio: 4/3; object-fit: cover;">
+                            <img class="img-fluid w-100" src="${imgUrl}" alt="${sol.title.replace(/<[^>]*>/g, '')}" style="aspect-ratio: 4/3; object-fit: cover;" loading="lazy" decoding="async">
                         </div>
                         <div class="ttm-media-link">
                             <a class="ttm_image" title="${sol.title.replace(/<[^>]*>/g, '')}" href="${detailUrl}">
@@ -10024,7 +10022,7 @@ const CMS = {
             card.innerHTML = `
                 <div class="featured-imagebox featured-imagebox-post style1">
                   <div class="featured-thumbnail">
-                    <img class="img-fluid" src="${imgUrl}" alt="${story.title.replace(/<[^>]*>/g, '')}">
+                    <img class="img-fluid" src="${imgUrl}" alt="${story.title.replace(/<[^>]*>/g, '')}" loading="lazy" decoding="async">
                   </div>
                   <div class="featured-content">
                     <div class="ttm-box-post-date">
