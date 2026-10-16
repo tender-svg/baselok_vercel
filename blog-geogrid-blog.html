@@ -17,30 +17,53 @@ html.cms-content-loading [data-cms="site-logo"]{opacity:1 !important;}
 </style>
     <script>(function(){
 var d=document.documentElement;
+// Reload (hard or plain F5) must always re-fetch and show the loader once, like a true first
+// visit — check this BEFORE deciding whether to show the loader at all, so a reload never
+// skips it by seeing its own soon-to-be-cleared cache as "fresh".
+var __isReload=false;
+try{
+var __navEntries=performance.getEntriesByType&&performance.getEntriesByType('navigation');
+__isReload=(__navEntries&&__navEntries[0]&&__navEntries[0].type==='reload')||(performance.navigation&&performance.navigation.type===1);
+}catch(e){}
+// Skip the loader/blur overlay entirely when this exact page's data is already sessionStorage-
+// cached and fresh (in-site navigation after the first visit) — avoids even the brief flash of
+// the overlay appearing then immediately being removed once cms.js confirms the cache hit.
+var __slugNow=(location.pathname.split('/').pop().replace('.html',''))||'index';
+var __skipLoader=false;
+if(!__isReload){
+try{
+var __siteRaw=sessionStorage.getItem('cms_site_data');
+var __pageRaw=sessionStorage.getItem('cms_page_'+__slugNow);
+var __siteC=__siteRaw&&JSON.parse(__siteRaw);
+var __pageC=__pageRaw&&JSON.parse(__pageRaw);
+var __ttlNow=300000;
+__skipLoader=!!(__siteC&&(Date.now()-__siteC.t)<__ttlNow&&__pageC&&(Date.now()-__pageC.t)<__ttlNow);
+}catch(e){}
+}
+if(!__skipLoader){
 d.classList.add('cms-content-loading');
 d.classList.add('cms-booting');
+}
 var done=false;
 function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
 window.hideCmsLoader=hideLoader;
 var timer=setTimeout(hideLoader,Math.max(250,10000-performance.now()));
 var ed=sessionStorage.getItem('cms_tab_session')==='active';
 try{
-var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
+var s=__slugNow;
 var CACHE_TTL=300000;
 // A page-reload (hard refresh or plain F5) should always fetch fresh CMS data and show the
 // loader once, exactly like a true first visit — not silently serve a possibly-stale cache.
+if(__isReload){
 try{
-var navEntries=performance.getEntriesByType&&performance.getEntriesByType('navigation');
-var isReload=(navEntries&&navEntries[0]&&navEntries[0].type==='reload')||(performance.navigation&&performance.navigation.type===1);
-if(isReload){
 sessionStorage.removeItem('cms_site_data');
 sessionStorage.removeItem('cms_prefetched');
 for(var ri=sessionStorage.length-1;ri>=0;ri--){
 var rk=sessionStorage.key(ri);
 if(rk&&rk.indexOf('cms_page_')===0)sessionStorage.removeItem(rk);
 }
-}
 }catch(e){}
+}
 function cg(k){
 try{
 var raw=sessionStorage.getItem(k);
