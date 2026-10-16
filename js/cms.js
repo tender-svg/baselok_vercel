@@ -9988,13 +9988,19 @@ const CMS = {
             related = (this.state.stories || []).slice(0, 6);
         }
 
+        // Hide the whole "Project Highlights" section (heading included) when no case study is
+        // selected for this page, instead of showing an empty heading with a placeholder message.
+        const section = container.closest('section');
+
         if (related.length === 0) {
             if ($(container).hasClass('slick-initialized')) {
                 $(container).slick('unslick');
             }
-            container.innerHTML = '<div class="col-12 text-center text-muted py-4">No project highlights configured.</div>';
+            container.innerHTML = '';
+            if (section) section.style.display = 'none';
             return;
         }
+        if (section) section.style.display = '';
 
         if ($(container).hasClass('slick-initialized')) {
             $(container).slick('unslick');
