@@ -30,17 +30,10 @@ __isReload=(__navEntries&&__navEntries[0]&&__navEntries[0].type==='reload')||(pe
 // cached and fresh (in-site navigation after the first visit) — avoids even the brief flash of
 // the overlay appearing then immediately being removed once cms.js confirms the cache hit.
 var __slugNow=(location.pathname.split('/').pop().replace('.html',''))||'index';
+// This page always bakes its content from the database/live API — never from a cached
+// snapshot that could still hold the shared reference-template's placeholder text — so the
+// loader/blur overlay is always shown, and the cache-skip optimization never applies here.
 var __skipLoader=false;
-if(!__isReload){
-try{
-var __siteRaw=sessionStorage.getItem('cms_site_data');
-var __pageRaw=sessionStorage.getItem('cms_page_'+__slugNow);
-var __siteC=__siteRaw&&JSON.parse(__siteRaw);
-var __pageC=__pageRaw&&JSON.parse(__pageRaw);
-var __ttlNow=300000;
-__skipLoader=!!(__siteC&&(Date.now()-__siteC.t)<__ttlNow&&__pageC&&(Date.now()-__pageC.t)<__ttlNow);
-}catch(e){}
-}
 if(!__skipLoader){
 d.classList.add('cms-content-loading');
 d.classList.add('cms-booting');
@@ -48,7 +41,7 @@ d.classList.add('cms-booting');
 var done=false;
 function hideLoader(){if(!done){done=true;d.classList.remove('cms-booting');d.classList.remove('cms-content-loading');}}
 window.hideCmsLoader=hideLoader;
-var timer=setTimeout(hideLoader,Math.max(250,10000-performance.now()));
+var timer=setTimeout(hideLoader,Math.max(1000,10000-performance.now()));
 var ed=sessionStorage.getItem('cms_tab_session')==='active';
 try{
 var s=__slugNow;
@@ -65,15 +58,9 @@ if(rk&&rk.indexOf('cms_page_')===0)sessionStorage.removeItem(rk);
 }
 }catch(e){}
 }
-function cg(k){
-try{
-var raw=sessionStorage.getItem(k);
-if(!raw)return null;
-var o=JSON.parse(raw);
-if(!o||(Date.now()-o.t)>=CACHE_TTL)return null;
-return o.d;
-}catch(e){return null;}
-}
+// Always fetch fresh from the backend on this page — never serve a cached response, so the
+// shared reference-template's placeholder content can never be what briefly shows.
+function cg(k){return null;}
 function ld(k,u,c){
 var net=fetch(u,{credentials:'include'}).then(function(r){
 if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}
