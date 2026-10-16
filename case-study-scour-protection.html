@@ -27,7 +27,30 @@ var timer=setTimeout(hideLoader,Math.max(250,10000-performance.now()));
 var ed=sessionStorage.getItem('cms_tab_session')==='active';
 try{
 var s=(location.pathname.split('/').pop().replace('.html',''))||'index';
-function cg(k){return null;}
+var CACHE_TTL=300000;
+// A page-reload (hard refresh or plain F5) should always fetch fresh CMS data and show the
+// loader once, exactly like a true first visit — not silently serve a possibly-stale cache.
+try{
+var navEntries=performance.getEntriesByType&&performance.getEntriesByType('navigation');
+var isReload=(navEntries&&navEntries[0]&&navEntries[0].type==='reload')||(performance.navigation&&performance.navigation.type===1);
+if(isReload){
+sessionStorage.removeItem('cms_site_data');
+sessionStorage.removeItem('cms_prefetched');
+for(var ri=sessionStorage.length-1;ri>=0;ri--){
+var rk=sessionStorage.key(ri);
+if(rk&&rk.indexOf('cms_page_')===0)sessionStorage.removeItem(rk);
+}
+}
+}catch(e){}
+function cg(k){
+try{
+var raw=sessionStorage.getItem(k);
+if(!raw)return null;
+var o=JSON.parse(raw);
+if(!o||(Date.now()-o.t)>=CACHE_TTL)return null;
+return o.d;
+}catch(e){return null;}
+}
 function ld(k,u,c){
 var net=fetch(u,{credentials:'include'}).then(function(r){
 if(r&&r.ok&&!ed){r.clone().json().then(function(j){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:j}));}catch(e){}}).catch(function(){});}

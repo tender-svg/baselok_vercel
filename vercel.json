@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/solution-marine-solutions", "destination": "/solution-marine.html", "permanent": true },
+    { "source": "/solution-marine-solutions.html", "destination": "/solution-marine.html", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/:path*", "destination": "https://cmsapi.qpaix.com/baselok/api/:path*" },
     { "source": "/admin/:path*", "destination": "https://cmsapi.qpaix.com/baselok/admin/:path*" },
