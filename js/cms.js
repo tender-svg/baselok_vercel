@@ -1251,7 +1251,7 @@ const CMS = {
         bar.id = 'cms-cookie-consent';
         bar.innerHTML = `
             <div class="cms-cookie-consent-inner">
-                <p>We use cookies for essential site functionality. We do not sell or share your personal information. <a href="privacy-policy.html">Privacy Policy</a></p>
+                <p>We use cookies for essential site functionality and analytics/marketing tools (including ZoomInfo). We do not sell or share your personal information. <a href="privacy-policy.html">Privacy Policy</a></p>
                 <div class="cms-cookie-consent-actions">
                     <button type="button" id="cms-cookie-reject" class="cms-cookie-btn cms-cookie-btn-reject">Reject</button>
                     <button type="button" id="cms-cookie-accept" class="cms-cookie-btn cms-cookie-btn-accept">Accept</button>
