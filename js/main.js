@@ -879,4 +879,94 @@ jQuery(function ($) {
   });
 });
 
-document.getElementById("year").textContent = new Date().getFullYear();
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/*------------------------------------------------------------------------------*/
+/* Dual-Layer Bot Protection (Cloudflare Turnstile + Invisible Honeypot Trap)
+/* Automatically integrates with /api/contact and /api/contact-with-resume
+/*------------------------------------------------------------------------------*/
+(function initBotProtection() {
+  const SITE_KEY = '0x4AAAAAAFrgpAvn0SGkLylt';
+
+  function ensureTurnstileScript() {
+    if (!document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=auto';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  }
+
+  function injectBotProtectionToForm(form) {
+    if (!form || form.dataset.botProtectionInit === 'true') return;
+
+    // 1. Invisible Honeypot Trap Field
+    if (!form.querySelector('input[name="website_hp"]')) {
+      const hpDiv = document.createElement('div');
+      hpDiv.style.cssText = 'display:none !important; visibility:hidden !important; opacity:0; position:absolute; left:-9999px; height:0; width:0; overflow:hidden;';
+      hpDiv.setAttribute('aria-hidden', 'true');
+      hpDiv.innerHTML = '<input type="text" name="website_hp" id="website_hp" tabindex="-1" autocomplete="off" value="" />';
+      form.insertBefore(hpDiv, form.firstChild);
+    }
+
+    // 2. Cloudflare Turnstile widget container above submit button
+    if (!form.querySelector('.cf-turnstile')) {
+      const submitBtn = form.querySelector('button[type="submit"], input[type="submit"], .submit');
+      const widgetWrap = document.createElement('div');
+      widgetWrap.className = 'col-12 mb-3 cf-turnstile-wrapper';
+      widgetWrap.innerHTML = `<div class="cf-turnstile" data-sitekey="${SITE_KEY}" data-theme="light"></div>`;
+
+      if (submitBtn) {
+        const btnCol = submitBtn.closest('.col-12, .col-md-12, .col-sm-12, .form-group') || submitBtn;
+        btnCol.parentNode.insertBefore(widgetWrap, btnCol);
+      } else {
+        form.appendChild(widgetWrap);
+      }
+    }
+
+    form.dataset.botProtectionInit = 'true';
+  }
+
+  function setupCandidateForms() {
+    const forms = document.querySelectorAll(
+      'form#contact_us_form, form#contact-form, form#career-form, form[id*="contact"], form[id*="inquiry"], form[id*="career"], form[action*="/api/contact"], form[action*="/api/contact-with-resume"], .contact-modal form, [data-modal*="contact"] form'
+    );
+    if (forms.length > 0) {
+      ensureTurnstileScript();
+      forms.forEach(injectBotProtectionToForm);
+    }
+  }
+
+  // Helper APIs for form scripts
+  window.getTurnstileToken = function (form) {
+    const f = form || document;
+    return f.querySelector?.('[name="cf-turnstile-response"]')?.value || (window.turnstile ? window.turnstile.getResponse() : '') || '';
+  };
+
+  window.getHoneypotValue = function (form) {
+    const f = form || document;
+    return f.querySelector?.('input[name="website_hp"]')?.value || '';
+  };
+
+  window.resetTurnstile = function () {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') {
+      try { window.turnstile.reset(); } catch (e) {}
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      ensureTurnstileScript();
+      setupCandidateForms();
+      const observer = new MutationObserver(setupCandidateForms);
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  } else {
+    ensureTurnstileScript();
+    setupCandidateForms();
+    const observer = new MutationObserver(setupCandidateForms);
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+})();

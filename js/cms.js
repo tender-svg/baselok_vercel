@@ -7447,6 +7447,7 @@ const CMS = {
     _renderEmailSettingsView(settings) {
         const content = document.getElementById('cms-tab-content');
         const rules = this._parseCcRoutingRules(settings.cc_routing_rules);
+        const recipientEmail = settings.recipient_email || settings.from_email || settings.from_address || '';
         const ruleLabel = (r) => {
             if (r.type === 'default') return 'All other submissions';
             const list = r.type === 'country' ? this._CC_COUNTRIES : this._CC_US_STATES;
@@ -7459,11 +7460,12 @@ const CMS = {
                 <div style="background:#f7f8fa; border:1px solid #e5e7eb; border-radius:8px; padding:14px 18px; position:relative; margin-bottom:16px;">
                     <i class="fa fa-pencil" id="cms-es-edit-icon" title="Edit"
                        style="position:absolute; top:14px; right:14px; cursor:pointer; color:#999;"></i>
+                    <div class="cms-es-row" style="margin-bottom:8px;"><strong>Recipient Email:</strong> <span>${recipientEmail || 'Not configured'}</span></div>
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>SMTP Host:</strong> <span>${settings.smtp_host || ''}</span></div>
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>SMTP Port:</strong> <span>${settings.smtp_port || ''}</span></div>
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>Username:</strong> <span>${settings.smtp_username || ''}</span></div>
                     <div class="cms-es-row" style="margin-bottom:8px;"><strong>Password:</strong> <span>${settings.smtp_password || '••••••••'}</span></div>
-                    <div class="cms-es-row" style="margin-bottom:8px;"><strong>From Address:</strong> <span>${settings.from_address || ''}</span></div>
+                    <div class="cms-es-row" style="margin-bottom:8px;"><strong>From Address:</strong> <span>${settings.from_address || recipientEmail || ''}</span></div>
                     <div class="cms-es-row" style="margin-bottom:0;"><strong>Auth / STARTTLS:</strong> <span>${settings.smtp_auth ? 'Enabled' : 'Disabled'} / ${settings.smtp_starttls ? 'Enabled' : 'Disabled'}</span></div>
                 </div>
                 <div style="background:#f7f8fa; border:1px solid #e5e7eb; border-radius:8px; padding:14px 18px;">
@@ -7505,10 +7507,20 @@ const CMS = {
         }
     },
 
+    renderSmtpConfigFields(settings) {
+        return this._renderEmailSettingsForm(settings);
+    },
+
     _renderEmailSettingsForm(settings) {
         const content = document.getElementById('cms-tab-content');
+        const recipientEmail = settings.recipient_email || settings.from_email || settings.from_address || '';
         content.innerHTML = `
             <div class="cms-tab-scroll">
+                <div class="cms-form-group" style="margin-bottom:8px; padding:8px 15px;">
+                    <div class="cms-module-title" style="margin-bottom:4px;">Recipient Email (Inquiry Inbox)</div>
+                    <input type="email" class="cms-input" id="smtp-recipient-email" placeholder="e.g. info@yourdomain.com" value="${recipientEmail}">
+                    <div style="font-size:0.75rem; color:#888; margin-top:4px;">Inquiries from the website contact forms will be sent to this email address.</div>
+                </div>
                 <div class="cms-form-group" style="margin-bottom:8px; padding:8px 15px; display:flex; gap:12px;">
                     <div style="flex:3;">
                         <div class="cms-module-title" style="margin-bottom:4px;">SMTP HOST</div>
@@ -7532,7 +7544,7 @@ const CMS = {
                 </div>
                 <div class="cms-form-group" style="margin-bottom:6px; padding:8px 15px;">
                     <div class="cms-module-title" style="margin-bottom:4px;">FROM ADDRESS</div>
-                    <input type="text" class="cms-input" id="cms-es-from" value="${settings.from_address || ''}">
+                    <input type="text" class="cms-input" id="cms-es-from" value="${settings.from_address || recipientEmail || ''}">
                     <div style="display:flex; gap:20px; align-items:center; margin-top:8px;">
                         <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; color:#555;">
                             <input type="checkbox" id="cms-es-auth" ${settings.smtp_auth ? 'checked' : ''}> SMTP Auth
@@ -7661,20 +7673,35 @@ const CMS = {
         return rules;
     },
 
+    loadEmailConfig() {
+        return this.loadEmailSettings();
+    },
+
+    saveEmailConfig() {
+        return this.saveEmailSettings();
+    },
+
     async saveEmailSettings() {
         const btn = document.getElementById('cms-es-save');
+        const recipientInput = document.getElementById('smtp-recipient-email');
+        const recipientVal = recipientInput ? recipientInput.value.trim() : '';
+        const fromInput = document.getElementById('cms-es-from');
+        const fromVal = fromInput ? fromInput.value.trim() : (recipientVal || '');
+
         const body = {
-            smtp_host: document.getElementById('cms-es-host').value.trim(),
-            smtp_port: parseInt(document.getElementById('cms-es-port').value, 10),
-            smtp_username: document.getElementById('cms-es-username').value.trim(),
-            smtp_password: document.getElementById('cms-es-password').value,
-            from_address: document.getElementById('cms-es-from').value.trim(),
-            smtp_auth: document.getElementById('cms-es-auth').checked,
-            smtp_starttls: document.getElementById('cms-es-starttls').checked,
+            smtp_host: document.getElementById('cms-es-host')?.value.trim() || '',
+            smtp_port: parseInt(document.getElementById('cms-es-port')?.value, 10) || 587,
+            smtp_username: document.getElementById('cms-es-username')?.value.trim() || '',
+            smtp_password: document.getElementById('cms-es-password')?.value || '',
+            from_address: fromVal || recipientVal,
+            recipient_email: recipientVal,
+            from_email: recipientVal || fromVal,
+            smtp_auth: document.getElementById('cms-es-auth')?.checked ?? true,
+            smtp_starttls: document.getElementById('cms-es-starttls')?.checked ?? true,
             cc_routing_rules: JSON.stringify(this._collectCcRoutingRules())
         };
 
-        if (!body.smtp_host || !body.smtp_port || !body.smtp_username || !body.from_address) {
+        if (!body.smtp_host || !body.smtp_port || !body.smtp_username || (!body.from_address && !body.recipient_email)) {
             this.showStatus('Please fill in all required fields.', 'error');
             return;
         }

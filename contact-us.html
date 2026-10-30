@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <script src="/js/snapshot-shim.js"></script>
@@ -100,6 +100,7 @@ setTimeout(hideLoader,50);
     <meta name="author" content="https://www.baselok.com/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact Us - BaseLok&reg;</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=auto" async defer></script>
 
     <link rel="preload" as="font" type="font/woff2" href="/fonts/rubik-regular-latin.woff2" crossorigin><link rel="stylesheet" href="/fonts/rubik.css">    <link rel="shortcut icon" href="/assets/favicon-IRbawsHS.png" />
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min-CJ1Ad03k.css" media="all" />
@@ -422,6 +423,10 @@ setTimeout(hideLoader,50);
                     </div>
                   </div>
                   <form id="contact_us_form" method="post" novalidate="novalidate" action="#">
+                    <!-- Invisible Honeypot Trap Field -->
+                    <div style="display:none !important; visibility:hidden !important; opacity:0; position:absolute; left:-9999px; height:0; width:0; overflow:hidden;" aria-hidden="true">
+                      <input type="text" name="website_hp" id="website_hp" tabindex="-1" autocomplete="off" value="" />
+                    </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-field">
@@ -488,6 +493,9 @@ setTimeout(hideLoader,50);
                           <label>Message</label>
                           <textarea name="message" placeholder="Tell us about your project..."></textarea>
                         </div>
+                      </div>
+                      <div class="col-12 mb-3">
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFrgpAvn0SGkLylt" data-theme="light"></div>
                       </div>
                       <div class="col-12 pt-2">
                         <button class="submit ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-style-fill ttm-btn-color-skincolor" type="submit">
@@ -783,6 +791,9 @@ setTimeout(hideLoader,50);
           // the existing name="address"/"company_name" attributes.
           if (data.address !== undefined) { data.email = data.address; delete data.address; }
           if (data.company_name !== undefined) { data.company = data.company_name; delete data.company_name; }
+          const turnstileToken = this.querySelector('[name="cf-turnstile-response"]')?.value || (window.turnstile ? window.turnstile.getResponse() : '') || '';
+          data.captcha_token = turnstileToken;
+          data.website_hp = this.querySelector('input[name="website_hp"]')?.value || '';
           const $submitBtn = $(this).find('button[type="submit"]');
           const originalText = $submitBtn.html();
           $submitBtn.html('<i class="fa fa-spinner fa-spin me-2"></i> Sending...').prop('disabled', true);
@@ -801,6 +812,7 @@ setTimeout(hideLoader,50);
             });
             const result = await response.json();
             if (result.success) {
+              if (window.turnstile) { window.turnstile.reset(); }
               const $msg = $('<div class="alert alert-success mt-4 p-3" style="border-radius:6px; border:1px solid #c3e6cb; background-color:#d4edda; color:#155724; display:none;"><i class="fa fa-check-circle me-2"></i> Message sent successfully! We will get back to you soon.</div>');
               $form.find('.alert').remove();
               $form.append($msg);
